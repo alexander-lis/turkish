@@ -1,0 +1,5 @@
+# openapi-typescript 7 объявляет typescript@^5, но работает и с 6.0: проверено генерацией типов.
+# Выше 6.0 TypeScript не поднимаем, пока его не поддержат typescript-eslint и openapi-typescript.
+peerDependencyRules:
+  allowedVersions:
+    "openapi-typescript>typescript": "6"

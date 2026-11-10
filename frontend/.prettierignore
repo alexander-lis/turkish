@@ -1,0 +1,5 @@
+dist
+pnpm-lock.yaml
+openapi.json
+# Генерируется из OpenAPI задачей `mise run gen:api`.
+src/api/schema.d.ts

@@ -1,0 +1,68 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@theme {
+  --font-sans: InterVariable, ui-sans-serif, system-ui, sans-serif;
+  /* cv05 — строчная l с хвостиком, cv08 — заглавная I с засечками: в записи аффиксов
+     вроде -lAr и -Il эти буквы иначе неотличимы друг от друга. */
+  --default-font-feature-settings: "cv05", "cv08";
+}
+
+@layer base {
+  body {
+    @apply bg-slate-50 text-slate-900 antialiased;
+  }
+}
+
+/*
+ * Правила ниже стоят вне слоёв намеренно: так они сильнее стилей typography,
+ * которые живут в слое утилит.
+ */
+
+/* Область, внутри которой прокручивается широкая таблица. */
+.table-scroll {
+  @apply overflow-x-auto;
+}
+
+.article-text {
+  @apply prose-headings:font-semibold prose-headings:tracking-tight prose-a:font-medium prose-a:text-red-700 prose-a:no-underline hover:prose-a:underline;
+}
+
+.article-text .table-scroll {
+  @apply my-4;
+}
+
+.article-text table {
+  @apply my-0;
+}
+
+.article-text :is(th, td) {
+  @apply px-3 first:pl-0 last:pr-0;
+}
+
+.article-text > :first-child {
+  @apply mt-0;
+}
+
+.article-text > :last-child {
+  @apply mb-0;
+}
+
+/* Разбор по морфемам: дефисы между морфемами ставятся здесь, а не в тексте ячеек. */
+.gloss-word {
+  @apply inline-table border-collapse;
+}
+
+.gloss-word td {
+  @apply p-0 text-left align-baseline whitespace-nowrap;
+}
+
+.gloss-word td + td::before {
+  content: "-";
+  @apply text-slate-400;
+}
+
+/* Обозначения набираются уменьшенными заглавными и отличаются от лексических значений. */
+.gloss-abbr {
+  @apply text-[0.85em] font-semibold tracking-wide text-slate-900 no-underline;
+}
