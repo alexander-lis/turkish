@@ -1,0 +1,25 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.mypy_cache/
+.ruff_cache/
+.pytest_cache/
+
+# Node
+node_modules/
+dist/
+*.tsbuildinfo
+
+# Промежуточный файл задачи gen:api; в git хранится только frontend/src/api/schema.d.ts
+/frontend/openapi.json
+
+# Локальные настройки и служебные файлы
+.env
+.env.*
+!.env.example
+.DS_Store
+.idea/
+.vscode/
+.claude/settings.local.json
+mise.local.toml

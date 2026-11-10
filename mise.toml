@@ -1,0 +1,80 @@
+[tools]
+python = "3.14.10"
+node = "26.13.0"
+uv = "0.13.7"
+pnpm = "12.18.0"
+
+[env]
+# uv использует ровно тот Python, который поставил mise: не скачивает собственный
+# и не подхватывает окружение, активированное в оболочке снаружи проекта.
+UV_PYTHON = { value = "{{ tools.python.path }}/bin/python", tools = true }
+VIRTUAL_ENV = false
+
+[tasks.install]
+description = "Установить зависимости бэкенда и интерфейса"
+run = ["uv sync --directory backend", "pnpm --dir frontend install"]
+
+[tasks.dev]
+description = "Запустить справочник локально: API и интерфейс"
+depends = ["dev:backend", "dev:frontend"]
+
+[tasks."dev:backend"]
+description = "Сервер API на 127.0.0.1:8000 с перезапуском при изменении кода и контента"
+dir = "backend"
+run = """
+uv run uvicorn turkish_grammar.api.app:app --reload \
+  --reload-dir src --reload-dir ../content \
+  --reload-include '*.md' --reload-include '*.yaml'
+"""
+
+[tasks."dev:frontend"]
+description = "Vite с прокси /api на сервер API"
+dir = "frontend"
+run = "pnpm dev"
+
+[tasks.lint]
+description = "Линтеры и проверка форматирования: ruff, ESLint, Prettier"
+run = [
+  "uv run --directory backend ruff check",
+  "uv run --directory backend ruff format --check",
+  "pnpm --dir frontend lint",
+]
+
+[tasks.format]
+description = "Исправить форматирование и автоисправляемые замечания линтеров"
+run = [
+  "uv run --directory backend ruff check --fix",
+  "uv run --directory backend ruff format",
+  "pnpm --dir frontend format",
+]
+
+[tasks.typecheck]
+description = "Проверка типов: mypy и tsc"
+run = ["uv run --directory backend mypy", "pnpm --dir frontend typecheck"]
+
+[tasks.test]
+description = "Тесты: pytest и Vitest"
+run = ["uv run --directory backend pytest", "pnpm --dir frontend test --run"]
+
+[tasks."content:check"]
+description = "Проверить контент без запуска сервера"
+# --project вместо --directory: команда остаётся в корне, и пути в отчёте начинаются с content/.
+run = "uv run --project backend turkish-grammar check-content"
+
+[tasks."gen:api"]
+description = "Выгрузить OpenAPI и сгенерировать TypeScript-типы интерфейса"
+run = [
+  "uv run --project backend turkish-grammar export-openapi --output frontend/openapi.json",
+  "pnpm --dir frontend gen:api",
+]
+
+[tasks."gen:api:check"]
+description = "Проверить, что сохранённые TypeScript-типы совпадают с API"
+run = [
+  "uv run --project backend turkish-grammar export-openapi --output frontend/openapi.json",
+  "pnpm --dir frontend gen:api --check",
+]
+
+[tasks.check]
+description = "Все проверки перед коммитом"
+depends = ["lint", "typecheck", "test", "content:check", "gen:api:check"]
