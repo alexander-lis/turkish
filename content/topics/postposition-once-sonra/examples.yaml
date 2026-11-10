@@ -1,0 +1,37 @@
+- tr: dersten *önce*
+  ru: "*до* урока"
+  morphemes: ders-ten önce
+  gloss: урок-ИСХ до
+- tr: dersten *sonra*
+  ru: "*после* урока"
+  morphemes: ders-ten sonra
+  gloss: урок-ИСХ после
+- tr: iki gün *önce*
+  ru: два дня *назад*
+  note: Срок стоит перед послелогом без падежа.
+- tr: bir saat *sonra*
+  ru: "*через* час"
+- tr: Yemekten *önce* ellerimi yıkıyorum.
+  ru: "*Перед* едой я мою руки."
+  morphemes: yemek-ten önce el-ler-im-i yıkı-yor-um
+  gloss: еда-ИСХ до рука-МН-1ЕД.ПРИТ-ВИН мыть-НАСТ-1ЕД
+- tr: İşten *sonra* spora gidiyorum.
+  ru: "*После* работы я иду на тренировку."
+  morphemes: iş-ten sonra spor-a gid-iyor-um
+  gloss: работа-ИСХ после спорт-ДАТ идти-НАСТ-1ЕД
+- tr: Saat beşten *sonra* evdeyim.
+  ru: "*После* пяти я дома."
+  morphemes: saat beş-ten sonra ev-de-yim
+  gloss: час пять-ИСХ после дом-МЕСТ-1ЕД
+- tr: Üç yıl *önce* Türkiye'ye geldim.
+  ru: Три года *назад* я приехал в Турцию.
+  morphemes: üç yıl önce türkiye-ye gel-di-m
+  gloss: три год назад Турция-ДАТ приходить-ПРОШ-1ЕД
+- tr: "*Önce* çay içelim, *sonra* konuşalım."
+  ru: "*Сначала* выпьем чаю, *потом* поговорим."
+  morphemes: önce çay iç-elim sonra konuş-alım
+  gloss: сначала чай пить-ЖЕЛ.1МН потом говорить-ЖЕЛ.1МН
+- tr: Ondan *sonra* ne oldu?
+  ru: Что было *потом*?
+  morphemes: on-dan sonra ne ol-du
+  gloss: тот-ИСХ после что быть-ПРОШ

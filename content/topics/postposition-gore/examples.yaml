@@ -1,0 +1,40 @@
+- tr: bana *göre*
+  ru: "*по*-моему"
+  morphemes: ban-a göre
+  gloss: я-ДАТ согласно
+- tr: Ali'ye *göre*
+  ru: "*по мнению* Али"
+  morphemes: ali-ye göre
+  gloss: Али-ДАТ согласно
+- tr: plana *göre*
+  ru: "*по* плану"
+  morphemes: plan-a göre
+  gloss: план-ДАТ согласно
+- tr: Bana *göre* bu film çok güzel.
+  ru: "*По*-моему, этот фильм очень хороший."
+  morphemes: ban-a göre bu film çok güzel
+  gloss: я-ДАТ согласно этот фильм очень хороший
+- tr: Sana *göre* hangisi daha iyi?
+  ru: Как *по*-твоему, который лучше?
+  morphemes: san-a göre hangi-si daha iyi
+  gloss: ты-ДАТ согласно который-3ЕД.ПРИТ более хороший
+- tr: Doktora *göre* ciddi bir şey yok.
+  ru: "*По словам* врача, ничего серьёзного нет."
+  morphemes: doktor-a göre ciddi bir şey yok
+  gloss: врач-ДАТ согласно серьёзный один вещь нет
+- tr: Her şey plana *göre* gidiyor.
+  ru: Всё идёт *по* плану.
+  morphemes: her şey plan-a göre gid-iyor
+  gloss: каждый вещь план-ДАТ согласно идти-НАСТ
+- tr: Hava durumuna *göre* yarın yağmur yağacak.
+  ru: "*Судя по* прогнозу погоды, завтра будет дождь."
+  morphemes: hava durum-u-na göre yarın yağmur yağ-acak
+  gloss: погода состояние-3ЕД.ПРИТ-ДАТ согласно завтра дождь выпадать-БУД
+- tr: Yaşına *göre* çok akıllı.
+  ru: "*Для* своего возраста он очень умён."
+  morphemes: yaş-ı-na göre çok akıllı
+  gloss: возраст-3ЕД.ПРИТ-ДАТ согласно очень умный
+- tr: Bu iş bana *göre* değil.
+  ru: Эта работа не *для* меня.
+  morphemes: bu iş ban-a göre değil
+  gloss: этот работа я-ДАТ согласно не

@@ -1,0 +1,38 @@
+- tr: Ali'nin arabası*nın* reng*i*
+  ru: цвет машины Али
+  morphemes: ali-nin araba-sı-nın reng-i
+  gloss: Али-РОД машина-3ЕД.ПРИТ-РОД цвет-3ЕД.ПРИТ
+- tr: arkadaşım*ın* anne*si*
+  ru: мама моего друга
+  morphemes: arkadaş-ım-ın anne-si
+  gloss: друг-1ЕД.ПРИТ-РОД мама-3ЕД.ПРИТ
+- tr: yatak odası*nın* kapı*sı*
+  ru: дверь спальни
+  morphemes: yatak oda-sı-nın kapı-sı
+  gloss: кровать комната-3ЕД.ПРИТ-РОД дверь-3ЕД.ПРИТ
+- tr: Ali'*nin* yatak oda*sı*
+  ru: спальня Али
+  morphemes: ali-nin yatak oda-sı
+  gloss: Али-РОД кровать комната-3ЕД.ПРИТ
+  note: У слова oda один аффикс принадлежности на обе связи.
+- tr: Ayşe'nin kardeşi*nin* ad*ı* ne?
+  ru: Как зовут брата Айше?
+  morphemes: ayşe-nin kardeş-i-nin ad-ı ne
+  gloss: Айше-РОД брат.или.сестра-3ЕД.ПРИТ-РОД имя-3ЕД.ПРИТ что
+- tr: Annemin arabası*nın* anahtar*ı* nerede?
+  ru: Где ключ от маминой машины?
+  morphemes: anne-m-in araba-sı-nın anahtar-ı nere-de
+  gloss: мама-1ЕД.ПРИТ-РОД машина-3ЕД.ПРИТ-РОД ключ-3ЕД.ПРИТ какое.место-МЕСТ
+- tr: Türk kahvesi*nin* tad*ı* çok güzel.
+  ru: Вкус турецкого кофе очень хороший.
+  morphemes: türk kahve-si-nin tad-ı çok güzel
+  gloss: турок кофе-3ЕД.ПРИТ-РОД вкус-3ЕД.ПРИТ очень хороший
+- tr: Okulumuzun müdürü*nün* oda*sı* burada.
+  ru: Кабинет директора нашей школы здесь.
+  morphemes: okul-umuz-un müdür-ü-nün oda-sı bura-da
+  gloss: школа-1МН.ПРИТ-РОД директор-3ЕД.ПРИТ-РОД комната-3ЕД.ПРИТ это.место-МЕСТ
+- tr: Ali'nin arabasının rengi*ni* seviyorum.
+  ru: Мне нравится цвет машины Али.
+  morphemes: ali-nin araba-sı-nın reng-i-ni sev-iyor-um
+  gloss: Али-РОД машина-3ЕД.ПРИТ-РОД цвет-3ЕД.ПРИТ-ВИН любить-НАСТ-1ЕД
+  note: Падеж получает только последнее слово цепочки.

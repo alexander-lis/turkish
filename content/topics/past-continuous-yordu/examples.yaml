@@ -1,0 +1,43 @@
+- tr: gel*iyordu*m
+  ru: я шёл, я приходил
+  morphemes: gel-iyor-du-m
+  gloss: приходить-НАСТ-ПРОШ-1ЕД
+- tr: bekli*yordu*
+  ru: он ждал
+  morphemes: bekli-yor-du
+  gloss: ждать-НАСТ-ПРОШ
+  note: В третьем лице личного аффикса нет.
+- tr: Ne yap*ıyordu*n?
+  ru: Что ты делал?
+  morphemes: ne yap-ıyor-du-n
+  gloss: что делать-НАСТ-ПРОШ-2ЕД
+- tr: Bunu bilmi*yordu*m.
+  ru: Я этого не знал.
+  morphemes: bun-u bil-mi-yor-du-m
+  gloss: этот-ВИН знать-ОТР-НАСТ-ПРОШ-1ЕД
+- tr: Dün saat beşte çalış*ıyordu*m.
+  ru: Вчера в пять часов я работал.
+  morphemes: dün saat beş-te çalış-ıyor-du-m
+  gloss: вчера час пять-МЕСТ работать-НАСТ-ПРОШ-1ЕД
+- tr: O zaman İzmir'de yaşı*yordu*k.
+  ru: Тогда мы жили в Измире.
+  morphemes: o zaman izmir-de yaşı-yor-du-k
+  gloss: тот время Измир-МЕСТ жить-НАСТ-ПРОШ-1МН
+- tr: Beni bekli*yor muydu*nuz?
+  ru: Вы меня ждали?
+  morphemes: ben-i bekli-yor mu-ydu-nuz
+  gloss: я-ВИН ждать-НАСТ ВОПР-ПРОШ-2МН
+- tr: Çocuklar bahçede oynu*yorlardı*.
+  ru: Дети играли в саду.
+  morphemes: çocuk-lar bahçe-de oynu-yor-lar-dı
+  gloss: ребёнок-МН сад-МЕСТ играть-НАСТ-3МН-ПРОШ
+- tr: Kitap oku*yordu*m, telefon çaldı.
+  ru: Я читал книгу, и тут зазвонил телефон.
+  morphemes: kitap oku-yor-du-m telefon çal-dı
+  gloss: книга читать-НАСТ-ПРОШ-1ЕД телефон звонить-ПРОШ
+  note: Длительное действие служит фоном для того, что случилось.
+- tr: Her yaz köye gid*iyordu*k.
+  ru: Каждое лето мы ездили в деревню.
+  morphemes: her yaz köy-e gid-iyor-du-k
+  gloss: каждый лето деревня-ДАТ идти-НАСТ-ПРОШ-1МН
+  note: Действие, которое в прошлом повторялось.

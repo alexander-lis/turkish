@@ -1,0 +1,42 @@
+- tr: Ali'*nin* ev*i*
+  ru: дом Али
+  morphemes: ali-nin ev-i
+  gloss: Али-РОД дом-3ЕД.ПРИТ
+- tr: öğretmen*in* araba*sı*
+  ru: машина учителя
+  morphemes: öğretmen-in araba-sı
+  gloss: учитель-РОД машина-3ЕД.ПРИТ
+- tr: ev*in* kapı*sı*
+  ru: дверь дома
+  morphemes: ev-in kapı-sı
+  gloss: дом-РОД дверь-3ЕД.ПРИТ
+- tr: ben*im* anne*m*
+  ru: моя мама
+  morphemes: ben-im anne-m
+  gloss: я-РОД мама-1ЕД.ПРИТ
+  note: Аффикс принадлежности стоит в том же лице, что владелец.
+- tr: Ayşe'*nin* kardeş*i* doktor.
+  ru: Брат Айше — врач.
+  morphemes: ayşe-nin kardeş-i doktor
+  gloss: Айше-РОД брат.или.сестра-3ЕД.ПРИТ врач
+- tr: Film*in* son*u* çok güzel.
+  ru: Конец фильма очень хороший.
+  morphemes: film-in son-u çok güzel
+  gloss: фильм-РОД конец-3ЕД.ПРИТ очень хороший
+- tr: Çocuklar*ın* oda*sı* büyük.
+  ru: Комната детей большая.
+  morphemes: çocuk-lar-ın oda-sı büyük
+  gloss: ребёнок-МН-РОД комната-3ЕД.ПРИТ большой
+- tr: Ali'*nin* yeni araba*sı* kırmızı.
+  ru: Новая машина Али красная.
+  morphemes: ali-nin yeni araba-sı kırmızı
+  gloss: Али-РОД новый машина-3ЕД.ПРИТ красный
+  note: Определение стоит между владельцем и предметом.
+- tr: Bu, arkadaşım*ın* kitab*ı*.
+  ru: Это книга моего друга.
+  morphemes: bu arkadaş-ım-ın kitab-ı
+  gloss: это друг-1ЕД.ПРИТ-РОД книга-3ЕД.ПРИТ
+- tr: Annem*in* ad*ı* Elif.
+  ru: Мою маму зовут Элиф.
+  morphemes: anne-m-in ad-ı elif
+  gloss: мама-1ЕД.ПРИТ-РОД имя-3ЕД.ПРИТ Элиф

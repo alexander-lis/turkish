@@ -1,0 +1,33 @@
+- tr: Ali *ve* Ayşe
+  ru: Али *и* Айше
+- tr: büyük *ve* güzel
+  ru: большой *и* красивый
+- tr: anne*yle* baba
+  ru: мама *с* папой
+  morphemes: anne-yle baba
+  gloss: мама-ОРУД папа
+- tr: Çay *ve* kahve var.
+  ru: Есть чай *и* кофе.
+- tr: Ev küçük *ve* eski.
+  ru: Дом маленький *и* старый.
+- tr: Ali *ile* Ayşe evde.
+  ru: Али *и* Айше дома.
+  morphemes: ali ile ayşe ev-de
+  gloss: Али с Айше дом-МЕСТ
+- tr: Okuyorum *ve* yazıyorum.
+  ru: Я читаю *и* пишу.
+  morphemes: oku-yor-um ve yaz-ıyor-um
+  gloss: читать-НАСТ-1ЕД и писать-НАСТ-1ЕД
+- tr: Annem*le* babam İzmir'de yaşıyor.
+  ru: Мои мама *и* папа живут в Измире.
+  morphemes: anne-m-le baba-m izmir-de yaşı-yor
+  gloss: мама-1ЕД.ПРИТ-ОРУД папа-1ЕД.ПРИТ Измир-МЕСТ жить-НАСТ
+- tr: Kedi*yle* köpek bahçede oynuyor.
+  ru: Кошка *с* собакой играют в саду.
+  morphemes: kedi-yle köpek bahçe-de oynu-yor
+  gloss: кошка-ОРУД собака сад-МЕСТ играть-НАСТ
+- tr: Ben doktorum, o *da* öğretmen.
+  ru: Я врач, *а* он учитель.
+  morphemes: ben doktor-um o da öğretmen
+  gloss: я врач-1ЕД он а учитель
+  note: Русское «а» при сопоставлении — это не ve, а частица dA.

@@ -1,0 +1,36 @@
+- tr: akşama *kadar*
+  ru: "*до* вечера"
+  morphemes: akşam-a kadar
+  gloss: вечер-ДАТ до
+- tr: okula *kadar*
+  ru: "*до* школы"
+  morphemes: okul-a kadar
+  gloss: школа-ДАТ до
+- tr: sabahtan akşama *kadar*
+  ru: с утра *до* вечера
+  morphemes: sabah-tan akşam-a kadar
+  gloss: утро-ИСХ вечер-ДАТ до
+- tr: Saat beşe *kadar* çalışıyorum.
+  ru: Я работаю *до* пяти часов.
+  morphemes: saat beş-e kadar çalış-ıyor-um
+  gloss: час пять-ДАТ до работать-НАСТ-1ЕД
+- tr: Yarına *kadar* bekleyelim.
+  ru: Давай подождём *до* завтра.
+  morphemes: yarın-a kadar bekle-yelim
+  gloss: завтра-ДАТ до ждать-ЖЕЛ.1МН
+- tr: Buraya *kadar* geldik.
+  ru: Мы дошли *до*сюда.
+  morphemes: bura-ya kadar gel-di-k
+  gloss: это.место-ДАТ до приходить-ПРОШ-1МН
+- tr: Otobüs durağına *kadar* yürüyoruz.
+  ru: Мы идём пешком *до* автобусной остановки.
+  morphemes: otobüs durağ-ı-na kadar yürü-yor-uz
+  gloss: автобус остановка-3ЕД.ПРИТ-ДАТ до идти.пешком-НАСТ-1МН
+- tr: Pazartesiden cumaya *kadar* okula gidiyorum.
+  ru: С понедельника *по* пятницу я хожу в школу.
+  morphemes: pazartesi-den cuma-ya kadar okul-a gid-iyor-um
+  gloss: понедельник-ИСХ пятница-ДАТ до школа-ДАТ идти-НАСТ-1ЕД
+- tr: Ne zamana *kadar* buradasınız?
+  ru: "*До* каких пор вы здесь?"
+  morphemes: ne zaman-a kadar bura-da-sınız
+  gloss: какой время-ДАТ до это.место-МЕСТ-2МН

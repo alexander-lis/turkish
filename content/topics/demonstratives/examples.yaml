@@ -1,0 +1,31 @@
+- tr: "*bu* kitap"
+  ru: "*эта* книга"
+- tr: "*şu* ev"
+  ru: "*вон тот* дом"
+- tr: "*o* araba"
+  ru: "*та* машина"
+- tr: "*bu* kitaplar"
+  ru: "*эти* книги"
+  morphemes: bu kitap-lar
+  gloss: этот книга-МН
+  note: Перед существительным bu не изменяется.
+- tr: "*Bu* kalem."
+  ru: "*Это* ручка."
+- tr: "*Şu* bina okul."
+  ru: "*Вон то* здание — школа."
+- tr: "*O* ev çok büyük."
+  ru: "*Тот* дом очень большой."
+- tr: "*Bunlar* kitap."
+  ru: "*Это* книги."
+  morphemes: bun-lar kitap
+  gloss: этот-МН книга
+  note: Само по себе bu получает -lAr, и перед аффиксом появляется n.
+- tr: "*Şunlar* ne?"
+  ru: "*Вон те* — это что?"
+  morphemes: şun-lar ne
+  gloss: вон.тот-МН что
+- tr: "*Bunda* şeker var mı?"
+  ru: "*В этом* есть сахар?"
+  morphemes: bun-da şeker var mı
+  gloss: этот-МЕСТ сахар есть ВОПР
+  note: Перед падежным аффиксом у bu тоже появляется n.

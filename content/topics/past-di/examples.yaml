@@ -1,0 +1,48 @@
+- tr: gel*di*m
+  ru: я пришёл
+  morphemes: gel-di-m
+  gloss: приходить-ПРОШ-1ЕД
+- tr: düş*tü*
+  ru: он упал
+  morphemes: düş-tü
+  gloss: падать-ПРОШ
+  note: После глухого ş аффикс начинается с t.
+- tr: acık*tı*m
+  ru: я проголодался
+  morphemes: acık-tı-m
+  gloss: проголодаться-ПРОШ-1ЕД
+  note: После глухого k аффикс начинается с t.
+- tr: Dün sinemaya git*ti*m.
+  ru: Вчера я ходил в кино.
+  morphemes: dün sinema-ya git-ti-m
+  gloss: вчера кино-ДАТ идти-ПРОШ-1ЕД
+- tr: Seni dün gör*dü*m.
+  ru: Я видел тебя вчера.
+  morphemes: sen-i dün gör-dü-m
+  gloss: ты-ВИН вчера видеть-ПРОШ-1ЕД
+- tr: Tamam, anla*dı*m.
+  ru: Хорошо, понял.
+  morphemes: tamam anla-dı-m
+  gloss: хорошо понимать-ПРОШ-1ЕД
+  note: То, что произошло только что.
+- tr: Dün çok konuş*tu*k.
+  ru: Вчера мы много говорили.
+  morphemes: dün çok konuş-tu-k
+  gloss: вчера много говорить-ПРОШ-1МН
+- tr: Ne ye*di*niz?
+  ru: Что вы ели?
+  morphemes: ne ye-di-niz
+  gloss: что есть-ПРОШ-2МН
+- tr: Ali dün gel*medi*.
+  ru: Али вчера не пришёл.
+  morphemes: ali dün gel-me-di
+  gloss: Али вчера приходить-ОТР-ПРОШ
+- tr: Kitabı oku*du*n mu?
+  ru: Ты прочитал книгу?
+  morphemes: kitab-ı oku-du-n mu
+  gloss: книга-ВИН читать-ПРОШ-2ЕД ВОПР
+  note: Частица mI стоит после личного аффикса.
+- tr: Çocuklar parkta oyna*dı*lar.
+  ru: Дети играли в парке.
+  morphemes: çocuk-lar park-ta oyna-dı-lar
+  gloss: ребёнок-МН парк-МЕСТ играть-ПРОШ-3МН

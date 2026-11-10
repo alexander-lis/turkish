@@ -1,0 +1,32 @@
+- tr: Ev büyük.
+  ru: Дом большой.
+  note: Основная форма — без аффикса.
+- tr: Ev*i* görüyorum.
+  ru: Я вижу *этот дом*.
+  morphemes: ev-i gör-üyor-um
+  gloss: дом-ВИН видеть-НАСТ-1ЕД
+- tr: Ev*e* gidiyorum.
+  ru: Я иду *домой*.
+  morphemes: ev-e gid-iyor-um
+  gloss: дом-ДАТ идти-НАСТ-1ЕД
+- tr: Ev*de*yim.
+  ru: Я *дома*.
+  morphemes: ev-de-yim
+  gloss: дом-МЕСТ-1ЕД
+- tr: Ev*den* geliyorum.
+  ru: Я иду *из дома*.
+  morphemes: ev-den gel-iyor-um
+  gloss: дом-ИСХ приходить-НАСТ-1ЕД
+- tr: ev*in* kapısı
+  ru: дверь *дома*
+  morphemes: ev-in kapı-sı
+  gloss: дом-РОД дверь-3ЕД.ПРИТ
+- tr: Araba*yla* geliyorum.
+  ru: Я еду *на машине*.
+  morphemes: araba-yla gel-iyor-um
+  gloss: машина-ОРУД приходить-НАСТ-1ЕД
+- tr: Okullar*da* ders var.
+  ru: "*В школах* идут уроки."
+  morphemes: okul-lar-da ders var
+  gloss: школа-МН-МЕСТ урок есть
+  note: Падежный аффикс стоит после аффикса множественного числа.

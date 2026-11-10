@@ -1,0 +1,36 @@
+- tr: "*Ben* öğrenciyim."
+  ru: "*Я* студент."
+  morphemes: ben öğrenci-yim
+  gloss: я студент-1ЕД
+- tr: "*Sen* öğretmensin."
+  ru: "*Ты* учитель."
+  morphemes: sen öğretmen-sin
+  gloss: ты учитель-2ЕД
+- tr: "*O* doktor."
+  ru: "*Он* врач. / *Она* врач."
+  note: У слова o нет рода.
+- tr: "*Biz* evdeyiz."
+  ru: "*Мы* дома."
+  morphemes: biz ev-de-yiz
+  gloss: мы дом-МЕСТ-1МН
+- tr: "*Siz* öğrencisiniz."
+  ru: "*Вы* студенты."
+  morphemes: siz öğrenci-siniz
+  gloss: вы студент-2МН
+- tr: "*Onlar* öğrenci."
+  ru: "*Они* студенты."
+- tr: Öğrenciyim.
+  ru: Я студент.
+  morphemes: öğrenci-yim
+  gloss: студент-1ЕД
+  note: Местоимения нет — лицо показывает аффикс.
+- tr: "*Ben* doktorum, *o* öğretmen."
+  ru: "*Я* врач, а *он* учитель."
+  morphemes: ben doktor-um o öğretmen
+  gloss: я врач-1ЕД он учитель
+  note: При противопоставлении местоимения нужны.
+- tr: "*Siz* doktorsunuz."
+  ru: "*Вы* врач."
+  morphemes: siz doktor-sunuz
+  gloss: вы врач-2МН
+  note: Вежливое обращение к одному человеку — тоже siz.

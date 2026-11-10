@@ -61,6 +61,14 @@ description = "Проверить контент без запуска серв�
 # --project вместо --directory: команда остаётся в корне, и пути в отчёте начинаются с content/.
 run = "uv run --project backend turkish-grammar check-content"
 
+[tasks."content:words"]
+description = "Проверить морфологическим анализатором, что турецкие слова контента существуют"
+run = "uv run --project backend turkish-grammar check-words"
+
+[tasks."content:stats"]
+description = "Сводка наполнения: сколько тем написано и сколько у них примеров"
+run = "uv run --project backend turkish-grammar summarize-content"
+
 [tasks."gen:api"]
 description = "Выгрузить OpenAPI и сгенерировать TypeScript-типы интерфейса"
 run = [
@@ -77,4 +85,4 @@ run = [
 
 [tasks.check]
 description = "Все проверки перед коммитом"
-depends = ["lint", "typecheck", "test", "content:check", "gen:api:check"]
+depends = ["lint", "typecheck", "test", "content:check", "content:words", "gen:api:check"]

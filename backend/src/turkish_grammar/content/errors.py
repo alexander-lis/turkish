@@ -16,6 +16,13 @@ class ContentIssue:
     message: str
 
 
+def format_issues(heading: str, issues: Iterable[ContentIssue], content_dir: Path) -> str:
+    """Отчёт для человека: заголовок и по строке на ошибку, с путём от каталога контента."""
+    lines = [heading]
+    lines += [f"  {content_dir / issue.path}: {issue.message}" for issue in issues]
+    return "\n".join(lines)
+
+
 class InvalidContentError(Exception):
     """Контент не прошёл проверку. Содержит все найденные ошибки, а не только первую."""
 
@@ -25,9 +32,7 @@ class InvalidContentError(Exception):
 
     def report(self, content_dir: Path) -> str:
         """Отчёт для человека: по строке на ошибку, с путём к файлу от каталога контента."""
-        lines = [f"{self}"]
-        lines += [f"  {content_dir / issue.path}: {issue.message}" for issue in self.issues]
-        return "\n".join(lines)
+        return format_issues(f"{self}", self.issues, content_dir)
 
 
 class ContentFormatError(ValueError):

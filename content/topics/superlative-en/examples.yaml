@@ -1,0 +1,41 @@
+- tr: "*en* güzel"
+  ru: "*самый* красивый"
+- tr: "*en* büyük şehir"
+  ru: "*самый* большой город"
+- tr: Bu *en iyi* restoran.
+  ru: Это *лучший* ресторан.
+- tr: "*En yakın* eczane nerede?"
+  ru: Где *ближайшая* аптека?
+  morphemes: en yakın eczane nere-de
+  gloss: самый близкий аптека какое.место-МЕСТ
+- tr: İstanbul Türkiye'nin *en* büyük şehri.
+  ru: Стамбул — *самый* большой город Турции.
+  morphemes: istanbul türkiye-nin en büyük şehr-i
+  gloss: Стамбул Турция-РОД самый большой город-3ЕД.ПРИТ
+  note: После родительного падежа существительное получает аффикс принадлежности.
+- tr: Sınıftaki *en* uzun öğrenci Ali.
+  ru: "*Самый* высокий студент в классе — Али."
+  morphemes: sınıf-ta-ki en uzun öğrenci ali
+  gloss: класс-МЕСТ-ОТН самый высокий студент Али
+- tr: "*En hızlı* Ali koşuyor."
+  ru: "*Быстрее всех* бегает Али."
+  morphemes: en hızlı ali koş-uyor
+  gloss: самый быстро Али бежать-НАСТ
+- tr: Ailemizin *en* küçüğü Ayşe.
+  ru: "*Самая* младшая в нашей семье — Айше."
+  morphemes: aile-miz-in en küçüğ-ü ayşe
+  gloss: семья-1МН.ПРИТ-РОД самый маленький-3ЕД.ПРИТ Айше
+  note: Прилагательное стоит на месте существительного и потому получает аффикс принадлежности — буквально «самый маленький нашей семьи».
+- tr: "*En çok* çayı seviyorum."
+  ru: "*Больше всего* я люблю чай."
+  morphemes: en çok çay-ı sev-iyor-um
+  gloss: самый много чай-ВИН любить-НАСТ-1ЕД
+- tr: "*En az* iki saat bekleyeceğiz."
+  ru: Мы будем ждать *как минимум* два часа.
+  morphemes: en az iki saat bekle-yeceğ-iz
+  gloss: самый мало два час ждать-БУД-1МН
+- tr: Bu, dünyanın *en* güzel şehirlerinden biri.
+  ru: Это один из *самых* красивых городов мира.
+  morphemes: bu dünya-nın en güzel şehir-ler-i-nden bir-i
+  gloss: это мир-РОД самый красивый город-МН-3ЕД.ПРИТ-ИСХ один-3ЕД.ПРИТ
+  note: После родительного падежа dünyanın слово şehirler получает аффикс принадлежности, а перед исходным падежом стоит вставное n.

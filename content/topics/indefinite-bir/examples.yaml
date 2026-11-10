@@ -1,0 +1,31 @@
+- tr: "*bir* ev"
+  ru: дом, какой-то дом
+- tr: güzel *bir* ev
+  ru: красивый дом
+  note: Слово bir стоит между прилагательным и существительным.
+- tr: "*bir* büyük ev"
+  ru: "*один* большой дом"
+  note: Перед прилагательным bir — числительное «один».
+- tr: Bu *bir* kitap.
+  ru: Это книга.
+- tr: Ali iyi *bir* doktor.
+  ru: Али — хороший врач.
+- tr: "*Bir* kahve lütfen."
+  ru: "*Один* кофе, пожалуйста."
+- tr: Masada *bir* mektup var.
+  ru: На столе лежит письмо.
+  morphemes: masa-da bir mektup var
+  gloss: стол-МЕСТ один письмо есть
+- tr: "*Bir* arkadaşım İstanbul'da yaşıyor."
+  ru: "*Один* мой друг живёт в Стамбуле."
+  morphemes: bir arkadaş-ım istanbul-da yaşı-yor
+  gloss: один друг-1ЕД.ПРИТ Стамбул-МЕСТ жить-НАСТ
+- tr: Küçük *bir* evde oturuyoruz.
+  ru: Мы живём в маленьком доме.
+  morphemes: küçük bir ev-de otur-uyor-uz
+  gloss: маленький один дом-МЕСТ жить-НАСТ-1МН
+- tr: Ben öğretmenim.
+  ru: Я учитель.
+  morphemes: ben öğretmen-im
+  gloss: я учитель-1ЕД
+  note: При названии профессии bir обычно не ставят.

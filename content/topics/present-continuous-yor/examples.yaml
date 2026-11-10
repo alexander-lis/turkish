@@ -1,0 +1,45 @@
+- tr: gel*iyor*
+  ru: он идёт сюда
+  morphemes: gel-iyor
+  gloss: приходить-НАСТ
+- tr: bak*ıyor*um
+  ru: я смотрю
+  morphemes: bak-ıyor-um
+  gloss: смотреть-НАСТ-1ЕД
+- tr: oku*yor*sun
+  ru: ты читаешь
+  morphemes: oku-yor-sun
+  gloss: читать-НАСТ-2ЕД
+  note: Основа кончается на гласную, поэтому аффикс — -yor.
+- tr: Ankara'da otur*uyor*um.
+  ru: Я живу в Анкаре.
+  morphemes: ankara-da otur-uyor-um
+  gloss: Анкара-МЕСТ жить-НАСТ-1ЕД
+- tr: Ne yap*ıyor*sunuz?
+  ru: Что вы делаете?
+  morphemes: ne yap-ıyor-sunuz
+  gloss: что делать-НАСТ-2МН
+- tr: Gör*üyor* musun?
+  ru: Ты видишь?
+  morphemes: gör-üyor mu-sun
+  gloss: видеть-НАСТ ВОПР-2ЕД
+- tr: Çocuklar bahçede oynu*yor*lar.
+  ru: Дети играют в саду.
+  morphemes: çocuk-lar bahçe-de oynu-yor-lar
+  gloss: ребёнок-МН сад-МЕСТ играть-НАСТ-3МН
+  note: Конечная a основы oyna- перед -yor сузилась до u.
+- tr: Bu yıl Türkçe öğren*iyor*um.
+  ru: В этом году я учу турецкий.
+  morphemes: bu yıl türkçe öğren-iyor-um
+  gloss: этот год турецкий.язык учить-НАСТ-1ЕД
+  note: Действие идёт в текущий период, а не только в эту минуту.
+- tr: Her gün otobüsle işe gid*iyor*.
+  ru: Каждый день он ездит на работу на автобусе.
+  morphemes: her gün otobüs-le iş-e gid-iyor
+  gloss: каждый день автобус-ОРУД работа-ДАТ идти-НАСТ
+  note: Привычное действие.
+- tr: Yarın İstanbul'a gid*iyor*uz.
+  ru: Завтра мы едем в Стамбул.
+  morphemes: yarın istanbul-a gid-iyor-uz
+  gloss: завтра Стамбул-ДАТ идти-НАСТ-1МН
+  note: Запланированное будущее.

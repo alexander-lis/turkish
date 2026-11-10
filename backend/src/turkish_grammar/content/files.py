@@ -52,6 +52,17 @@ class AbbreviationEntry(_FileEntry):
     meaning: NonEmptyStr
 
 
+class KnownWordEntry(_FileEntry):
+    """Одна запись в ``known-words.yaml``.
+
+    Причина обязательна, но её наличие проверяет загрузчик: в сообщении об ошибке
+    нужно назвать слово.
+    """
+
+    word: NonEmptyStr
+    reason: str | None = None
+
+
 _MESSAGES_BY_TYPE = {
     "string_type": "должно быть строкой",
     "string_too_short": "не должно быть пустым",

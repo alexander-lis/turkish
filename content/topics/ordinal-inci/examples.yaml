@@ -1,0 +1,50 @@
+- tr: bir*inci*
+  ru: первый
+  morphemes: bir-inci
+  gloss: один-ПОРЯД
+- tr: iki*nci*
+  ru: второй
+  morphemes: iki-nci
+  gloss: два-ПОРЯД
+  note: После гласной первая гласная аффикса пропадает.
+- tr: dörd*üncü*
+  ru: четвёртый
+  morphemes: dörd-üncü
+  gloss: четыре-ПОРЯД
+  note: Конечное t слова dört перед гласной стало d.
+- tr: on*uncu* gün
+  ru: десятый день
+  morphemes: on-uncu gün
+  gloss: десять-ПОРЯД день
+- tr: Kaç*ıncı* kat?
+  ru: Какой этаж?
+  morphemes: kaç-ıncı kat
+  gloss: сколько-ПОРЯД этаж
+- tr: İki*nci* katta oturuyoruz.
+  ru: Мы живём на втором этаже.
+  morphemes: iki-nci kat-ta otur-uyor-uz
+  gloss: два-ПОРЯД этаж-МЕСТ жить-НАСТ-1МН
+  note: Перевод буквальный — по русскому счёту это третий этаж.
+- tr: Bu benim üç*üncü* kahvem.
+  ru: Это мой третий кофе.
+  morphemes: bu ben-im üç-üncü kahve-m
+  gloss: это я-РОД три-ПОРЯД кофе-1ЕД.ПРИТ
+- tr: On bir*inci* sınıftayım.
+  ru: Я в одиннадцатом классе.
+  morphemes: on bir-inci sınıf-ta-yım
+  gloss: десять один-ПОРЯД класс-МЕСТ-1ЕД
+  note: В составном числе аффикс получает только последнее слово.
+- tr: Ofis 3'*üncü* katta.
+  ru: Офис на третьем этаже.
+  morphemes: ofis 3-üncü kat-ta
+  gloss: офис 3-ПОРЯД этаж-МЕСТ
+  note: Запись цифрой читается üçüncü.
+- tr: Sağdan beş*inci* ev bizim.
+  ru: Пятый дом справа — наш.
+  morphemes: sağ-dan beş-inci ev biz-im
+  gloss: право-ИСХ пять-ПОРЯД дом мы-РОД
+- tr: "*İlk* gün çok zordu."
+  ru: "*Первый* день был очень трудным."
+  morphemes: ilk gün çok zor-du
+  gloss: первый день очень трудный-ПРОШ
+  note: «Первый» в значении «самый ранний» — это ilk.

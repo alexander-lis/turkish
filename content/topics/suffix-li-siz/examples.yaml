@@ -1,0 +1,48 @@
+- tr: tat*lı*
+  ru: сладкий
+  morphemes: tat-lı
+  gloss: вкус-С
+  note: Буквально «со вкусом».
+- tr: şeker*siz*
+  ru: "*без* сахара"
+  morphemes: şeker-siz
+  gloss: сахар-БЕЗ
+- tr: süt*lü* kahve
+  ru: кофе *с* молоком
+  morphemes: süt-lü kahve
+  gloss: молоко-С кофе
+- tr: tuz*suz* yemek
+  ru: еда *без* соли
+  morphemes: tuz-suz yemek
+  gloss: соль-БЕЗ еда
+- tr: Süt*süz* kahve içiyorum.
+  ru: Я пью кофе *без* молока.
+  morphemes: süt-süz kahve iç-iyor-um
+  gloss: молоко-БЕЗ кофе пить-НАСТ-1ЕД
+- tr: Bu müze para*sız*.
+  ru: Этот музей *бесплатный*.
+  morphemes: bu müze para-sız
+  gloss: этот музей деньги-БЕЗ
+  note: Буквально «без денег».
+- tr: Bugün hava yağmur*lu*.
+  ru: Сегодня *дождливо*.
+  morphemes: bugün hava yağmur-lu
+  gloss: сегодня погода дождь-С
+- tr: Ali ev*li* mi?
+  ru: Али *женат*?
+  morphemes: ali ev-li mi
+  gloss: Али дом-С ВОПР
+  note: Буквально «с домом».
+- tr: Nere*li*siniz?
+  ru: "*Откуда* вы родом?"
+  morphemes: nere-li-siniz
+  gloss: какое.место-С-2МН
+- tr: İstanbul*lu*yum.
+  ru: Я *из* Стамбула.
+  morphemes: istanbul-lu-yum
+  gloss: Стамбул-С-1ЕД
+  note: Апострофа нет, а l пишется дважды — одно от слова İstanbul, второе от аффикса.
+- tr: Sen*siz* gitmiyorum.
+  ru: "*Без* тебя я не иду."
+  morphemes: sen-siz git-mi-yor-um
+  gloss: ты-БЕЗ идти-ОТР-НАСТ-1ЕД

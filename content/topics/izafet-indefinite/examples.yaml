@@ -1,0 +1,42 @@
+- tr: çocuk kitab*ı*
+  ru: детская книга
+  morphemes: çocuk kitab-ı
+  gloss: ребёнок книга-3ЕД.ПРИТ
+- tr: yatak oda*sı*
+  ru: спальня
+  morphemes: yatak oda-sı
+  gloss: кровать комната-3ЕД.ПРИТ
+- tr: otobüs durağ*ı*
+  ru: автобусная остановка
+  morphemes: otobüs durağ-ı
+  gloss: автобус остановка-3ЕД.ПРИТ
+- tr: Türkçe öğretmen*i*
+  ru: учитель турецкого
+  morphemes: türkçe öğretmen-i
+  gloss: турецкий.язык учитель-3ЕД.ПРИТ
+- tr: Otobüs durağ*ı* nerede?
+  ru: Где автобусная остановка?
+  morphemes: otobüs durağ-ı nere-de
+  gloss: автобус остановка-3ЕД.ПРИТ какое.место-МЕСТ
+- tr: Türk kahve*si* içiyoruz.
+  ru: Мы пьём турецкий кофе.
+  morphemes: türk kahve-si iç-iyor-uz
+  gloss: турок кофе-3ЕД.ПРИТ пить-НАСТ-1МН
+  note: Кофе любой, поэтому винительного падежа нет — аффикс -(s)I в изафете сам не делает предмет определённым.
+- tr: Atatürk Cadde*si* çok uzun.
+  ru: Проспект Ататюрка очень длинный.
+  morphemes: atatürk cadde-si çok uzun
+  gloss: Ататюрк проспект-3ЕД.ПРИТ очень длинный
+- tr: Yatak oda*m* küçük.
+  ru: Моя спальня маленькая.
+  morphemes: yatak oda-m küçük
+  gloss: кровать комната-1ЕД.ПРИТ маленький
+  note: Аффикс первого лица встал на место -(s)I.
+- tr: Çocuk kitap*ları* burada.
+  ru: Детские книги здесь.
+  morphemes: çocuk kitap-lar-ı bura-da
+  gloss: ребёнок книга-МН-3ЕД.ПРИТ это.место-МЕСТ
+- tr: Pazartesi gün*ü* dersimiz var.
+  ru: В понедельник у нас урок.
+  morphemes: pazartesi gün-ü ders-imiz var
+  gloss: понедельник день-3ЕД.ПРИТ урок-1МН.ПРИТ есть

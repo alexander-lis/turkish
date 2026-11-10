@@ -1,0 +1,33 @@
+- tr: "*şimdi*"
+  ru: сейчас
+- tr: "*dün* akşam"
+  ru: "*вчера* вечером"
+- tr: "*yarın* sabah"
+  ru: "*завтра* утром"
+- tr: "*Bugün* hava çok güzel."
+  ru: "*Сегодня* погода очень хорошая."
+- tr: "*Şimdi* çay içiyoruz."
+  ru: "*Сейчас* мы пьём чай."
+  morphemes: şimdi çay iç-iyor-uz
+  gloss: сейчас чай пить-НАСТ-1МН
+- tr: "*Dün* çok çalıştım."
+  ru: "*Вчера* я много работал."
+  morphemes: dün çok çalış-tı-m
+  gloss: вчера много работать-ПРОШ-1ЕД
+- tr: "*Yarın* İstanbul'a gidiyorum."
+  ru: "*Завтра* я еду в Стамбул."
+  morphemes: yarın istanbul-a gid-iyor-um
+  gloss: завтра Стамбул-ДАТ идти-НАСТ-1ЕД
+- tr: "*Sabah* erken kalkıyorum."
+  ru: "*Утром* я встаю рано."
+  morphemes: sabah erken kalk-ıyor-um
+  gloss: утро рано вставать-НАСТ-1ЕД
+  note: Слово sabah стоит без падежного аффикса.
+- tr: "*Geçen hafta* hastaydım."
+  ru: "*На прошлой неделе* я болел."
+  morphemes: geçen hafta hasta-ydı-m
+  gloss: прошлый неделя больной-ПРОШ-1ЕД
+- tr: "*Biraz sonra* geliyorum."
+  ru: Я приду *чуть позже*.
+  morphemes: biraz sonra gel-iyor-um
+  gloss: немного потом приходить-НАСТ-1ЕД

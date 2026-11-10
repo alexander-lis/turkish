@@ -1,0 +1,43 @@
+- tr: okul*da*
+  ru: "*в школе*"
+  morphemes: okul-da
+  gloss: школа-МЕСТ
+  note: Основа кончается на звонкий l, поэтому аффикс начинается с d.
+- tr: kitap*ta*
+  ru: "*в книге*"
+  morphemes: kitap-ta
+  gloss: книга-МЕСТ
+  note: Основа кончается на глухой p, поэтому аффикс начинается с t.
+- tr: ev*den*
+  ru: "*из дома*"
+  morphemes: ev-den
+  gloss: дом-ИСХ
+- tr: sokak*tan*
+  ru: "*с улицы*"
+  morphemes: sokak-tan
+  gloss: улица-ИСХ
+  note: После глухого k — вариант с t.
+- tr: Alman*ca*
+  ru: немецкий язык
+  morphemes: almanca
+  gloss: немецкий.язык
+  note: После звонкого n аффикс -CA начинается с c.
+- tr: Rus*ça*
+  ru: русский язык
+  morphemes: rusça
+  gloss: русский.язык
+  note: После глухого s — вариант с ç.
+- tr: Kitap raf*ta*.
+  ru: Книга *на полке*.
+  morphemes: kitap raf-ta
+  gloss: книга полка-МЕСТ
+  note: Согласный f тоже глухой.
+- tr: Çocuklar park*ta*.
+  ru: Дети *в парке*.
+  morphemes: çocuk-lar park-ta
+  gloss: ребёнок-МН парк-МЕСТ
+- tr: Ali iş*te*, Ayşe ev*de*.
+  ru: Али *на работе*, Айше *дома*.
+  morphemes: ali iş-te ayşe ev-de
+  gloss: Али работа-МЕСТ Айше дом-МЕСТ
+  note: После глухого ş аффикс начинается с t, после звонкого v — с d.

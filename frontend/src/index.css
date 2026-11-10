@@ -40,6 +40,11 @@
   @apply px-3 first:pl-0 last:pr-0;
 }
 
+/* Зачёркнута неверная форма: линия заметная, а сам текст приглушён. */
+.article-text del {
+  @apply text-slate-500 line-through decoration-red-600 decoration-2;
+}
+
 .article-text > :first-child {
   @apply mt-0;
 }

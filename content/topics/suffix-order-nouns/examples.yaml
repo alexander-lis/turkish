@@ -1,0 +1,42 @@
+- tr: ev*lerimde*
+  ru: в моих домах
+  morphemes: ev-ler-im-de
+  gloss: дом-МН-1ЕД.ПРИТ-МЕСТ
+- tr: arkadaş*larımıza*
+  ru: нашим друзьям
+  morphemes: arkadaş-lar-ımız-a
+  gloss: друг-МН-1МН.ПРИТ-ДАТ
+- tr: çocuk*lara*
+  ru: детям
+  morphemes: çocuk-lar-a
+  gloss: ребёнок-МН-ДАТ
+- tr: oda*nda*
+  ru: в твоей комнате
+  morphemes: oda-n-da
+  gloss: комната-2ЕД.ПРИТ-МЕСТ
+- tr: kitab*ından*
+  ru: из его книги
+  morphemes: kitab-ı-ndan
+  gloss: книга-3ЕД.ПРИТ-ИСХ
+  note: После аффикса принадлежности 3-го лица перед падежом стоит вставное n.
+- tr: Kitap*larım* çanta*mda*.
+  ru: Мои книги в моей сумке.
+  morphemes: kitap-lar-ım çanta-m-da
+  gloss: книга-МН-1ЕД.ПРИТ сумка-1ЕД.ПРИТ-МЕСТ
+- tr: Arkadaş*larımdan* mektup var.
+  ru: Есть письмо от моих друзей.
+  morphemes: arkadaş-lar-ım-dan mektup var
+  gloss: друг-МН-1ЕД.ПРИТ-ИСХ письмо есть
+- tr: Ev*imdeyim*.
+  ru: Я у себя дома.
+  morphemes: ev-im-de-yim
+  gloss: дом-1ЕД.ПРИТ-МЕСТ-1ЕД
+  note: Аффикс сказуемости стоит последним, после падежа.
+- tr: Çocuk*larınız* okul*da* mı?
+  ru: Ваши дети в школе?
+  morphemes: çocuk-lar-ınız okul-da mı
+  gloss: ребёнок-МН-2МН.ПРИТ школа-МЕСТ ВОПР
+- tr: Öğrenci*lerinin* ad*larını* biliyor.
+  ru: Он знает имена своих студентов.
+  morphemes: öğrenci-ler-i-nin ad-lar-ı-nı bil-iyor
+  gloss: студент-МН-3ЕД.ПРИТ-РОД имя-МН-3ЕД.ПРИТ-ВИН знать-НАСТ

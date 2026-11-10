@@ -1,0 +1,38 @@
+- tr: Öğrenci *değilim*.
+  ru: Я *не* студент.
+  morphemes: öğrenci değil-im
+  gloss: студент не-1ЕД
+- tr: Yorgun *değilsin*.
+  ru: Ты *не* устал.
+  morphemes: yorgun değil-sin
+  gloss: усталый не-2ЕД
+- tr: Bu kitap *değil*, defter.
+  ru: Это *не* книга, а тетрадь.
+- tr: Hava soğuk *değil*.
+  ru: На улице *не* холодно.
+  note: Буквально «погода не холодная».
+- tr: Ali evde *değil*.
+  ru: Али *не* дома.
+  morphemes: ali ev-de değil
+  gloss: Али дом-МЕСТ не
+- tr: Biz doktor *değiliz*.
+  ru: Мы *не* врачи.
+  morphemes: biz doktor değil-iz
+  gloss: мы врач не-1МН
+- tr: Siz yabancı *değilsiniz*.
+  ru: Вы *не* иностранец.
+  morphemes: siz yabancı değil-siniz
+  gloss: вы иностранец не-2МН
+- tr: Onlar öğrenci *değiller*.
+  ru: Они *не* студенты.
+  morphemes: onlar öğrenci değil-ler
+  gloss: они студент не-3МН
+- tr: Hasta *değil misin*?
+  ru: Ты *не* болен?
+  morphemes: hasta değil mi-sin
+  gloss: больной не ВОПР-2ЕД
+- tr: Güzel, *değil mi*?
+  ru: Красиво, *правда*?
+  morphemes: güzel değil mi
+  gloss: красивый не ВОПР
+  note: Оборот değil mi в конце фразы значит «не так ли?».

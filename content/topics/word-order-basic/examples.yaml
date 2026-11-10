@@ -1,0 +1,37 @@
+- tr: "*büyük* ev"
+  ru: "*большой* дом"
+  note: Определение стоит перед определяемым словом.
+- tr: Ev *büyük*.
+  ru: Дом *большой*.
+  note: То же прилагательное в конце — уже сказуемое.
+- tr: Ali *öğrenci*.
+  ru: Али — *студент*.
+- tr: Ali *evde*.
+  ru: Али *дома*.
+  morphemes: ali ev-de
+  gloss: Али дом-МЕСТ
+- tr: Küçük çocuk *parkta*.
+  ru: Маленький ребёнок *в парке*.
+  morphemes: küçük çocuk park-ta
+  gloss: маленький ребёнок парк-МЕСТ
+  note: Определение стоит перед существительным, сказуемое — в конце.
+- tr: Ali kitap *okuyor*.
+  ru: Али *читает* книгу.
+  morphemes: ali kitap oku-yor
+  gloss: Али книга читать-НАСТ
+  note: Дополнение стоит перед глаголом.
+- tr: Ali bugün evde kitap *okuyor*.
+  ru: Али сегодня дома *читает* книгу.
+  morphemes: ali bugün ev-de kitap oku-yor
+  gloss: Али сегодня дом-МЕСТ книга читать-НАСТ
+  note: Сначала время, место и дополнение, и только потом глагол.
+- tr: Bugün *Ali* geliyor.
+  ru: Сегодня приезжает *Али*.
+  morphemes: bugün ali gel-iyor
+  gloss: сегодня Али приходить-НАСТ
+  note: Слово перед сказуемым — главное в сообщении.
+- tr: Ali *nerede*?
+  ru: "*Где* Али?"
+  morphemes: ali nere-de
+  gloss: Али какое.место-МЕСТ
+  note: Вопросительное слово стоит на месте ответа, а не в начале.

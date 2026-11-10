@@ -1,0 +1,41 @@
+- tr: benim*ki*
+  ru: мой, тот, что мой
+  morphemes: ben-im-ki
+  gloss: я-РОД-ОТН
+- tr: senin*ki*
+  ru: твой
+  morphemes: sen-in-ki
+  gloss: ты-РОД-ОТН
+- tr: Ali'nin*ki*
+  ru: принадлежащий Али
+  morphemes: ali-nin-ki
+  gloss: Али-РОД-ОТН
+- tr: Benim arabam eski, senin*ki* yeni.
+  ru: Моя машина старая, а *твоя* новая.
+  morphemes: ben-im araba-m eski sen-in-ki yeni
+  gloss: я-РОД машина-1ЕД.ПРИТ старый ты-РОД-ОТН новый
+- tr: Bu benim*ki* değil, senin*ki*.
+  ru: Это не *моя*, а *твоя*.
+  morphemes: bu ben-im-ki değil sen-in-ki
+  gloss: это я-РОД-ОТН не ты-РОД-ОТН
+- tr: Bizim*ki* daha büyük.
+  ru: "*Наш* больше."
+  morphemes: biz-im-ki daha büyük
+  gloss: мы-РОД-ОТН более большой
+- tr: Annemin*ki* burada.
+  ru: "*Мамина* здесь."
+  morphemes: anne-m-in-ki bura-da
+  gloss: мама-1ЕД.ПРИТ-РОД-ОТН это.место-МЕСТ
+- tr: Onun*ki* hangisi?
+  ru: Который из них *его*?
+  morphemes: on-un-ki hangi-si
+  gloss: он-РОД-ОТН который-3ЕД.ПРИТ
+- tr: Benim*kiler* evde.
+  ru: "*Мои* дома."
+  morphemes: ben-im-ki-ler ev-de
+  gloss: я-РОД-ОТН-МН дом-МЕСТ
+- tr: Senin*kini* görmüyorum.
+  ru: Я не вижу *твою*.
+  morphemes: sen-in-ki-ni gör-mü-yor-um
+  gloss: ты-РОД-ОТН-ВИН видеть-ОТР-НАСТ-1ЕД
+  note: Перед падежным аффиксом после -ki стоит n.

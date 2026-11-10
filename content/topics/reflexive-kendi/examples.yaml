@@ -1,0 +1,42 @@
+- tr: kendi*m*
+  ru: я *сам*
+  morphemes: kendi-m
+  gloss: сам-1ЕД.ПРИТ
+- tr: "*kendi* evim"
+  ru: мой *собственный* дом
+  morphemes: kendi ev-im
+  gloss: свой дом-1ЕД.ПРИТ
+- tr: "*Kendim* yapıyorum."
+  ru: Я делаю это *сам*.
+  morphemes: kendi-m yap-ıyor-um
+  gloss: сам-1ЕД.ПРИТ делать-НАСТ-1ЕД
+- tr: "*Kendine* iyi bak."
+  ru: Береги *себя*.
+  morphemes: kendi-n-e iyi bak
+  gloss: сам-2ЕД.ПРИТ-ДАТ хорошо смотреть
+  note: Буквально «смотри за собой хорошо».
+- tr: "*Kendimi* iyi hissetmiyorum."
+  ru: Я плохо *себя* чувствую.
+  morphemes: kendi-m-i iyi hisset-mi-yor-um
+  gloss: сам-1ЕД.ПРИТ-ВИН хорошо чувствовать-ОТР-НАСТ-1ЕД
+- tr: "*Kendiniz* mi yapıyorsunuz?"
+  ru: Вы *сами* это делаете?
+  morphemes: kendi-niz mi yap-ıyor-sunuz
+  gloss: сам-2МН.ПРИТ ВОПР делать-НАСТ-2МН
+- tr: Bu benim *kendi* arabam.
+  ru: Это моя *собственная* машина.
+  morphemes: bu ben-im kendi araba-m
+  gloss: это я-РОД свой машина-1ЕД.ПРИТ
+- tr: Herkes *kendi* odasında.
+  ru: Каждый в *своей* комнате.
+  morphemes: herkes kendi oda-sı-nda
+  gloss: все свой комната-3ЕД.ПРИТ-МЕСТ
+- tr: Türkçeyi *kendi kendime* öğreniyorum.
+  ru: Я учу турецкий *самостоятельно*.
+  morphemes: türkçe-yi kendi kendi-m-e öğren-iyor-um
+  gloss: турецкий.язык-ВИН сам сам-1ЕД.ПРИТ-ДАТ учить-НАСТ-1ЕД
+- tr: "*Kendisi* şimdi burada değil."
+  ru: "*Его* сейчас здесь нет."
+  morphemes: kendi-si şimdi bura-da değil
+  gloss: сам-3ЕД.ПРИТ сейчас это.место-МЕСТ не
+  note: Вежливая замена местоимения o.

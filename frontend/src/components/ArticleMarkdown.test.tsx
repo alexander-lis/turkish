@@ -33,6 +33,15 @@ test("списки, выделение и подзаголовки отобра�
   expect(screen.getByText("заметно").tagName).toBe("EM");
 });
 
+test("зачёркнутая неверная форма отображается перечёркнутой", () => {
+  renderInRouter(
+    <ArticleMarkdown>{"Не ~~sokakda~~, а *sokakta*."}</ArticleMarkdown>,
+  );
+
+  expect(screen.getByText("sokakda").tagName).toBe("DEL");
+  expect(screen.getByText("sokakta").closest("del")).toBeNull();
+});
+
 test("HTML в тексте статьи не исполняется", () => {
   const markdown =
     'Текст.\n\n<script>window.hacked = true</script>\n\n<img src="x" onerror="window.hacked = true">';

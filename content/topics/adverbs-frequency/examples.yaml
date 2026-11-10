@@ -1,0 +1,38 @@
+- tr: "*her zaman*"
+  ru: всегда
+- tr: "*bazen*"
+  ru: иногда
+- tr: "*haftada bir*"
+  ru: раз в неделю
+  morphemes: hafta-da bir
+  gloss: неделя-МЕСТ один
+- tr: "*Her gün* Türkçe çalışıyorum."
+  ru: "*Каждый день* я занимаюсь турецким."
+  morphemes: her gün türkçe çalış-ıyor-um
+  gloss: каждый день турецкий.язык работать-НАСТ-1ЕД
+- tr: "*Bazen* sinemaya gidiyoruz."
+  ru: "*Иногда* мы ходим в кино."
+  morphemes: bazen sinema-ya gid-iyor-uz
+  gloss: иногда кино-ДАТ идти-НАСТ-1МН
+- tr: "*Genellikle* evde yemek yiyorum."
+  ru: "*Обычно* я ем дома."
+  morphemes: genellikle ev-de yemek yi-yor-um
+  gloss: обычно дом-МЕСТ еда есть-НАСТ-1ЕД
+- tr: Ali *sık sık* geç kalıyor.
+  ru: Али *часто* опаздывает.
+  morphemes: ali sık sık geç kal-ıyor
+  gloss: Али часто часто поздно оставаться-НАСТ
+- tr: "*Günde iki kez* kahve içiyorum."
+  ru: Я пью кофе *два раза в день*.
+  morphemes: gün-de iki kez kahve iç-iyor-um
+  gloss: день-МЕСТ два раз кофе пить-НАСТ-1ЕД
+- tr: "*Hiç* et yemiyorum."
+  ru: Я *никогда* не ем мясо.
+  morphemes: hiç et ye-mi-yor-um
+  gloss: никогда мясо есть-ОТР-НАСТ-1ЕД
+  note: Слово hiç стоит при отрицательном сказуемом.
+- tr: "*Hiç* İstanbul'a gittin mi?"
+  ru: Ты *когда-нибудь* был в Стамбуле?
+  morphemes: hiç istanbul-a git-ti-n mi
+  gloss: когда.нибудь Стамбул-ДАТ идти-ПРОШ-2ЕД ВОПР
+  note: В вопросе без отрицания hiç значит «когда-нибудь».

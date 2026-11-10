@@ -1,0 +1,38 @@
+- tr: "*biri*"
+  ru: кто-то
+  morphemes: bir-i
+  gloss: один-3ЕД.ПРИТ
+- tr: "*bir şey*"
+  ru: что-то
+- tr: Kapıda *biri* var.
+  ru: У двери *кто-то* есть.
+  morphemes: kapı-da bir-i var
+  gloss: дверь-МЕСТ один-3ЕД.ПРИТ есть
+- tr: "*Bir şey* yok."
+  ru: "*Ничего* нет."
+  note: С отрицанием bir şey переводится как «ничего».
+- tr: "*Bir şey* içmek istiyor musun?"
+  ru: Хочешь *что-нибудь* выпить?
+  morphemes: bir şey iç-mek isti-yor mu-sun
+  gloss: один вещь пить-ИНФ хотеть-НАСТ ВОПР-2ЕД
+- tr: "*Biri* sizi arıyor."
+  ru: Вас *кто-то* ищет.
+  morphemes: bir-i siz-i arı-yor
+  gloss: один-3ЕД.ПРИТ вы-ВИН искать-НАСТ
+- tr: "*Birine* soruyorum."
+  ru: Я спрашиваю *у кого-то*.
+  morphemes: bir-i-ne sor-uyor-um
+  gloss: один-3ЕД.ПРИТ-ДАТ спрашивать-НАСТ-1ЕД
+  note: Перед падежным аффиксом появляется вставное n.
+- tr: Evde *kimse* var mı?
+  ru: Дома *кто-нибудь* есть?
+  morphemes: ev-de kimse var mı
+  gloss: дом-МЕСТ кто.нибудь есть ВОПР
+- tr: "*Bir yere* gidiyoruz."
+  ru: Мы *куда-то* идём.
+  morphemes: bir yer-e gid-iyor-uz
+  gloss: один место-ДАТ идти-НАСТ-1МН
+- tr: "*Bazıları* çay, *bazıları* kahve içiyor."
+  ru: "*Одни* пьют чай, *другие* — кофе."
+  morphemes: bazı-ları çay bazı-ları kahve iç-iyor
+  gloss: некоторый-3МН.ПРИТ чай некоторый-3МН.ПРИТ кофе пить-НАСТ

@@ -1,0 +1,37 @@
+- tr: yat*madan önce*
+  ru: "*перед тем как* лечь"
+  morphemes: yat-madan önce
+  gloss: ложиться-ДЕЕПР до
+- tr: git*meden önce*
+  ru: "*перед тем как* уйти"
+  morphemes: git-meden önce
+  gloss: идти-ДЕЕПР до
+- tr: Yat*madan önce* kitap okuyorum.
+  ru: "*Перед* сном я читаю книгу."
+  morphemes: yat-madan önce kitap oku-yor-um
+  gloss: ложиться-ДЕЕПР до книга читать-НАСТ-1ЕД
+- tr: Git*meden önce* beni ara.
+  ru: "*Перед тем как* уйти, позвони мне."
+  morphemes: git-meden önce ben-i ara
+  gloss: идти-ДЕЕПР до я-ВИН звонить
+- tr: Karar ver*meden önce* düşün.
+  ru: Подумай, *прежде чем* решать.
+  morphemes: karar ver-meden önce düşün
+  gloss: решение давать-ДЕЕПР до думать
+- tr: Yemek ye*meden önce* ellerini yıka.
+  ru: "*Перед тем как* есть, помой руки."
+  morphemes: yemek ye-meden önce el-ler-in-i yıka
+  gloss: еда есть-ДЕЕПР до рука-МН-2ЕД.ПРИТ-ВИН мыть
+- tr: Film başla*madan önce* kahve içelim.
+  ru: Давай выпьем кофе *до* начала фильма.
+  morphemes: film başla-madan önce kahve iç-elim
+  gloss: фильм начинаться-ДЕЕПР до кофе пить-ЖЕЛ.1МН
+- tr: Uyu*madan önce* dişlerimi fırçalıyorum.
+  ru: "*Перед* сном я чищу зубы."
+  morphemes: uyu-madan önce diş-ler-im-i fırçalı-yor-um
+  gloss: спать-ДЕЕПР до зуб-МН-1ЕД.ПРИТ-ВИН чистить-НАСТ-1ЕД
+- tr: Sen gel*meden önce* evi temizledim.
+  ru: Я убрал дом *до того, как* ты пришёл.
+  morphemes: sen gel-meden önce ev-i temizle-di-m
+  gloss: ты приходить-ДЕЕПР до дом-ВИН убирать-ПРОШ-1ЕД
+  note: У первой части своё подлежащее — sen; оно стоит в основной форме.

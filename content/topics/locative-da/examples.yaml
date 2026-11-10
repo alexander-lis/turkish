@@ -8,12 +8,12 @@
   gloss: книга стол-МЕСТ
 - tr: Çocuklar sokak*ta* oynuyor.
   ru: Дети играют *на улице*.
-  morphemes: çocuk-lar sokak-ta oyn-uyor
+  morphemes: çocuk-lar sokak-ta oynu-yor
   gloss: ребёнок-МН улица-МЕСТ играть-НАСТ
   note: После глухого k — вариант -ta.
 - tr: İstanbul'*da* yaşıyorum.
   ru: Я живу *в Стамбуле*.
-  morphemes: istanbul-da yaş-ıyor-um
+  morphemes: istanbul-da yaşı-yor-um
   gloss: Стамбул-МЕСТ жить-НАСТ-1ЕД
   note: Аффикс отделяется от имени собственного апострофом.
 - tr: Kalem ben*de*.
@@ -25,9 +25,13 @@
   note: После глухого t — вариант -te.
 - tr: Ders saat dokuz*da* başlıyor.
   ru: Урок начинается *в девять* часов.
+  morphemes: ders saat dokuz-da başlı-yor
+  gloss: урок час девять-МЕСТ начинаться-НАСТ
   note: С часами -DA отвечает на вопрос «во сколько?».
 - tr: Mart*ta* tatile gidiyoruz.
   ru: "*В марте* мы едем в отпуск."
+  morphemes: mart-ta tatil-e gid-iyor-uz
+  gloss: март-МЕСТ отпуск-ДАТ идти-НАСТ-1МН
 - tr: Ben *de* evdeyim.
   ru: Я *тоже* дома.
   note: Здесь de — отдельная частица «тоже», а не падежный аффикс.

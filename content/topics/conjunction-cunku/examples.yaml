@@ -1,0 +1,38 @@
+- tr: Gelmiyorum, *çünkü* hastayım.
+  ru: Я не иду, *потому что* болен.
+  morphemes: gel-mi-yor-um çünkü hasta-yım
+  gloss: приходить-ОТР-НАСТ-1ЕД потому.что больной-1ЕД
+- tr: Evdeyim, *çünkü* bugün tatil.
+  ru: Я дома, *потому что* сегодня выходной.
+  morphemes: ev-de-yim çünkü bugün tatil
+  gloss: дом-МЕСТ-1ЕД потому.что сегодня выходной
+- tr: "*Çünkü* çok yorgunum."
+  ru: "*Потому что* я очень устал."
+  morphemes: çünkü çok yorgun-um
+  gloss: потому.что очень усталый-1ЕД
+  note: Так начинают ответ на вопрос neden?
+- tr: Çay içmiyorum, *çünkü* sevmiyorum.
+  ru: Я не пью чай, *потому что* не люблю его.
+  morphemes: çay iç-mi-yor-um çünkü sev-mi-yor-um
+  gloss: чай пить-ОТР-НАСТ-1ЕД потому.что любить-ОТР-НАСТ-1ЕД
+- tr: Bu arabayı almıyorum, *çünkü* çok pahalı.
+  ru: Я не беру эту машину, *потому что* она очень дорогая.
+  morphemes: bu araba-yı al-mı-yor-um çünkü çok pahalı
+  gloss: этот машина-ВИН брать-ОТР-НАСТ-1ЕД потому.что очень дорогой
+- tr: Dışarı çıkmıyoruz, *çünkü* yağmur yağıyor.
+  ru: Мы не выходим на улицу, *потому что* идёт дождь.
+  morphemes: dışarı çık-mı-yor-uz çünkü yağmur yağ-ıyor
+  gloss: наружу выходить-ОТР-НАСТ-1МН потому.что дождь выпадать-НАСТ
+- tr: Acele ediyorum, *çünkü* geç kalıyorum.
+  ru: Я тороплюсь, *потому что* опаздываю.
+  morphemes: acele ed-iyor-um çünkü geç kal-ıyor-um
+  gloss: спешка делать-НАСТ-1ЕД потому.что поздно оставаться-НАСТ-1ЕД
+- tr: Türkçe öğreniyorum, *çünkü* Türkiye'de yaşıyorum.
+  ru: Я учу турецкий, *потому что* живу в Турции.
+  morphemes: türkçe öğren-iyor-um çünkü türkiye-de yaşı-yor-um
+  gloss: турецкий.язык учить-НАСТ-1ЕД потому.что Турция-МЕСТ жить-НАСТ-1ЕД
+- tr: Hastayım, *bu yüzden* gelmiyorum.
+  ru: Я болен, *поэтому* не иду.
+  morphemes: hasta-yım bu yüz-den gel-mi-yor-um
+  gloss: больной-1ЕД этот причина-ИСХ приходить-ОТР-НАСТ-1ЕД
+  note: С bu yüzden порядок обратный — сначала причина, потом следствие.

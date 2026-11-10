@@ -1,0 +1,40 @@
+- tr: ben *de*
+  ru: я *тоже*
+- tr: o *da*
+  ru: он *тоже*
+- tr: Ben *de* geliyorum.
+  ru: Я *тоже* иду.
+  morphemes: ben de gel-iyor-um
+  gloss: я тоже приходить-НАСТ-1ЕД
+- tr: Ben gidiyorum, o *da* kalıyor.
+  ru: Я ухожу, *а* он остаётся.
+  morphemes: ben gid-iyor-um o da kal-ıyor
+  gloss: я идти-НАСТ-1ЕД он а оставаться-НАСТ
+  note: При сопоставлении частица переводится как «а».
+- tr: Kitap *da* masada.
+  ru: Книга *тоже* на столе.
+  morphemes: kitap da masa-da
+  gloss: книга тоже стол-МЕСТ
+  note: После глухого p частица остаётся da — она не оглушается.
+- tr: Evde *de* çalışıyorum.
+  ru: Я работаю *и* дома тоже.
+  morphemes: ev-de de çalış-ıyor-um
+  gloss: дом-МЕСТ тоже работать-НАСТ-1ЕД
+  note: Первое -de — аффикс местного падежа, второе — частица.
+- tr: Ben çay *da* içiyorum.
+  ru: Я пью *и* чай тоже.
+  morphemes: ben çay da iç-iyor-um
+  gloss: я чай тоже пить-НАСТ-1ЕД
+  note: Частица относится к слову перед ней — к çay.
+- tr: Ali *de* Ayşe *de* geliyor.
+  ru: "*И* Али, *и* Айше идут."
+  morphemes: ali de ayşe de gel-iyor
+  gloss: Али тоже Айше тоже приходить-НАСТ
+- tr: Ben *de* bilmiyorum.
+  ru: Я *тоже* не знаю.
+  morphemes: ben de bil-mi-yor-um
+  gloss: я тоже знать-ОТР-НАСТ-1ЕД
+- tr: Sen *de* mi geliyorsun?
+  ru: Ты *тоже* идёшь?
+  morphemes: sen de mi gel-iyor-sun
+  gloss: ты тоже ВОПР приходить-НАСТ-2ЕД

@@ -1,0 +1,47 @@
+- tr: gid*eyim*
+  ru: пойду-ка я
+  morphemes: gid-eyim
+  gloss: идти-ЖЕЛ.1ЕД
+- tr: gid*elim*
+  ru: пойдём, давайте пойдём
+  morphemes: gid-elim
+  gloss: идти-ЖЕЛ.1МН
+- tr: Ben yap*ayım*.
+  ru: Давай я сделаю.
+  morphemes: ben yap-ayım
+  gloss: я делать-ЖЕЛ.1ЕД
+- tr: Bir bak*ayım*.
+  ru: Дай-ка посмотрю.
+  morphemes: bir bak-ayım
+  gloss: один смотреть-ЖЕЛ.1ЕД
+- tr: Yardım ed*eyim* mi?
+  ru: Помочь?
+  morphemes: yardım ed-eyim mi
+  gloss: помощь делать-ЖЕЛ.1ЕД ВОПР
+  note: Вопрос с mI — предложение помощи или просьба о разрешении.
+- tr: Kitap oku*yalım*.
+  ru: Давайте почитаем книгу.
+  morphemes: kitap oku-yalım
+  gloss: книга читать-ЖЕЛ.1МН
+  note: После гласной основы перед аффиксом появляется y.
+- tr: Biraz bekle*yelim*.
+  ru: Давай немного подождём.
+  morphemes: biraz bekle-yelim
+  gloss: немного ждать-ЖЕЛ.1МН
+  note: Пишут bekleyelim, хотя гласная перед y в речи звучит узко.
+- tr: Hadi sinemaya gid*elim*!
+  ru: Давай пойдём в кино!
+  morphemes: hadi sinema-ya gid-elim
+  gloss: давай кино-ДАТ идти-ЖЕЛ.1МН
+- tr: Çay iç*elim* mi?
+  ru: Выпьем чаю?
+  morphemes: çay iç-elim mi
+  gloss: чай пить-ЖЕЛ.1МН ВОПР
+- tr: Ne yap*alım*?
+  ru: Что будем делать?
+  morphemes: ne yap-alım
+  gloss: что делать-ЖЕЛ.1МН
+- tr: Bugün dışarı çık*mayalım*.
+  ru: Давай сегодня не будем выходить.
+  morphemes: bugün dışarı çık-ma-yalım
+  gloss: сегодня наружу выходить-ОТР-ЖЕЛ.1МН

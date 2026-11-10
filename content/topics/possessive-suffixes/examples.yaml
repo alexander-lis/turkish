@@ -1,0 +1,45 @@
+- tr: ev*im*
+  ru: "*мой* дом"
+  morphemes: ev-im
+  gloss: дом-1ЕД.ПРИТ
+- tr: araba*n*
+  ru: "*твоя* машина"
+  morphemes: araba-n
+  gloss: машина-2ЕД.ПРИТ
+  note: После гласной от аффикса -(I)n остаётся один согласный.
+- tr: araba*sı*
+  ru: "*его* машина"
+  morphemes: araba-sı
+  gloss: машина-3ЕД.ПРИТ
+- tr: okul*umuz*
+  ru: "*наша* школа"
+  morphemes: okul-umuz
+  gloss: школа-1МН.ПРИТ
+- tr: kitab*ınız*
+  ru: "*ваша* книга"
+  morphemes: kitab-ınız
+  gloss: книга-2МН.ПРИТ
+  note: Конечное p основы перед гласной аффикса стало b.
+- tr: ev*leri*
+  ru: "*их* дом"
+  morphemes: ev-leri
+  gloss: дом-3МН.ПРИТ
+  note: Та же форма значит «его дома» и «их дома».
+- tr: Anne*m* evde.
+  ru: "*Моя* мама дома."
+  morphemes: anne-m ev-de
+  gloss: мама-1ЕД.ПРИТ дом-МЕСТ
+- tr: Ad*ın* ne?
+  ru: Как *тебя* зовут?
+  morphemes: ad-ın ne
+  gloss: имя-2ЕД.ПРИТ что
+  note: Буквально «твоё имя — что?».
+- tr: Bu benim kalem*im*.
+  ru: Это *моя* ручка.
+  morphemes: bu ben-im kalem-im
+  gloss: это я-РОД ручка-1ЕД.ПРИТ
+  note: Местоимение benim подчёркивает владельца.
+- tr: Kardeş*im* İstanbul'da yaşıyor.
+  ru: "*Мой* брат живёт в Стамбуле."
+  morphemes: kardeş-im istanbul-da yaşı-yor
+  gloss: брат.или.сестра-1ЕД.ПРИТ Стамбул-МЕСТ жить-НАСТ

@@ -1,0 +1,41 @@
+- tr: ev*i*
+  ru: дом
+  morphemes: ev-i
+  gloss: дом-ВИН
+  note: Винительный падеж. После согласного соединительный согласный не нужен.
+- tr: araba*y*ı
+  ru: машину
+  morphemes: araba-yı
+  gloss: машина-ВИН
+  note: После гласной перед аффиксом -(y)I появляется y.
+- tr: araba*y*a
+  ru: в машину
+  morphemes: araba-ya
+  gloss: машина-ДАТ
+- tr: araba*s*ı
+  ru: его машина
+  morphemes: araba-sı
+  gloss: машина-3ЕД.ПРИТ
+  note: У аффикса принадлежности 3-го лица соединительный согласный — s.
+- tr: araba*n*ın rengi
+  ru: цвет машины
+  morphemes: araba-nın reng-i
+  gloss: машина-РОД цвет-3ЕД.ПРИТ
+  note: У родительного падежа соединительный согласный — n.
+- tr: iki*ş*er
+  ru: по два
+  morphemes: iki-şer
+  gloss: два-РАЗД
+- tr: su*y*u
+  ru: его вода
+  morphemes: su-yu
+  gloss: вода-3ЕД.ПРИТ
+  note: "Исключение: слово su берёт y, а не s."
+- tr: Ben öğrenci*y*im.
+  ru: Я студент.
+  morphemes: ben öğrenci-yim
+  gloss: я студент-1ЕД
+- tr: Ali'*n*in araba*s*ı yeni.
+  ru: Машина Али новая.
+  morphemes: ali-nin araba-sı yeni
+  gloss: Али-РОД машина-3ЕД.ПРИТ новый

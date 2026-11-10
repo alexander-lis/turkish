@@ -1,0 +1,43 @@
+- tr: okul*a*
+  ru: "*в школу*"
+  morphemes: okul-a
+  gloss: школа-ДАТ
+- tr: ev*e*
+  ru: "*домой*"
+  morphemes: ev-e
+  gloss: дом-ДАТ
+- tr: araba*ya*
+  ru: "*в машину*"
+  morphemes: araba-ya
+  gloss: машина-ДАТ
+  note: После гласной перед аффиксом появляется y.
+- tr: Okul*a* gidiyorum.
+  ru: Я иду *в школу*.
+  morphemes: okul-a gid-iyor-um
+  gloss: школа-ДАТ идти-НАСТ-1ЕД
+- tr: Doktor*a* gidiyoruz.
+  ru: Мы идём *к врачу*.
+  morphemes: doktor-a gid-iyor-uz
+  gloss: врач-ДАТ идти-НАСТ-1МН
+- tr: Ali'*ye* mektup yazıyorum.
+  ru: Я пишу письмо *Али*.
+  morphemes: ali-ye mektup yaz-ıyor-um
+  gloss: Али-ДАТ письмо писать-НАСТ-1ЕД
+- tr: Ban*a* yardım ediyor.
+  ru: Он помогает *мне*.
+  morphemes: ban-a yardım ed-iyor
+  gloss: я-ДАТ помощь делать-НАСТ
+  note: У местоимения ben в дательном падеже основа ban-.
+- tr: Kitab*a* bakıyorum.
+  ru: Я смотрю *в книгу*.
+  morphemes: kitab-a bak-ıyor-um
+  gloss: книга-ДАТ смотреть-НАСТ-1ЕД
+  note: Глагол bakmak требует дательного падежа; p перед гласной стало b.
+- tr: Bunu on lira*ya* alıyorum.
+  ru: Я беру это *за десять лир*.
+  morphemes: bun-u on lira-ya al-ıyor-um
+  gloss: этот-ВИН десять лира-ДАТ брать-НАСТ-1ЕД
+- tr: Nere*ye* gidiyorsun?
+  ru: "*Куда* ты идёшь?"
+  morphemes: nere-ye gid-iyor-sun
+  gloss: какое.место-ДАТ идти-НАСТ-2ЕД

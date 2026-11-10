@@ -1,0 +1,39 @@
+- tr: "*her* gün"
+  ru: "*каждый* день"
+- tr: "*bütün* gün"
+  ru: "*весь* день"
+- tr: "*birkaç* kitap"
+  ru: "*несколько* книг"
+  note: После birkaç существительное стоит в единственном числе.
+- tr: "*bazı* insanlar"
+  ru: "*некоторые* люди"
+  morphemes: bazı insan-lar
+  gloss: некоторый человек-МН
+  note: После bazı существительное стоит во множественном числе.
+- tr: "*Her* sabah kahve içiyorum."
+  ru: "*Каждое* утро я пью кофе."
+  morphemes: her sabah kahve iç-iyor-um
+  gloss: каждый утро кофе пить-НАСТ-1ЕД
+- tr: "*Bütün* öğrenciler sınıfta."
+  ru: "*Все* студенты в классе."
+  morphemes: bütün öğrenci-ler sınıf-ta
+  gloss: весь студент-МН класс-МЕСТ
+- tr: "*Herkes* burada mı?"
+  ru: "*Все* здесь?"
+  morphemes: herkes bura-da mı
+  gloss: все это.место-МЕСТ ВОПР
+- tr: "*Hepsi* çok güzel."
+  ru: "*Все они* очень красивые."
+  morphemes: hep-si çok güzel
+  gloss: всё-3ЕД.ПРИТ очень красивый
+- tr: "*Hepimiz* yorgunuz."
+  ru: "*Мы все* устали."
+  morphemes: hep-imiz yorgun-uz
+  gloss: всё-1МН.ПРИТ усталый-1МН
+- tr: "*Birçok* insan burada yaşıyor."
+  ru: Здесь живут *многие* люди.
+  morphemes: birçok insan bura-da yaşı-yor
+  gloss: многие человек это.место-МЕСТ жить-НАСТ
+  note: После birçok существительное стоит в единственном числе.
+- tr: "*Her şey* hazır."
+  ru: "*Всё* готово."

@@ -1,0 +1,41 @@
+- tr: çalış*maktayım*
+  ru: я работаю
+  morphemes: çalış-mak-ta-yım
+  gloss: работать-ИНФ-МЕСТ-1ЕД
+- tr: Ne yap*maktasınız*?
+  ru: Чем вы занимаетесь?
+  morphemes: ne yap-mak-ta-sınız
+  gloss: что делать-ИНФ-МЕСТ-2МН
+- tr: Çalışmalar devam et*mektedir*.
+  ru: Работы продолжаются.
+  morphemes: çalışma-lar devam et-mek-te-dir
+  gloss: работа-МН продолжение делать-ИНФ-МЕСТ-СВЯЗ
+- tr: Nüfus hızla art*maktadır*.
+  ru: Население быстро растёт.
+  morphemes: nüfus hızla art-mak-ta-dır
+  gloss: население быстро расти-ИНФ-МЕСТ-СВЯЗ
+- tr: Uçak İstanbul'a in*mektedir*.
+  ru: Самолёт совершает посадку в Стамбуле.
+  morphemes: uçak istanbul-a in-mek-te-dir
+  gloss: самолёт Стамбул-ДАТ спускаться-ИНФ-МЕСТ-СВЯЗ
+- tr: Hava sıcaklığı düş*mekte*.
+  ru: Температура воздуха понижается.
+  morphemes: hava sıcaklığ-ı düş-mek-te
+  gloss: воздух температура-3ЕД.ПРИТ падать-ИНФ-МЕСТ
+- tr: Bu konuda çalış*maktayız*.
+  ru: Мы работаем над этим вопросом.
+  morphemes: bu konu-da çalış-mak-ta-yız
+  gloss: этот вопрос-МЕСТ работать-ИНФ-МЕСТ-1МН
+- tr: Öğrenciler sınava hazırlan*maktalar*.
+  ru: Студенты готовятся к экзамену.
+  morphemes: öğrenci-ler sınav-a hazırlan-mak-ta-lar
+  gloss: студент-МН экзамен-ДАТ готовиться-ИНФ-МЕСТ-3МН
+- tr: Şirketimiz yirmi yıldır hizmet ver*mektedir*.
+  ru: Наша компания оказывает услуги уже двадцать лет.
+  morphemes: şirket-imiz yirmi yıl-dır hizmet ver-mek-te-dir
+  gloss: компания-1МН.ПРИТ двадцать год-ДЛИТ услуга давать-ИНФ-МЕСТ-СВЯЗ
+- tr: Çalışıyorum.
+  ru: Я работаю.
+  morphemes: çalış-ıyor-um
+  gloss: работать-НАСТ-1ЕД
+  note: В разговоре то же самое говорят в обычном настоящем времени.

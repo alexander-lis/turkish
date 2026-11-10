@@ -1,0 +1,38 @@
+- tr: Saat *kaç*?
+  ru: Который час?
+- tr: Saat *üç*.
+  ru: Три часа.
+- tr: Saat *üç buçuk*.
+  ru: Половина четвёртого.
+  note: Буквально «три с половиной».
+- tr: Saat *yarım*.
+  ru: Половина первого.
+  note: О 12:30 обычно говорят одним словом yarım — «половина».
+- tr: Saat üç*ü* on *geçiyor*.
+  ru: Десять минут четвёртого.
+  morphemes: saat üç-ü on geç-iyor
+  gloss: час три-ВИН десять проходить-НАСТ
+- tr: Saat dörd*e* çeyrek *var*.
+  ru: Без четверти четыре.
+  morphemes: saat dörd-e çeyrek var
+  gloss: час четыре-ДАТ четверть есть
+- tr: Saat *kaçta* buluşuyoruz?
+  ru: Во сколько мы встречаемся?
+  morphemes: saat kaç-ta buluş-uyor-uz
+  gloss: час сколько-МЕСТ встречаться-НАСТ-1МН
+- tr: Saat yedi*de* kalkıyorum.
+  ru: Я встаю в семь часов.
+  morphemes: saat yedi-de kalk-ıyor-um
+  gloss: час семь-МЕСТ вставать-НАСТ-1ЕД
+- tr: Ders dokuz buçuk*ta* başlıyor.
+  ru: Урок начинается в половине десятого.
+  morphemes: ders dokuz buçuk-ta başlı-yor
+  gloss: урок девять с.половиной-МЕСТ начинаться-НАСТ
+- tr: Film sekiz*i* on *geçe* başlıyor.
+  ru: Фильм начинается в десять минут девятого.
+  morphemes: film sekiz-i on geç-e başlı-yor
+  gloss: фильм восемь-ВИН десять проходить-ДЕЕПР начинаться-НАСТ
+- tr: Beş*e* on *kala* geliyorum.
+  ru: Я приду без десяти пять.
+  morphemes: beş-e on kal-a gel-iyor-um
+  gloss: пять-ДАТ десять оставаться-ДЕЕПР приходить-НАСТ-1ЕД

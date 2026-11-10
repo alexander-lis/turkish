@@ -125,6 +125,14 @@ class Abbreviation:
 
 
 @dataclass(frozen=True)
+class KnownWord:
+    """Верное слово, которого не знает анализатор, и причина, по которой оно в списке."""
+
+    word: str
+    reason: str
+
+
+@dataclass(frozen=True)
 class Catalog:
     """Весь проверенный контент справочника. Темы идут в порядке учебного маршрута."""
 

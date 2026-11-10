@@ -1,0 +1,42 @@
+- tr: öğrenci*ydi*m
+  ru: я *был* студентом
+  morphemes: öğrenci-ydi-m
+  gloss: студент-ПРОШ-1ЕД
+  note: После гласной перед аффиксом появляется y.
+- tr: doktor*du*
+  ru: он *был* врачом
+  morphemes: doktor-du
+  gloss: врач-ПРОШ
+- tr: genç*ti*k
+  ru: мы *были* молоды
+  morphemes: genç-ti-k
+  gloss: молодой-ПРОШ-1МН
+  note: После глухого ç аффикс начинается с t.
+- tr: Dün evde*ydi*m.
+  ru: Вчера я *был* дома.
+  morphemes: dün ev-de-ydi-m
+  gloss: вчера дом-МЕСТ-ПРОШ-1ЕД
+- tr: Hava çok güzel*di*.
+  ru: Погода *была* очень хорошая.
+  morphemes: hava çok güzel-di
+  gloss: погода очень хороший-ПРОШ
+- tr: Film nasıl*dı*?
+  ru: Каким *был* фильм?
+  morphemes: film nasıl-dı
+  gloss: фильм как-ПРОШ
+- tr: Hasta *mıydın*?
+  ru: Ты *был* болен?
+  morphemes: hasta mı-ydı-n
+  gloss: больной ВОПР-ПРОШ-2ЕД
+- tr: Dün okulda *değildiniz*.
+  ru: Вчера вас *не было* в школе.
+  morphemes: dün okul-da değil-di-niz
+  gloss: вчера школа-МЕСТ не-ПРОШ-2МН
+- tr: Param *yoktu*.
+  ru: У меня *не было* денег.
+  morphemes: para-m yok-tu
+  gloss: деньги-1ЕД.ПРИТ нет-ПРОШ
+- tr: Evde kimse var *mıydı*?
+  ru: Дома кто-нибудь *был*?
+  morphemes: ev-de kimse var mı-ydı
+  gloss: дом-МЕСТ кто.нибудь есть ВОПР-ПРОШ

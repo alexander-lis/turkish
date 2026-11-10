@@ -9,6 +9,7 @@ import yaml
 from turkish_grammar.content.errors import ContentIssue, InvalidContentError
 from turkish_grammar.content.loader import load_catalog
 from turkish_grammar.content.model import Catalog
+from turkish_grammar.content.turkish import turkish_lower
 
 DEFAULT_ABBREVIATIONS = {
     "МН": "множественное число",
@@ -118,9 +119,32 @@ class ContentBuilder:
         self.write("sections.yaml", yaml.safe_dump(entries, allow_unicode=True))
 
 
+class FakeAnalyzer:
+    """Подставной анализатор: отвергает только названные слова и помнит, о чём его спрашивали."""
+
+    def __init__(self) -> None:
+        self.asked: list[str] = []
+        self._rejected: set[str] = set()
+
+    def reject(self, *words: str) -> None:
+        self._rejected.update(turkish_lower(word) for word in words)
+
+    def __call__(self, word: str) -> bool:
+        self.asked.append(word)
+        return turkish_lower(word) not in self._rejected
+
+
 def has_issue(issues: Sequence[ContentIssue], path: str, *fragments: str) -> bool:
     """Есть ли ошибка в файле ``path``, сообщение которой содержит все ``fragments``."""
     return any(
         issue.path == path and all(fragment in issue.message for fragment in fragments)
         for issue in issues
+    )
+
+
+def report_names(report: str, path: str, *fragments: str) -> bool:
+    """Есть ли в отчёте команды строка о файле ``path``, в которой стоят все ``fragments``."""
+    return any(
+        f"/{path}: " in line and all(fragment in line for fragment in fragments)
+        for line in report.splitlines()
     )

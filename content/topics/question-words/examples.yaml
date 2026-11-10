@@ -1,0 +1,30 @@
+- tr: Bu *ne*?
+  ru: "*Что* это?"
+- tr: O *kim*?
+  ru: "*Кто* он?"
+- tr: "*Kaç* kişi?"
+  ru: "*Сколько* человек?"
+  note: После kaç существительное стоит в единственном числе.
+- tr: "*Hangi* otobüs?"
+  ru: "*Какой* автобус?"
+- tr: Bu *ne kadar*?
+  ru: "*Сколько* это стоит?"
+- tr: Sınav *ne zaman*?
+  ru: "*Когда* экзамен?"
+- tr: "*Nasıl*sın?"
+  ru: "*Как* ты?"
+  morphemes: nasıl-sın
+  gloss: как-2ЕД
+  note: Вопросительное слово принимает аффикс сказуемости, как любое имя.
+- tr: Okul *nerede*?
+  ru: "*Где* школа?"
+  morphemes: okul nere-de
+  gloss: школа какое.место-МЕСТ
+- tr: Bu çanta *kimin*?
+  ru: "*Чья* это сумка?"
+  morphemes: bu çanta kim-in
+  gloss: этот сумка кто-РОД
+- tr: "*Neden* evdesin?"
+  ru: "*Почему* ты дома?"
+  morphemes: neden ev-de-sin
+  gloss: почему дом-МЕСТ-2ЕД

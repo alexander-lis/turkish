@@ -18,7 +18,7 @@ FRONTMATTER_FENCE = "---"
 TOPIC_LINK_SCHEME = "topic:"
 EXTERNAL_LINK_SCHEMES = ("http://", "https://")
 
-_MARKDOWN = MarkdownIt("commonmark").enable(["table", "strikethrough"])
+MARKDOWN = MarkdownIt("commonmark").enable(["table", "strikethrough"])
 _KIND_BY_HEADING = {heading: kind for kind, heading in ARTICLE_TEMPLATE}
 _TEMPLATE_POSITION = {kind: position for position, (kind, _) in enumerate(ARTICLE_TEMPLATE)}
 _TEMPLATE_HEADINGS = ", ".join(f"«{heading}»" for _, heading in ARTICLE_TEMPLATE)
@@ -63,13 +63,13 @@ def split_frontmatter(text: str) -> tuple[str, str, int]:
 
 def parse_markdown_links(text: str, *, first_line: int = 1) -> ParsedMarkdown:
     """Найти в тексте ссылки на темы и ссылки с адресами, которые справочник не поддерживает."""
-    links, problems = _collect_links(_MARKDOWN.parse(text), first_line)
+    links, problems = _collect_links(MARKDOWN.parse(text), first_line)
     return ParsedMarkdown(topic_links=tuple(links), problems=tuple(problems))
 
 
 def parse_article(body: str, *, first_line: int = 1) -> ParsedArticle:
     """Разрезать текст статьи на блоки шаблона и собрать всё, что в нём не так."""
-    tokens = _MARKDOWN.parse(body)
+    tokens = MARKDOWN.parse(body)
     lines = body.splitlines()
     problems: list[str] = []
 

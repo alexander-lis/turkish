@@ -1,0 +1,37 @@
+- tr: "*güzel* ev"
+  ru: "*красивый* дом"
+- tr: "*güzel* evler"
+  ru: "*красивые* дома"
+  morphemes: güzel ev-ler
+  gloss: красивый дом-МН
+  note: Аффикс -lAr получает только существительное.
+- tr: "*büyük* evde"
+  ru: в *большом* доме
+  morphemes: büyük ev-de
+  gloss: большой дом-МЕСТ
+- tr: "*küçük beyaz* kedi"
+  ru: "*маленькая белая* кошка"
+- tr: Ev *güzel*.
+  ru: Дом *красивый*.
+- tr: Çay *sıcak*, su *soğuk*.
+  ru: Чай *горячий*, вода *холодная*.
+- tr: Çok *yorgun*um.
+  ru: Я очень *устал*.
+  morphemes: çok yorgun-um
+  gloss: очень усталый-1ЕД
+  note: Прилагательное в роли сказуемого принимает аффикс сказуемости.
+- tr: Bu çok *iyi* bir film.
+  ru: Это очень *хороший* фильм.
+- tr: "*Yeni* arabam çok *hızlı*."
+  ru: Моя *новая* машина очень *быстрая*.
+  morphemes: yeni araba-m çok hızlı
+  gloss: новый машина-1ЕД.ПРИТ очень быстрый
+- tr: "*Genç*ler parkta."
+  ru: "*Молодые* люди в парке."
+  morphemes: genç-ler park-ta
+  gloss: молодой-МН парк-МЕСТ
+  note: Существительного нет, поэтому -lAr принимает само прилагательное.
+- tr: "*Eski* kitapları okuyorum."
+  ru: Я читаю эти *старые* книги.
+  morphemes: eski kitap-lar-ı oku-yor-um
+  gloss: старый книга-МН-ВИН читать-НАСТ-1ЕД

@@ -1,0 +1,43 @@
+- tr: bekl*i*yor
+  ru: он ждёт
+  morphemes: bekli-yor
+  gloss: ждать-НАСТ
+  note: Основа bekle-; перед -yor конечная e стала i.
+- tr: anl*ı*yorum
+  ru: я понимаю
+  morphemes: anlı-yor-um
+  gloss: понимать-НАСТ-1ЕД
+- tr: oyn*u*yor
+  ru: он играет
+  morphemes: oynu-yor
+  gloss: играть-НАСТ
+  note: Предыдущая гласная o — с округлёнными губами, поэтому a стала u.
+- tr: söyl*ü*yorsun
+  ru: ты говоришь
+  morphemes: söylü-yor-sun
+  gloss: говорить-НАСТ-2ЕД
+- tr: gelm*i*yor
+  ru: он не приходит
+  morphemes: gel-mi-yor
+  gloss: приходить-ОТР-НАСТ
+  note: Сузилась гласная аффикса отрицания -me.
+- tr: okum*u*yorum
+  ru: я не читаю
+  morphemes: oku-mu-yor-um
+  gloss: читать-ОТР-НАСТ-1ЕД
+- tr: Ne d*i*yorsun?
+  ru: Что ты говоришь?
+  morphemes: ne di-yor-sun
+  gloss: что сказать-НАСТ-2ЕД
+- tr: Çocuk elma y*i*yor.
+  ru: Ребёнок ест яблоко.
+  morphemes: çocuk elma yi-yor
+  gloss: ребёнок яблоко есть-НАСТ
+- tr: Otobüs bekl*i*yoruz.
+  ru: Мы ждём автобус.
+  morphemes: otobüs bekli-yor-uz
+  gloss: автобус ждать-НАСТ-1МН
+- tr: Seni anlam*ı*yorum.
+  ru: Я тебя не понимаю.
+  morphemes: sen-i anla-mı-yor-um
+  gloss: ты-ВИН понимать-ОТР-НАСТ-1ЕД

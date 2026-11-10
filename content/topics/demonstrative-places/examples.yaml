@@ -1,0 +1,41 @@
+- tr: bura*da*
+  ru: здесь
+  morphemes: bura-da
+  gloss: это.место-МЕСТ
+- tr: ora*ya*
+  ru: туда
+  morphemes: ora-ya
+  gloss: то.место-ДАТ
+- tr: şura*dan*
+  ru: вон оттуда
+  morphemes: şura-dan
+  gloss: вон.то.место-ИСХ
+- tr: Bura*da* bekliyorum.
+  ru: Я жду *здесь*.
+  morphemes: bura-da bekli-yor-um
+  gloss: это.место-МЕСТ ждать-НАСТ-1ЕД
+- tr: Ora*ya* gidiyoruz.
+  ru: Мы идём *туда*.
+  morphemes: ora-ya gid-iyor-uz
+  gloss: то.место-ДАТ идти-НАСТ-1МН
+- tr: Tuvalet şura*da*.
+  ru: Туалет *вон там*.
+  morphemes: tuvalet şura-da
+  gloss: туалет вон.то.место-МЕСТ
+- tr: Bura*dan* uzak mı?
+  ru: Это далеко *отсюда*?
+  morphemes: bura-dan uzak mı
+  gloss: это.место-ИСХ далёкий ВОПР
+- tr: Bura*sı* çok güzel.
+  ru: "*Здесь* очень красиво."
+  morphemes: bura-sı çok güzel
+  gloss: это.место-3ЕД.ПРИТ очень красивый
+  note: Буквально «это место очень красивое».
+- tr: Bura*sı* nere*si*?
+  ru: Что это за место?
+  morphemes: bura-sı nere-si
+  gloss: это.место-3ЕД.ПРИТ какое.место-3ЕД.ПРИТ
+- tr: Nere*de* oturuyorsun?
+  ru: "*Где* ты живёшь?"
+  morphemes: nere-de otur-uyor-sun
+  gloss: какое.место-МЕСТ жить-НАСТ-2ЕД

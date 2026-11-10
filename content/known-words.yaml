@@ -1,0 +1,10 @@
+- word: durmaksızın
+  reason: Деепричастие на -mAksIzIn от durmak; аффикс книжный, и анализатор его не знает.
+- word: görülesi
+  reason: Причастие на -(y)AsI от görülmek; аффикс редкий, и анализатор его не знает.
+- word: göresim
+  reason: Причастие на -(y)AsI от görmek с аффиксом принадлежности, из оборота göresim geldi.
+- word: mitap
+  reason: Вторая половина удвоения kitap mitap; отдельно это слово не употребляется.
+- word: sizce
+  reason: Местоимение siz с аффиксом -CA — «по-вашему»; анализатор этой формы не знает.

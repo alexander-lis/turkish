@@ -24,6 +24,7 @@ dev = [
     "pytest>=9.2.0",
     "ruff>=0.17.4",
     "types-pyyaml>=6.0.12.20261103",
+    "zeyrek==0.1.2",
 ]
 
 [tool.ruff]
@@ -40,6 +41,11 @@ ignore = ["RUF001", "RUF002", "RUF003"]
 strict = true
 files = ["src", "tests"]
 plugins = ["pydantic.mypy"]
+
+[[tool.mypy.overrides]]
+# У морфологического анализатора нет аннотаций типов.
+module = ["zeyrek"]
+ignore_missing_imports = true
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

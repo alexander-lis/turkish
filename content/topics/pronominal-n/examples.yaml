@@ -1,0 +1,43 @@
+- tr: evi*n*de
+  ru: в его доме
+  morphemes: ev-i-nde
+  gloss: дом-3ЕД.ПРИТ-МЕСТ
+- tr: arabası*n*a
+  ru: в его машину
+  morphemes: araba-sı-na
+  gloss: машина-3ЕД.ПРИТ-ДАТ
+  note: В дательном падеже n стоит на месте обычного y.
+- tr: kitabı*n*ı
+  ru: его книгу
+  morphemes: kitab-ı-nı
+  gloss: книга-3ЕД.ПРИТ-ВИН
+- tr: Ali'nin evi*n*de kalıyoruz.
+  ru: Мы остановились в доме Али.
+  morphemes: ali-nin ev-i-nde kal-ıyor-uz
+  gloss: Али-РОД дом-3ЕД.ПРИТ-МЕСТ оставаться-НАСТ-1МН
+- tr: Annesi*n*e çiçek alıyor.
+  ru: Он покупает цветы своей маме.
+  morphemes: anne-si-ne çiçek al-ıyor
+  gloss: мама-3ЕД.ПРИТ-ДАТ цветок покупать-НАСТ
+- tr: Otobüs durağı*n*da bekliyorum.
+  ru: Я жду на автобусной остановке.
+  morphemes: otobüs durağ-ı-nda bekli-yor-um
+  gloss: автобус остановка-3ЕД.ПРИТ-МЕСТ ждать-НАСТ-1ЕД
+  note: Неопределённый изафет тоже кончается на аффикс принадлежности 3-го лица.
+- tr: Türk kahvesi*n*i çok seviyorum.
+  ru: Я очень люблю турецкий кофе.
+  morphemes: türk kahve-si-ni çok sev-iyor-um
+  gloss: турок кофе-3ЕД.ПРИТ-ВИН очень любить-НАСТ-1ЕД
+- tr: Okulun bahçesi*n*den geliyorum.
+  ru: Я иду со двора школы.
+  morphemes: okul-un bahçe-si-nden gel-iyor-um
+  gloss: школа-РОД сад-3ЕД.ПРИТ-ИСХ приходить-НАСТ-1ЕД
+- tr: Çocuklar odaları*n*da oynuyor.
+  ru: Дети играют в своей комнате.
+  morphemes: çocuk-lar oda-ları-nda oynu-yor
+  gloss: ребёнок-МН комната-3МН.ПРИТ-МЕСТ играть-НАСТ
+- tr: Arabasıyla geliyor.
+  ru: Он едет на своей машине.
+  morphemes: araba-sı-yla gel-iyor
+  gloss: машина-3ЕД.ПРИТ-ОРУД приходить-НАСТ
+  note: Перед -(y)lA вставного n нет.

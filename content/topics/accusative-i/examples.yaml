@@ -1,0 +1,48 @@
+- tr: ev*i*
+  ru: этот дом
+  morphemes: ev-i
+  gloss: дом-ВИН
+- tr: araba*yı*
+  ru: эту машину
+  morphemes: araba-yı
+  gloss: машина-ВИН
+  note: После гласной перед аффиксом появляется y.
+- tr: kitab*ı*
+  ru: эту книгу
+  morphemes: kitab-ı
+  gloss: книга-ВИН
+  note: Конечное p основы перед гласной стало b.
+- tr: Kitab*ı* okuyorum.
+  ru: Я читаю *эту книгу*.
+  morphemes: kitab-ı oku-yor-um
+  gloss: книга-ВИН читать-НАСТ-1ЕД
+- tr: Kitap okuyorum.
+  ru: Я читаю книгу.
+  morphemes: kitap oku-yor-um
+  gloss: книга читать-НАСТ-1ЕД
+  note: Книга любая, поэтому аффикса нет.
+- tr: Ali'*yi* tanıyor musun?
+  ru: Ты знаешь *Али*?
+  morphemes: ali-yi tanı-yor mu-sun
+  gloss: Али-ВИН знать-НАСТ ВОПР-2ЕД
+- tr: On*u* görmüyorum.
+  ru: Я *его* не вижу.
+  morphemes: on-u gör-mü-yor-um
+  gloss: он-ВИН видеть-ОТР-НАСТ-1ЕД
+- tr: Bu film*i* çok seviyorum.
+  ru: Я очень люблю этот *фильм*.
+  morphemes: bu film-i çok sev-iyor-um
+  gloss: этот фильм-ВИН очень любить-НАСТ-1ЕД
+- tr: Annem*i* çok seviyorum.
+  ru: Я очень люблю свою *маму*.
+  morphemes: anne-m-i çok sev-iyor-um
+  gloss: мама-1ЕД.ПРИТ-ВИН очень любить-НАСТ-1ЕД
+  note: У предмета есть владелец — «моя», поэтому он определённый и винительный падеж обязателен.
+- tr: Soru*yu* anlamıyorum.
+  ru: Я не понимаю *вопрос*.
+  morphemes: soru-yu anla-mı-yor-um
+  gloss: вопрос-ВИН понимать-ОТР-НАСТ-1ЕД
+- tr: Otobüs*ü* bekliyoruz.
+  ru: Мы ждём *автобус*.
+  morphemes: otobüs-ü bekli-yor-uz
+  gloss: автобус-ВИН ждать-НАСТ-1МН

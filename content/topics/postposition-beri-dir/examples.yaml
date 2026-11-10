@@ -1,0 +1,41 @@
+- tr: pazartesiden *beri*
+  ru: "*с* понедельника"
+  morphemes: pazartesi-den beri
+  gloss: понедельник-ИСХ начиная
+- tr: iki yıl*dır*
+  ru: "*уже* два года"
+  morphemes: iki yıl-dır
+  gloss: два год-ДЛИТ
+- tr: üç gün*dür*
+  ru: "*уже* три дня"
+  morphemes: üç gün-dür
+  gloss: три день-ДЛИТ
+- tr: İki yıl*dır* Türkçe öğreniyorum.
+  ru: Я *уже* два года учу турецкий.
+  morphemes: iki yıl-dır türkçe öğren-iyor-um
+  gloss: два год-ДЛИТ турецкий.язык учить-НАСТ-1ЕД
+- tr: Sabahtan *beri* çalışıyorum.
+  ru: Я работаю *с* утра.
+  morphemes: sabah-tan beri çalış-ıyor-um
+  gloss: утро-ИСХ начиная работать-НАСТ-1ЕД
+- tr: 2020'den *beri* burada çalışıyorum.
+  ru: Я работаю здесь *с* 2020 года.
+  morphemes: 2020-den beri bura-da çalış-ıyor-um
+  gloss: 2020-ИСХ начиная это.место-МЕСТ работать-НАСТ-1ЕД
+- tr: Ne zamandan *beri* buradasınız?
+  ru: "*С* каких пор вы здесь?"
+  morphemes: ne zaman-dan beri bura-da-sınız
+  gloss: какой время-ИСХ начиная это.место-МЕСТ-2МН
+- tr: Kaç yıl*dır* İstanbul'da yaşıyorsun?
+  ru: Сколько лет ты *уже* живёшь в Стамбуле?
+  morphemes: kaç yıl-dır istanbul-da yaşı-yor-sun
+  gloss: сколько год-ДЛИТ Стамбул-МЕСТ жить-НАСТ-2ЕД
+- tr: Beş saat*tir* bekliyoruz.
+  ru: Мы ждём *уже* пять часов.
+  morphemes: beş saat-tir bekli-yor-uz
+  gloss: пять час-ДЛИТ ждать-НАСТ-1МН
+  note: Слово saat берёт аффикс с передней гласной; после глухого t он начинается с t.
+- tr: "*Uzun zamandır* görüşmüyoruz."
+  ru: Мы *давно* не видимся.
+  morphemes: uzun zaman-dır görüş-mü-yor-uz
+  gloss: длинный время-ДЛИТ видеться-ОТР-НАСТ-1МН

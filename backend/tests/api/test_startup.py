@@ -40,6 +40,22 @@ def test_server_starts_with_valid_content(content: ContentBuilder) -> None:
     assert [topic.id for topic in app.state.catalog.topics] == ["vowel-harmony"]
 
 
+def test_server_starts_when_content_has_unrecognized_word(content: ContentBuilder) -> None:
+    """Требование «Проверка словоформ не блокирует сервер»."""
+    content.topic(
+        "plural-lar",
+        article="## Формула\n\nОснова и аффикс.\n",
+        examples="- tr: Kitaplerde resim var.\n  ru: В книгах есть картинки.\n",
+    )
+    app = create_app(Settings(content_dir=content.root))
+
+    with TestClient(app) as client:
+        response = client.get("/api/topics/plural-lar")
+
+    assert response.status_code == 200
+    assert response.json()["examples"][0]["tr"]["text"] == "Kitaplerde resim var."
+
+
 def test_content_directory_comes_from_environment(
     content: ContentBuilder, monkeypatch: pytest.MonkeyPatch
 ) -> None:

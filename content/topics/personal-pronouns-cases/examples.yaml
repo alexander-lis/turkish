@@ -1,0 +1,43 @@
+- tr: ben*i*
+  ru: меня
+  morphemes: ben-i
+  gloss: я-ВИН
+- tr: san*a*
+  ru: тебе
+  morphemes: san-a
+  gloss: ты-ДАТ
+  note: В дательном падеже основа sen- превращается в san-.
+- tr: on*dan*
+  ru: от него
+  morphemes: on-dan
+  gloss: он-ИСХ
+  note: У местоимения o перед падежным аффиксом появляется n.
+- tr: Ben*i* anlıyor musun?
+  ru: Ты *меня* понимаешь?
+  morphemes: ben-i anlı-yor mu-sun
+  gloss: я-ВИН понимать-НАСТ ВОПР-2ЕД
+- tr: San*a* bir şey söylemek istiyorum.
+  ru: Я хочу *тебе* кое-что сказать.
+  morphemes: san-a bir şey söyle-mek isti-yor-um
+  gloss: ты-ДАТ один вещь сказать-ИНФ хотеть-НАСТ-1ЕД
+- tr: Kitap siz*de* mi?
+  ru: Книга *у вас*?
+  morphemes: kitap siz-de mi
+  gloss: книга вы-МЕСТ ВОПР
+- tr: Onlar*la* konuşuyorum.
+  ru: Я разговариваю *с ними*.
+  morphemes: onlar-la konuş-uyor-um
+  gloss: они-ОРУД говорить-НАСТ-1ЕД
+  note: Местоимение onlar перед -(y)lA стоит в основной форме, а не в родительном падеже.
+- tr: Biz*den* ne istiyorsunuz?
+  ru: Чего вы *от нас* хотите?
+  morphemes: biz-den ne isti-yor-sunuz
+  gloss: мы-ИСХ что хотеть-НАСТ-2МН
+- tr: Bu biz*im* evimiz.
+  ru: Это *наш* дом.
+  morphemes: bu biz-im ev-imiz
+  gloss: это мы-РОД дом-1МН.ПРИТ
+- tr: Benim*le* geliyor musun?
+  ru: Ты идёшь *со мной*?
+  morphemes: ben-im-le gel-iyor mu-sun
+  gloss: я-РОД-ОРУД приходить-НАСТ ВОПР-2ЕД

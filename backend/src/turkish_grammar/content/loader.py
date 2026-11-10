@@ -23,6 +23,7 @@ from turkish_grammar.content.errors import ContentFormatError, ContentIssue, Inv
 from turkish_grammar.content.files import (
     AbbreviationEntry,
     ExampleEntry,
+    KnownWordEntry,
     SectionEntry,
     TopicMeta,
     describe_validation_error,
@@ -43,10 +44,12 @@ from turkish_grammar.content.model import (
     Catalog,
     Example,
     GlossedWord,
+    KnownWord,
     MarkedText,
     Section,
     Topic,
 )
+from turkish_grammar.content.turkish import turkish_lower
 
 TOPICS_DIR = "topics"
 TOPIC_FILE = "topic.md"
@@ -55,6 +58,7 @@ SECTIONS_FILE = "sections.yaml"
 PATH_FILE = "path.yaml"
 ABBREVIATIONS_FILE = "abbreviations.yaml"
 NOTATION_FILE = "notation.md"
+KNOWN_WORDS_FILE = "known-words.yaml"
 
 _ID_RULE = "допустимы строчные латинские буквы, цифры и дефисы между ними"
 
@@ -120,6 +124,33 @@ def load_catalog(content_dir: Path) -> Catalog:
         abbreviations=abbreviations,
         notation_markdown=notation.markdown,
     )
+
+
+def load_known_words(content_dir: Path) -> tuple[tuple[KnownWord, ...], tuple[ContentIssue, ...]]:
+    """Прочитать список известных слов и собрать ошибки в нём самом.
+
+    Файла может не быть: тогда список пуст. В проверку целостности список не входит,
+    поэтому ошибки возвращаются, а не бросаются.
+    """
+    report = _Report()
+    items = _read_yaml_list(content_dir, KNOWN_WORDS_FILE, report, required=False) or []
+    words: list[KnownWord] = []
+    seen: set[str] = set()
+    for number, item in enumerate(items, 1):
+        entry = _validate(
+            KnownWordEntry, item, KNOWN_WORDS_FILE, report, where=f"запись {number}: "
+        )
+        if entry is None:
+            continue
+        reason = (entry.reason or "").strip()
+        if not reason:
+            report.add(KNOWN_WORDS_FILE, f"слово «{entry.word}»: не указана причина")
+        if turkish_lower(entry.word) in seen:
+            report.add(KNOWN_WORDS_FILE, f"слово «{entry.word}» записано больше одного раза")
+            continue
+        seen.add(turkish_lower(entry.word))
+        words.append(KnownWord(word=entry.word, reason=reason))
+    return tuple(words), tuple(report.issues)
 
 
 # --- Первый проход: каждый файл сам по себе ---

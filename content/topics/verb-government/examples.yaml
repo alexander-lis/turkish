@@ -1,0 +1,46 @@
+- tr: Öğretmen*i* dinliyorum.
+  ru: Я слушаю *учителя*.
+  morphemes: öğretmen-i dinli-yor-um
+  gloss: учитель-ВИН слушать-НАСТ-1ЕД
+- tr: Sen*i* akşam arıyorum.
+  ru: Я позвоню *тебе* вечером.
+  morphemes: sen-i akşam arı-yor-um
+  gloss: ты-ВИН вечер звонить-НАСТ-1ЕД
+  note: Глагол aramak требует винительного падежа, хотя в русском «звонить кому».
+- tr: Kedi*ye* bakıyorum.
+  ru: Я смотрю *на кошку*.
+  morphemes: kedi-ye bak-ıyor-um
+  gloss: кошка-ДАТ смотреть-НАСТ-1ЕД
+  note: Глагол bakmak требует дательного падежа.
+- tr: Ders*e* başlıyoruz.
+  ru: Мы начинаем *урок*.
+  morphemes: ders-e başlı-yor-uz
+  gloss: урок-ДАТ начинать-НАСТ-1МН
+- tr: Öğretmen*e* soruyorum.
+  ru: Я спрашиваю *у учителя*.
+  morphemes: öğretmen-e sor-uyor-um
+  gloss: учитель-ДАТ спрашивать-НАСТ-1ЕД
+- tr: Otobüs*e* biniyoruz.
+  ru: Мы садимся *в автобус*.
+  morphemes: otobüs-e bin-iyor-uz
+  gloss: автобус-ДАТ садиться-НАСТ-1МН
+- tr: Bir banka*da* çalışıyorum.
+  ru: Я работаю *в банке*.
+  morphemes: bir banka-da çalış-ıyor-um
+  gloss: один банк-МЕСТ работать-НАСТ-1ЕД
+- tr: Otobüs*ten* iniyoruz.
+  ru: Мы выходим *из автобуса*.
+  morphemes: otobüs-ten in-iyor-uz
+  gloss: автобус-ИСХ выходить-НАСТ-1МН
+- tr: Karanlık*tan* korkuyor.
+  ru: Он боится *темноты*.
+  morphemes: karanlık-tan kork-uyor
+  gloss: темнота-ИСХ бояться-НАСТ
+- tr: Bu şarkı*dan* hoşlanıyorum.
+  ru: Мне нравится эта *песня*.
+  morphemes: bu şarkı-dan hoşlan-ıyor-um
+  gloss: этот песня-ИСХ нравиться-НАСТ-1ЕД
+- tr: Arkadaşım*la* buluşuyorum.
+  ru: Я встречаюсь *с другом*.
+  morphemes: arkadaş-ım-la buluş-uyor-um
+  gloss: друг-1ЕД.ПРИТ-ОРУД встречаться-НАСТ-1ЕД

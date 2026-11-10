@@ -1,0 +1,35 @@
+- tr: Su *var*.
+  ru: Вода *есть*.
+- tr: Bir kedim *var*.
+  ru: У меня *есть* кошка.
+  morphemes: bir kedi-m var
+  gloss: один кошка-1ЕД.ПРИТ есть
+  note: С аффиксом принадлежности var сообщает об обладании.
+- tr: Sorun *yok*.
+  ru: Проблем *нет*.
+- tr: Bugün ders *yok*.
+  ru: Сегодня уроков *нет*.
+- tr: Masada kitap *var*.
+  ru: На столе *есть* книга.
+  morphemes: masa-da kitap var
+  gloss: стол-МЕСТ книга есть
+- tr: Evde ekmek *yok*.
+  ru: Дома *нет* хлеба.
+  morphemes: ev-de ekmek yok
+  gloss: дом-МЕСТ хлеб нет
+- tr: Çantada ne *var*?
+  ru: Что *есть* в сумке?
+  morphemes: çanta-da ne var
+  gloss: сумка-МЕСТ что есть
+- tr: Burada banka *var mı*?
+  ru: Здесь *есть* банк?
+  morphemes: bura-da banka var mı
+  gloss: это.место-МЕСТ банк есть ВОПР
+- tr: Evde süt *yok mu*?
+  ru: Дома *нет* молока?
+  morphemes: ev-de süt yok mu
+  gloss: дом-МЕСТ молоко нет ВОПР
+- tr: Sınıfta kimse *yok*.
+  ru: В классе никого *нет*.
+  morphemes: sınıf-ta kimse yok
+  gloss: класс-МЕСТ никто нет

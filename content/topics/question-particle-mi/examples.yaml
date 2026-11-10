@@ -1,0 +1,33 @@
+- tr: Kitap *mı*?
+  ru: Книга?
+  morphemes: kitap mı
+  gloss: книга ВОПР
+- tr: Ev *mi*?
+  ru: Дом?
+- tr: Okul *mu*?
+  ru: Школа?
+- tr: Otobüs *mü*?
+  ru: Автобус?
+- tr: Bu kalem *mi*?
+  ru: Это ручка?
+- tr: Öğrenci *misin*?
+  ru: Ты студент?
+  morphemes: öğrenci mi-sin
+  gloss: студент ВОПР-2ЕД
+  note: Аффикс сказуемости присоединяется к частице.
+- tr: Hazır *mıyız*?
+  ru: Мы готовы?
+  morphemes: hazır mı-yız
+  gloss: готовый ВОПР-1МН
+  note: После гласной частицы перед аффиксом появляется y.
+- tr: Yorgun *musunuz*?
+  ru: Вы устали?
+  morphemes: yorgun mu-sunuz
+  gloss: усталый ВОПР-2МН
+- tr: Ali evde *mi*?
+  ru: Али дома?
+  morphemes: ali ev-de mi
+  gloss: Али дом-МЕСТ ВОПР
+- tr: Ali *mi* öğrenci?
+  ru: Студент — это Али?
+  note: Частица стоит после слова, о котором спрашивают.

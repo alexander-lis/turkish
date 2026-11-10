@@ -1,0 +1,41 @@
+- tr: gitmek *istiyorum*
+  ru: я *хочу* пойти
+  morphemes: git-mek isti-yor-um
+  gloss: идти-ИНФ хотеть-НАСТ-1ЕД
+- tr: Çay *istiyorum*.
+  ru: Я *хочу* чаю.
+  morphemes: çay isti-yor-um
+  gloss: чай хотеть-НАСТ-1ЕД
+  note: С существительным инфинитив не нужен.
+- tr: Dinlenmek *istiyorum*.
+  ru: Я *хочу* отдохнуть.
+  morphemes: dinlen-mek isti-yor-um
+  gloss: отдыхать-ИНФ хотеть-НАСТ-1ЕД
+- tr: Türkçe öğrenmek *istiyorum*.
+  ru: Я *хочу* выучить турецкий.
+  morphemes: türkçe öğren-mek isti-yor-um
+  gloss: турецкий.язык учить-ИНФ хотеть-НАСТ-1ЕД
+- tr: Ne yemek *istiyorsun*?
+  ru: Что ты *хочешь* съесть?
+  morphemes: ne ye-mek isti-yor-sun
+  gloss: что есть-ИНФ хотеть-НАСТ-2ЕД
+- tr: Ali doktor olmak *istiyor*.
+  ru: Али *хочет* стать врачом.
+  morphemes: ali doktor ol-mak isti-yor
+  gloss: Али врач становиться-ИНФ хотеть-НАСТ
+- tr: Çocuklar oynamak *istiyor*.
+  ru: Дети *хотят* играть.
+  morphemes: çocuk-lar oyna-mak isti-yor
+  gloss: ребёнок-МН играть-ИНФ хотеть-НАСТ
+- tr: Bir şey sormak *istiyorum*.
+  ru: Я *хочу* кое-что спросить.
+  morphemes: bir şey sor-mak isti-yor-um
+  gloss: один вещь спрашивать-ИНФ хотеть-НАСТ-1ЕД
+- tr: Bugün dışarı çıkmak *istemiyorum*.
+  ru: Сегодня я *не хочу* выходить на улицу.
+  morphemes: bugün dışarı çık-mak iste-mi-yor-um
+  gloss: сегодня наружу выходить-ИНФ хотеть-ОТР-НАСТ-1ЕД
+- tr: Sinemaya gitmek *istiyor musunuz*?
+  ru: Вы *хотите* пойти в кино?
+  morphemes: sinema-ya git-mek isti-yor mu-sunuz
+  gloss: кино-ДАТ идти-ИНФ хотеть-НАСТ ВОПР-2МН

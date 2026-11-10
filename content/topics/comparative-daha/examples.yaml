@@ -1,0 +1,37 @@
+- tr: "*daha* büyük"
+  ru: больше
+- tr: evden *daha* büyük
+  ru: больше дома
+  morphemes: ev-den daha büyük
+  gloss: дом-ИСХ более большой
+- tr: Ayşe Ali'den *daha* uzun.
+  ru: Айше выше Али.
+  morphemes: ayşe ali-den daha uzun
+  gloss: Айше Али-ИСХ более высокий
+  note: О росте человека uzun значит «высокий».
+- tr: Bugün dünden *daha* sıcak.
+  ru: Сегодня жарче, чем вчера.
+  morphemes: bugün dün-den daha sıcak
+  gloss: сегодня вчера-ИСХ более жаркий
+- tr: Bu ev bizimki*nden* büyük.
+  ru: Этот дом больше нашего.
+  morphemes: bu ev biz-im-ki-nden büyük
+  gloss: этот дом мы-РОД-ОТН-ИСХ большой
+  note: При исходном падеже слово daha можно опустить.
+- tr: Sen benden *daha* iyi konuşuyorsun.
+  ru: Ты говоришь лучше меня.
+  morphemes: sen ben-den daha iyi konuş-uyor-sun
+  gloss: ты я-ИСХ более хорошо говорить-НАСТ-2ЕД
+- tr: Bu *çok daha* ucuz.
+  ru: Это *гораздо дешевле*.
+- tr: "*Daha* yavaş konuşun lütfen."
+  ru: Говорите помедленнее, пожалуйста.
+  morphemes: daha yavaş konuş-un lütfen
+  gloss: более медленно говорить-ПОВ.2МН пожалуйста
+- tr: Bu otel *daha az* pahalı.
+  ru: Эта гостиница *менее* дорогая.
+- tr: "*Daha çok* su iç."
+  ru: Пей *больше* воды.
+- tr: Bir çay *daha* lütfen.
+  ru: "*Ещё* один чай, пожалуйста."
+  note: После названного количества daha значит «ещё».

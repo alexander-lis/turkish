@@ -1,0 +1,41 @@
+- tr: pazartesi *günü*
+  ru: в понедельник
+  morphemes: pazartesi gün-ü
+  gloss: понедельник день-3ЕД.ПРИТ
+- tr: mart*ta*
+  ru: в марте
+  morphemes: mart-ta
+  gloss: март-МЕСТ
+- tr: "*5* Mayıs"
+  ru: "*пятое* мая"
+  note: Число в дате количественное — читается beş Mayıs.
+- tr: "*Pazartesi* geliyorum."
+  ru: Я приезжаю *в понедельник*.
+  morphemes: pazartesi gel-iyor-um
+  gloss: понедельник приходить-НАСТ-1ЕД
+  note: День недели отвечает на вопрос «когда?» без аффикса.
+- tr: Bugün ayın *kaçı*?
+  ru: Какое сегодня *число*?
+  morphemes: bugün ay-ın kaç-ı
+  gloss: сегодня месяц-РОД сколько-3ЕД.ПРИТ
+- tr: Cumartesi *günü* sinemaya gidiyoruz.
+  ru: В субботу мы идём в кино.
+  morphemes: cumartesi gün-ü sinema-ya gid-iyor-uz
+  gloss: суббота день-3ЕД.ПРИТ кино-ДАТ идти-НАСТ-1МН
+- tr: Pazar*ları* çalışmıyorum.
+  ru: По воскресеньям я не работаю.
+  morphemes: pazar-lar-ı çalış-mı-yor-um
+  gloss: воскресенье-МН-3ЕД.ПРИТ работать-ОТР-НАСТ-1ЕД
+- tr: Doğum günüm 5 Mayıs'*ta*.
+  ru: Мой день рождения пятого мая.
+  morphemes: doğum gün-üm 5 mayıs-ta
+  gloss: рождение день-1ЕД.ПРИТ 5 май-МЕСТ
+  note: В точной дате месяц пишут с заглавной буквы, а аффикс отделяют апострофом.
+- tr: 2020'*de* İstanbul'a geldim.
+  ru: В 2020 году я приехал в Стамбул.
+  morphemes: 2020-de istanbul-a gel-di-m
+  gloss: 2020-МЕСТ Стамбул-ДАТ приходить-ПРОШ-1ЕД
+- tr: "*Yazın* denize gidiyoruz."
+  ru: "*Летом* мы ездим на море."
+  morphemes: yazın deniz-e gid-iyor-uz
+  gloss: летом море-ДАТ идти-НАСТ-1МН

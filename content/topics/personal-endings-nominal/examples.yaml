@@ -1,0 +1,43 @@
+- tr: doktor*um*
+  ru: я врач
+  morphemes: doktor-um
+  gloss: врач-1ЕД
+- tr: öğrenci*yim*
+  ru: я студент
+  morphemes: öğrenci-yim
+  gloss: студент-1ЕД
+  note: После гласной перед аффиксом появляется соединительный y.
+- tr: Üzgün*üm*.
+  ru: Мне жаль.
+  morphemes: üzgün-üm
+  gloss: грустный-1ЕД
+  note: Буквально «я грустный»; так извиняются и выражают сожаление.
+- tr: Yorgun*sun*.
+  ru: Ты устал.
+  morphemes: yorgun-sun
+  gloss: усталый-2ЕД
+- tr: O öğretmen.
+  ru: Он учитель.
+  note: В третьем лице аффикса нет.
+- tr: Biz arkadaş*ız*.
+  ru: Мы друзья.
+  morphemes: biz arkadaş-ız
+  gloss: мы друг-1МН
+- tr: Evde*yiz*.
+  ru: Мы дома.
+  morphemes: ev-de-yiz
+  gloss: дом-МЕСТ-1МН
+  note: Аффикс сказуемости стоит после падежного.
+- tr: Çok nazik*siniz*.
+  ru: Вы очень любезны.
+  morphemes: çok nazik-siniz
+  gloss: очень любезный-2МН
+- tr: Onlar öğrenci*ler*.
+  ru: Они студенты.
+  morphemes: onlar öğrenci-ler
+  gloss: они студент-3МН
+  note: Аффикс -lAr здесь можно опустить — Onlar öğrenci.
+- tr: Hasta*yım*, evde*yim*.
+  ru: Я болен, я дома.
+  morphemes: hasta-yım ev-de-yim
+  gloss: больной-1ЕД дом-МЕСТ-1ЕД

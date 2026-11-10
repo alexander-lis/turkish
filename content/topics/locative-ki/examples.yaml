@@ -1,0 +1,43 @@
+- tr: evde*ki* kedi
+  ru: кошка, *которая дома*
+  morphemes: ev-de-ki kedi
+  gloss: дом-МЕСТ-ОТН кошка
+- tr: masada*ki* kitap
+  ru: книга *на столе*
+  morphemes: masa-da-ki kitap
+  gloss: стол-МЕСТ-ОТН книга
+- tr: bugün*kü* ders
+  ru: "*сегодняшний* урок"
+  morphemes: bugün-kü ders
+  gloss: сегодня-ОТН урок
+  note: После gün аффикс звучит как -kü.
+- tr: yarın*ki* sınav
+  ru: "*завтрашний* экзамен"
+  morphemes: yarın-ki sınav
+  gloss: завтра-ОТН экзамен
+- tr: Masada*ki* kitap benim.
+  ru: Книга *на столе* — моя.
+  morphemes: masa-da-ki kitap ben-im
+  gloss: стол-МЕСТ-ОТН книга я-РОД
+- tr: Bugün*kü* hava çok güzel.
+  ru: "*Сегодня* погода очень хорошая."
+  morphemes: bugün-kü hava çok güzel
+  gloss: сегодня-ОТН погода очень хороший
+  note: Буквально «сегодняшняя погода».
+- tr: Yanımda*ki* adam doktor.
+  ru: Человек *рядом со мной* — врач.
+  morphemes: yan-ım-da-ki adam doktor
+  gloss: бок-1ЕД.ПРИТ-МЕСТ-ОТН человек врач
+- tr: Burada*ki* insanlar çok nazik.
+  ru: "*Здешние* люди очень любезны."
+  morphemes: bura-da-ki insan-lar çok nazik
+  gloss: это.место-МЕСТ-ОТН человек-МН очень любезный
+- tr: İstanbul'da*ki* arkadaşım geliyor.
+  ru: Приезжает мой друг *из Стамбула*.
+  morphemes: istanbul-da-ki arkadaş-ım gel-iyor
+  gloss: Стамбул-МЕСТ-ОТН друг-1ЕД.ПРИТ приходить-НАСТ
+- tr: Evde*kiler* nasıl?
+  ru: Как *домашние*?
+  morphemes: ev-de-ki-ler nasıl
+  gloss: дом-МЕСТ-ОТН-МН как
+  note: Существительного нет, поэтому -lAr принимает само слово на -ki.

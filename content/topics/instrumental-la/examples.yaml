@@ -1,0 +1,43 @@
+- tr: arkadaşım*la*
+  ru: "*с* моим другом"
+  morphemes: arkadaş-ım-la
+  gloss: друг-1ЕД.ПРИТ-ОРУД
+- tr: kalem*le*
+  ru: ручкой
+  morphemes: kalem-le
+  gloss: ручка-ОРУД
+- tr: araba*yla*
+  ru: "*на* машине"
+  morphemes: araba-yla
+  gloss: машина-ОРУД
+  note: После гласной перед аффиксом появляется y.
+- tr: Ali'*yle* konuşuyorum.
+  ru: Я разговариваю *с* Али.
+  morphemes: ali-yle konuş-uyor-um
+  gloss: Али-ОРУД говорить-НАСТ-1ЕД
+- tr: Otobüs*le* işe gidiyorum.
+  ru: Я езжу на работу *на* автобусе.
+  morphemes: otobüs-le iş-e gid-iyor-um
+  gloss: автобус-ОРУД работа-ДАТ идти-НАСТ-1ЕД
+- tr: Dikkat*le* dinliyorum.
+  ru: Я слушаю *внимательно*.
+  morphemes: dikkat-le dinli-yor-um
+  gloss: внимание-ОРУД слушать-НАСТ-1ЕД
+  note: Буквально «с вниманием» — аффикс называет образ действия.
+- tr: Annem*le* alışverişe gidiyoruz.
+  ru: Мы *с* мамой идём за покупками.
+  morphemes: anne-m-le alışveriş-e gid-iyor-uz
+  gloss: мама-1ЕД.ПРИТ-ОРУД покупки-ДАТ идти-НАСТ-1МН
+- tr: Kimin*le* konuşuyorsun?
+  ru: "*С* кем ты разговариваешь?"
+  morphemes: kim-in-le konuş-uyor-sun
+  gloss: кто-РОД-ОРУД говорить-НАСТ-2ЕД
+- tr: Senin*le* gelmek istiyorum.
+  ru: Я хочу пойти *с* тобой.
+  morphemes: sen-in-le gel-mek isti-yor-um
+  gloss: ты-РОД-ОРУД приходить-ИНФ хотеть-НАСТ-1ЕД
+- tr: Arkadaşım *ile* sinemaya gidiyorum.
+  ru: Я иду в кино *с* другом.
+  morphemes: arkadaş-ım ile sinema-ya gid-iyor-um
+  gloss: друг-1ЕД.ПРИТ с кино-ДАТ идти-НАСТ-1ЕД
+  note: Послелог ile можно писать отдельно; значение то же, что у аффикса.

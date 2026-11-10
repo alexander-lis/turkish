@@ -1,0 +1,31 @@
+- tr: küçük *ama* güzel
+  ru: маленький, *но* красивый
+- tr: Türkçe zor *ama* çok güzel.
+  ru: Турецкий трудный, *но* очень красивый.
+- tr: Ev küçük, *fakat* rahat.
+  ru: Дом маленький, *но* удобный.
+- tr: Hava güneşli, *ancak* soğuk.
+  ru: Солнечно, *однако* холодно.
+- tr: Bu araba güzel, *yalnız* çok pahalı.
+  ru: Эта машина красивая, *только* очень дорогая.
+- tr: Yorgunum *ama* mutluyum.
+  ru: Я устал, *но* счастлив.
+  morphemes: yorgun-um ama mutlu-yum
+  gloss: усталый-1ЕД но счастливый-1ЕД
+- tr: Param var *ama* vaktim yok.
+  ru: Деньги у меня есть, *но* времени нет.
+  morphemes: para-m var ama vakt-im yok
+  gloss: деньги-1ЕД.ПРИТ есть но время-1ЕД.ПРИТ нет
+- tr: Gelmek istiyorum *ama* vaktim yok.
+  ru: Я хочу прийти, *но* у меня нет времени.
+  morphemes: gel-mek isti-yor-um ama vakt-im yok
+  gloss: приходить-ИНФ хотеть-НАСТ-1ЕД но время-1ЕД.ПРИТ нет
+- tr: Biraz anlıyorum *ama* konuşmuyorum.
+  ru: Я немного понимаю, *но* не говорю.
+  morphemes: biraz anlı-yor-um ama konuş-mu-yor-um
+  gloss: немного понимать-НАСТ-1ЕД но говорить-ОТР-НАСТ-1ЕД
+- tr: "*Ancak* iki kişi geliyor."
+  ru: Приходят *только* двое.
+  morphemes: ancak iki kişi gel-iyor
+  gloss: только два человек приходить-НАСТ
+  note: Здесь ancak — не союз, а наречие «только».

@@ -1,0 +1,42 @@
+- tr: ye*dikten sonra*
+  ru: "*после того как* поел"
+  morphemes: ye-dikten sonra
+  gloss: есть-ДЕЕПР после
+- tr: git*tikten sonra*
+  ru: "*после того как* ушёл"
+  morphemes: git-tikten sonra
+  gloss: идти-ДЕЕПР после
+  note: После глухого t аффикс начинается с t.
+- tr: Yemek ye*dikten sonra* kahve içiyoruz.
+  ru: Поев, мы пьём кофе.
+  morphemes: yemek ye-dikten sonra kahve iç-iyor-uz
+  gloss: еда есть-ДЕЕПР после кофе пить-НАСТ-1МН
+- tr: İşten çık*tıktan sonra* markete gidiyorum.
+  ru: Выйдя с работы, я иду в магазин.
+  morphemes: iş-ten çık-tıktan sonra market-e gid-iyor-um
+  gloss: работа-ИСХ выходить-ДЕЕПР после магазин-ДАТ идти-НАСТ-1ЕД
+- tr: Parayı al*dıktan sonra* markete gittim.
+  ru: Получив деньги, я пошёл в магазин.
+  morphemes: para-yı al-dıktan sonra market-e git-ti-m
+  gloss: деньги-ВИН брать-ДЕЕПР после магазин-ДАТ идти-ПРОШ-1ЕД
+- tr: Kitabı oku*duktan sonra* sana vereceğim.
+  ru: Прочитав книгу, я отдам её тебе.
+  morphemes: kitab-ı oku-duktan sonra san-a ver-eceğ-im
+  gloss: книга-ВИН читать-ДЕЕПР после ты-ДАТ давать-БУД-1ЕД
+- tr: Konuş*tuktan sonra* karar verelim.
+  ru: Давай решим *после того, как* поговорим.
+  morphemes: konuş-tuktan sonra karar ver-elim
+  gloss: говорить-ДЕЕПР после решение давать-ЖЕЛ.1МН
+- tr: Onu gör*dükten sonra* fikrimi değiştirdim.
+  ru: Увидев его, я передумал.
+  morphemes: on-u gör-dükten sonra fikr-im-i değiştir-di-m
+  gloss: он-ВИН видеть-ДЕЕПР после мнение-1ЕД.ПРИТ-ВИН менять-ПРОШ-1ЕД
+- tr: Arkadaşımla görüş*tükten sonra* eve geldim.
+  ru: Встретившись с другом, я пришёл домой.
+  morphemes: arkadaş-ım-la görüş-tükten sonra ev-e gel-di-m
+  gloss: друг-1ЕД.ПРИТ-ОРУД видеться-ДЕЕПР после дом-ДАТ приходить-ПРОШ-1ЕД
+- tr: Sen git*tikten sonra* Ali geldi.
+  ru: "*После того как* ты ушёл, пришёл Али."
+  morphemes: sen git-tikten sonra ali gel-di
+  gloss: ты идти-ДЕЕПР после Али приходить-ПРОШ
+  note: У первой части своё подлежащее — sen; оно стоит в основной форме.

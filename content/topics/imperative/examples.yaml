@@ -1,0 +1,47 @@
+- tr: Gel!
+  ru: Иди сюда!
+  note: Основа без аффиксов — обращение к одному человеку на «ты».
+- tr: Gel*in*!
+  ru: Идите сюда!
+  morphemes: gel-in
+  gloss: приходить-ПОВ.2МН
+- tr: Buyur*un*!
+  ru: Пожалуйста, проходите!
+  morphemes: buyur-un
+  gloss: изволить-ПОВ.2МН
+  note: Так приглашают войти, сесть или взять что-то.
+- tr: Lütfen bekle*yin*.
+  ru: Пожалуйста, подождите.
+  morphemes: lütfen bekle-yin
+  gloss: пожалуйста ждать-ПОВ.2МН
+  note: После гласной основы перед аффиксом появляется y.
+- tr: Lütfen bekle*yiniz*.
+  ru: Пожалуйста, подождите.
+  morphemes: lütfen bekle-yiniz
+  gloss: пожалуйста ждать-ПОВ.2МН
+  note: Официальный вариант — так пишут в объявлениях.
+- tr: Kork*ma*!
+  ru: Не бойся!
+  morphemes: kork-ma
+  gloss: бояться-ОТР
+- tr: Lütfen sigara iç*meyin*.
+  ru: Пожалуйста, не курите.
+  morphemes: lütfen sigara iç-me-yin
+  gloss: пожалуйста сигарета пить-ОТР-ПОВ.2МН
+- tr: Ali gel*sin*.
+  ru: Пусть Али придёт.
+  morphemes: ali gel-sin
+  gloss: Али приходить-ПОВ.3ЕД
+- tr: Kolay gel*sin*!
+  ru: Лёгкой работы!
+  morphemes: kolay gel-sin
+  gloss: лёгкий приходить-ПОВ.3ЕД
+  note: Буквально «пусть придёт легко»; так говорят тому, кто занят делом.
+- tr: Afiyet ol*sun*!
+  ru: Приятного аппетита!
+  morphemes: afiyet ol-sun
+  gloss: здоровье быть-ПОВ.3ЕД
+- tr: Çocuklar oyna*sınlar*.
+  ru: Пусть дети играют.
+  morphemes: çocuk-lar oyna-sınlar
+  gloss: ребёнок-МН играть-ПОВ.3МН

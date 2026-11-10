@@ -1,0 +1,40 @@
+- tr: kita*b*ı
+  ru: книгу
+  morphemes: kitab-ı
+  gloss: книга-ВИН
+  note: Перед гласной аффикса p превращается в b.
+- tr: ağa*c*a
+  ru: к дереву
+  morphemes: ağac-a
+  gloss: дерево-ДАТ
+- tr: kâğı*d*ı
+  ru: бумагу
+  morphemes: kâğıd-ı
+  gloss: бумага-ВИН
+- tr: çocu*ğ*u
+  ru: ребёнка
+  morphemes: çocuğ-u
+  gloss: ребёнок-ВИН
+- tr: ren*g*i
+  ru: цвет
+  morphemes: reng-i
+  gloss: цвет-ВИН
+  note: Винительный падеж. После n появляется g, а не ğ.
+- tr: kita*p*lar
+  ru: книги
+  morphemes: kitap-lar
+  gloss: книга-МН
+  note: Аффикс начинается с согласного, поэтому основа не меняется.
+- tr: bile*t*i
+  ru: билет
+  morphemes: bilet-i
+  gloss: билет-ВИН
+  note: Винительный падеж заимствованного слова — t перед гласной остаётся.
+- tr: Kita*b*ım masada.
+  ru: Моя книга на столе.
+  morphemes: kitab-ım masa-da
+  gloss: книга-1ЕД.ПРИТ стол-МЕСТ
+- tr: Köpe*ğ*im bahçede.
+  ru: Моя собака в саду.
+  morphemes: köpeğ-im bahçe-de
+  gloss: собака-1ЕД.ПРИТ сад-МЕСТ

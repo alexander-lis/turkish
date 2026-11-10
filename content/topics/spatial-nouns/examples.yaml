@@ -1,0 +1,41 @@
+- tr: masanın *üstünde*
+  ru: "*на* столе"
+  morphemes: masa-nın üst-ü-nde
+  gloss: стол-РОД верх-3ЕД.ПРИТ-МЕСТ
+- tr: çantanın *içinde*
+  ru: "*в* сумке"
+  morphemes: çanta-nın iç-i-nde
+  gloss: сумка-РОД внутренняя.часть-3ЕД.ПРИТ-МЕСТ
+- tr: Okul iki evin *arasında*.
+  ru: Школа *между* двумя домами.
+  morphemes: okul iki ev-in ara-sı-nda
+  gloss: школа два дом-РОД промежуток-3ЕД.ПРИТ-МЕСТ
+- tr: Araba evin *arkasında*.
+  ru: Машина *за* домом.
+  morphemes: araba ev-in arka-sı-nda
+  gloss: машина дом-РОД задняя.сторона-3ЕД.ПРИТ-МЕСТ
+- tr: Köy şehrin *dışında*.
+  ru: Деревня *за* городом.
+  morphemes: köy şehr-in dış-ı-nda
+  gloss: деревня город-РОД внешняя.часть-3ЕД.ПРИТ-МЕСТ
+- tr: Eczane bankanın *karşısında*.
+  ru: Аптека *напротив* банка.
+  morphemes: eczane banka-nın karşı-sı-nda
+  gloss: аптека банк-РОД противоположная.сторона-3ЕД.ПРИТ-МЕСТ
+- tr: Otobüs durağı evin *önünde*.
+  ru: Автобусная остановка *перед* домом.
+  morphemes: otobüs durağ-ı ev-in ön-ü-nde
+  gloss: автобус остановка-3ЕД.ПРИТ дом-РОД передняя.сторона-3ЕД.ПРИТ-МЕСТ
+- tr: Kitabı masanın *üstüne* koyuyorum.
+  ru: Я кладу книгу *на* стол.
+  morphemes: kitab-ı masa-nın üst-ü-ne koy-uyor-um
+  gloss: книга-ВИН стол-РОД верх-3ЕД.ПРИТ-ДАТ класть-НАСТ-1ЕД
+  note: На вопрос «куда?» слово места отвечает в дательном падеже.
+- tr: "*Yanımda* oturuyor."
+  ru: Он сидит *рядом со мной*.
+  morphemes: yan-ım-da otur-uyor
+  gloss: бок-1ЕД.ПРИТ-МЕСТ сидеть-НАСТ
+- tr: Kedi masanın *altından* çıkıyor.
+  ru: Кошка вылезает *из-под* стола.
+  morphemes: kedi masa-nın alt-ı-ndan çık-ıyor
+  gloss: кошка стол-РОД низ-3ЕД.ПРИТ-ИСХ выходить-НАСТ

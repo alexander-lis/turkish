@@ -1,0 +1,28 @@
+- tr: "*çok* güzel"
+  ru: "*очень* красивый"
+- tr: "*biraz* yorgun"
+  ru: "*немного* уставший"
+- tr: "*çok* kitap"
+  ru: "*много* книг"
+  note: Перед существительным çok значит «много», и существительное стоит в единственном числе.
+- tr: Bu *çok* pahalı.
+  ru: Это *очень* дорого.
+- tr: Ev *oldukça* büyük.
+  ru: Дом *довольно* большой.
+- tr: Çay *fazla* şekerli.
+  ru: Чай *слишком* сладкий.
+- tr: Hava *pek* sıcak *değil*.
+  ru: На улице *не очень* жарко.
+  note: Слово pek обычно стоит в отрицательном предложении.
+- tr: "*Biraz* Türkçe biliyorum."
+  ru: Я *немного* знаю турецкий.
+  morphemes: biraz türkçe bil-iyor-um
+  gloss: немного турецкий.язык знать-НАСТ-1ЕД
+- tr: Seni *çok* seviyorum.
+  ru: Я *очень* тебя люблю.
+  morphemes: sen-i çok sev-iyor-um
+  gloss: ты-ВИН очень любить-НАСТ-1ЕД
+- tr: Bugün *az* çalışıyoruz.
+  ru: Сегодня мы работаем *мало*.
+  morphemes: bugün az çalış-ıyor-uz
+  gloss: сегодня мало работать-НАСТ-1МН

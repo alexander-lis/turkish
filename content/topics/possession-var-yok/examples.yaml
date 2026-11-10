@@ -1,0 +1,42 @@
+- tr: Arabam *var*.
+  ru: У меня *есть* машина.
+  morphemes: araba-m var
+  gloss: машина-1ЕД.ПРИТ есть
+- tr: Param *yok*.
+  ru: У меня *нет* денег.
+  morphemes: para-m yok
+  gloss: деньги-1ЕД.ПРИТ нет
+- tr: Bir sorum *var*.
+  ru: У меня *есть* вопрос.
+  morphemes: bir soru-m var
+  gloss: один вопрос-1ЕД.ПРИТ есть
+- tr: Vaktin *var mı*?
+  ru: У тебя *есть* время?
+  morphemes: vakt-in var mı
+  gloss: время-2ЕД.ПРИТ есть ВОПР
+- tr: Çocuğunuz *var mı*?
+  ru: У вас *есть* дети?
+  morphemes: çocuğ-unuz var mı
+  gloss: ребёнок-2МН.ПРИТ есть ВОПР
+- tr: Ali'nin köpeği *var*.
+  ru: У Али *есть* собака.
+  morphemes: ali-nin köpeğ-i var
+  gloss: Али-РОД собака-3ЕД.ПРИТ есть
+  note: Владелец назван отдельным словом и стоит в родительном падеже.
+- tr: Bugün dersimiz *yok*.
+  ru: Сегодня у нас *нет* уроков.
+  morphemes: bugün ders-imiz yok
+  gloss: сегодня урок-1МН.ПРИТ нет
+- tr: Onların çocukları *yok*.
+  ru: У них *нет* детей.
+  morphemes: onlar-ın çocuk-ları yok
+  gloss: они-РОД ребёнок-3МН.ПРИТ нет
+- tr: Ateşim *var*.
+  ru: У меня температура.
+  morphemes: ateş-im var
+  gloss: жар-1ЕД.ПРИТ есть
+- tr: Bende kalem *var*.
+  ru: У меня с собой *есть* ручка.
+  morphemes: ben-de kalem var
+  gloss: я-МЕСТ ручка есть
+  note: Местный падеж — ручка сейчас при мне, но не обязательно моя.

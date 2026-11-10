@@ -1,0 +1,43 @@
+- tr: araba*nın*
+  ru: машины (чего?)
+  morphemes: araba-nın
+  gloss: машина-РОД
+  note: После гласной перед аффиксом появляется n.
+- tr: çocuğ*un*
+  ru: ребёнка (чей?)
+  morphemes: çocuğ-un
+  gloss: ребёнок-РОД
+  note: Конечное k основы перед гласной аффикса стало ğ.
+- tr: ben*im*
+  ru: мой
+  morphemes: ben-im
+  gloss: я-РОД
+  note: У местоимения ben аффикс кончается на m.
+- tr: Ali'*nin* evi
+  ru: дом *Али*
+  morphemes: ali-nin ev-i
+  gloss: Али-РОД дом-3ЕД.ПРИТ
+- tr: Bu kitap Ayşe'*nin*.
+  ru: Эта книга — *Айше*.
+  morphemes: bu kitap ayşe-nin
+  gloss: этот книга Айше-РОД
+- tr: Bu telefon kim*in*?
+  ru: "*Чей* это телефон?"
+  morphemes: bu telefon kim-in
+  gloss: этот телефон кто-РОД
+- tr: Bu kalem ben*im*, o sen*in*.
+  ru: Эта ручка *моя*, а та *твоя*.
+  morphemes: bu kalem ben-im o sen-in
+  gloss: этот ручка я-РОД тот ты-РОД
+- tr: Okul*un* bahçesi büyük.
+  ru: Двор *школы* большой.
+  morphemes: okul-un bahçe-si büyük
+  gloss: школа-РОД сад-3ЕД.ПРИТ большой
+- tr: Ali'*nin* arabası var.
+  ru: "*У Али* есть машина."
+  morphemes: ali-nin araba-sı var
+  gloss: Али-РОД машина-3ЕД.ПРИТ есть
+- tr: Bu köprü*nün* adı ne?
+  ru: Как называется этот *мост*?
+  morphemes: bu köprü-nün ad-ı ne
+  gloss: этот мост-РОД имя-3ЕД.ПРИТ что

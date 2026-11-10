@@ -1,0 +1,43 @@
+- tr: gel*eceğ*im
+  ru: я приду
+  morphemes: gel-eceğ-im
+  gloss: приходить-БУД-1ЕД
+  note: Перед гласной личного аффикса k превращается в ğ.
+- tr: oku*yacak*
+  ru: он прочитает
+  morphemes: oku-yacak
+  gloss: читать-БУД
+  note: После гласной основы перед аффиксом появляется y.
+- tr: gid*ecek*siniz
+  ru: вы пойдёте
+  morphemes: gid-ecek-siniz
+  gloss: идти-БУД-2МН
+- tr: Yarın sana telefon ed*eceğ*im.
+  ru: Завтра я тебе позвоню.
+  morphemes: yarın san-a telefon ed-eceğ-im
+  gloss: завтра ты-ДАТ телефон делать-БУД-1ЕД
+- tr: Bu yaz Türkiye'ye gid*eceğ*iz.
+  ru: Этим летом мы поедем в Турцию.
+  morphemes: bu yaz türkiye-ye gid-eceğ-iz
+  gloss: этот лето Турция-ДАТ идти-БУД-1МН
+- tr: Yarın yağmur yağ*acak*.
+  ru: Завтра будет дождь.
+  morphemes: yarın yağmur yağ-acak
+  gloss: завтра дождь выпадать-БУД
+- tr: Ne zaman gel*ecek*sin?
+  ru: Когда ты придёшь?
+  morphemes: ne zaman gel-ecek-sin
+  gloss: какой время приходить-БУД-2ЕД
+- tr: Bugün dışarı çık*mayacağ*ım.
+  ru: Сегодня я не выйду на улицу.
+  morphemes: bugün dışarı çık-ma-yacağ-ım
+  gloss: сегодня наружу выходить-ОТР-БУД-1ЕД
+- tr: Akşam evde ol*acak* mısın?
+  ru: Ты будешь вечером дома?
+  morphemes: akşam ev-de ol-acak mı-sın
+  gloss: вечер дом-МЕСТ быть-БУД ВОПР-2ЕД
+  note: Будущее время при слове в местном падеже образует глагол olmak.
+- tr: Çocuklar yarın okula git*meyecek*ler.
+  ru: Завтра дети не пойдут в школу.
+  morphemes: çocuk-lar yarın okul-a git-me-yecek-ler
+  gloss: ребёнок-МН завтра школа-ДАТ идти-ОТР-БУД-3МН

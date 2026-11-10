@@ -1,0 +1,42 @@
+- tr: gel*me*mek
+  ru: "*не* приходить"
+  morphemes: gel-me-mek
+  gloss: приходить-ОТР-ИНФ
+- tr: gel*mi*yorum
+  ru: я *не* иду
+  morphemes: gel-mi-yor-um
+  gloss: приходить-ОТР-НАСТ-1ЕД
+  note: Перед -yor гласная аффикса отрицания сужается.
+- tr: al*mı*yor
+  ru: он *не* берёт
+  morphemes: al-mı-yor
+  gloss: брать-ОТР-НАСТ
+- tr: Bak*ma*!
+  ru: "*Не* смотри!"
+  morphemes: bak-ma
+  gloss: смотреть-ОТР
+  note: После задней гласной основы аффикс — -ma.
+- tr: Bugün çalış*mı*yorum.
+  ru: Сегодня я *не* работаю.
+  morphemes: bugün çalış-mı-yor-um
+  gloss: сегодня работать-ОТР-НАСТ-1ЕД
+- tr: Türkçe bil*mi*yorum.
+  ru: Я *не* знаю турецкого.
+  morphemes: türkçe bil-mi-yor-um
+  gloss: турецкий.язык знать-ОТР-НАСТ-1ЕД
+- tr: Seni duy*mu*yorum.
+  ru: Я тебя *не* слышу.
+  morphemes: sen-i duy-mu-yor-um
+  gloss: ты-ВИН слышать-ОТР-НАСТ-1ЕД
+- tr: Dün gel*me*di.
+  ru: Вчера он *не* пришёл.
+  morphemes: dün gel-me-di
+  gloss: вчера приходить-ОТР-ПРОШ
+- tr: Neden gel*mi*yorsun?
+  ru: Почему ты *не* идёшь?
+  morphemes: neden gel-mi-yor-sun
+  gloss: почему приходить-ОТР-НАСТ-2ЕД
+- tr: Beni anla*mı*yor musun?
+  ru: Ты меня *не* понимаешь?
+  morphemes: ben-i anla-mı-yor mu-sun
+  gloss: я-ВИН понимать-ОТР-НАСТ ВОПР-2ЕД

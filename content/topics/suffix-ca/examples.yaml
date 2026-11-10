@@ -1,0 +1,42 @@
+- tr: Türk*çe*
+  ru: турецкий язык; *по*-турецки
+  morphemes: türk-çe
+  gloss: турок-ПО
+  note: После глухого k согласный аффикса — ç.
+- tr: Rus*ça*
+  ru: русский язык; *по*-русски
+  morphemes: rus-ça
+  gloss: русский-ПО
+- tr: ben*ce*
+  ru: "*по*-моему"
+  morphemes: ben-ce
+  gloss: я-ПО
+- tr: yavaş*ça*
+  ru: потихоньку
+  morphemes: yavaş-ça
+  gloss: медленный-ПО
+- tr: Türk*çe* konuşuyor musunuz?
+  ru: Вы говорите *по*-турецки?
+  morphemes: türk-çe konuş-uyor mu-sunuz
+  gloss: турок-ПО говорить-НАСТ ВОПР-2МН
+- tr: Biraz İngiliz*ce* biliyorum.
+  ru: Я немного знаю английский.
+  morphemes: biraz ingiliz-ce bil-iyor-um
+  gloss: немного англичанин-ПО знать-НАСТ-1ЕД
+- tr: Alman*ca* öğreniyorum.
+  ru: Я учу немецкий.
+  morphemes: alman-ca öğren-iyor-um
+  gloss: немец-ПО учить-НАСТ-1ЕД
+  note: После звонкого n согласный аффикса — c.
+- tr: Ben*ce* bu film çok güzel.
+  ru: "*По*-моему, этот фильм очень хороший."
+  morphemes: ben-ce bu film çok güzel
+  gloss: я-ПО этот фильм очень хороший
+- tr: Sen*ce* hangisi daha iyi?
+  ru: Как *по*-твоему, который лучше?
+  morphemes: sen-ce hangi-si daha iyi
+  gloss: ты-ПО который-3ЕД.ПРИТ более хороший
+- tr: Çocuk sessiz*ce* oturuyor.
+  ru: Ребёнок сидит *тихо*.
+  morphemes: çocuk sessiz-ce otur-uyor
+  gloss: ребёнок тихий-ПО сидеть-НАСТ

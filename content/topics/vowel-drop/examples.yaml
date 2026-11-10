@@ -1,0 +1,40 @@
+- tr: burn*u*
+  ru: его нос
+  morphemes: burn-u
+  gloss: нос-3ЕД.ПРИТ
+  note: Словарная форма — burun; перед гласной аффикса u второго слога выпала.
+- tr: ağz*ı*
+  ru: его рот
+  morphemes: ağz-ı
+  gloss: рот-3ЕД.ПРИТ
+- tr: şehr*e*
+  ru: в город
+  morphemes: şehr-e
+  gloss: город-ДАТ
+- tr: şehir*de*
+  ru: в городе
+  morphemes: şehir-de
+  gloss: город-МЕСТ
+  note: Аффикс начинается с согласного, поэтому гласная основы на месте.
+- tr: İsm*in* ne?
+  ru: Как тебя зовут?
+  morphemes: ism-in ne
+  gloss: имя-2ЕД.ПРИТ что
+- tr: Fikr*in* ne?
+  ru: Что ты думаешь?
+  morphemes: fikr-in ne
+  gloss: мнение-2ЕД.ПРИТ что
+  note: Буквально «твоё мнение — что?».
+- tr: Karn*ım* aç.
+  ru: Я голоден.
+  morphemes: karn-ım aç
+  gloss: живот-1ЕД.ПРИТ голодный
+  note: Буквально «мой живот голоден».
+- tr: Oğl*um* okula gidiyor.
+  ru: Мой сын ходит в школу.
+  morphemes: oğl-um okul-a gid-iyor
+  gloss: сын-1ЕД.ПРИТ школа-ДАТ идти-НАСТ
+- tr: Bu resm*i* çok seviyorum.
+  ru: Я очень люблю эту фотографию.
+  morphemes: bu resm-i çok sev-iyor-um
+  gloss: этот фотография-ВИН очень любить-НАСТ-1ЕД

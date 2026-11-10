@@ -1,0 +1,39 @@
+- tr: gel*mek*
+  ru: приходить
+  morphemes: gel-mek
+  gloss: приходить-ИНФ
+- tr: oku*mak*
+  ru: читать
+  morphemes: oku-mak
+  gloss: читать-ИНФ
+  note: Последняя гласная основы u — задняя, поэтому аффикс -mak.
+- tr: gör*mek*
+  ru: видеть
+  morphemes: gör-mek
+  gloss: видеть-ИНФ
+- tr: yap*mak*
+  ru: делать
+  morphemes: yap-mak
+  gloss: делать-ИНФ
+- tr: Gel!
+  ru: Иди сюда!
+  note: Основа без аффиксов — повеление одному человеку.
+- tr: Geliyorum.
+  ru: Я иду.
+  morphemes: gel-iyor-um
+  gloss: приходить-НАСТ-1ЕД
+  note: Аффиксы времени и лица присоединяются к основе.
+- tr: Yemek ye*mek* istiyorum.
+  ru: Я хочу поесть.
+  morphemes: yemek ye-mek isti-yor-um
+  gloss: еда есть-ИНФ хотеть-НАСТ-1ЕД
+  note: Первое yemek — существительное «еда», второе — инфинитив «есть».
+- tr: Burada sigara iç*mek* yasak.
+  ru: Здесь курить запрещено.
+  morphemes: bura-da sigara iç-mek yasak
+  gloss: это.место-МЕСТ сигарета пить-ИНФ запрещённый
+- tr: Seni gör*mek* çok güzel.
+  ru: Очень рад тебя видеть.
+  morphemes: sen-i gör-mek çok güzel
+  gloss: ты-ВИН видеть-ИНФ очень хороший
+  note: Буквально «видеть тебя — очень хорошо».

@@ -1,0 +1,32 @@
+- tr: "*İçeri* gir."
+  ru: Войди *внутрь*.
+- tr: "*Dışarı* çık."
+  ru: Выйди *наружу*.
+- tr: "*Geri* gel."
+  ru: Вернись.
+  note: Буквально «приди назад».
+- tr: "*Yukarı* çıkıyoruz."
+  ru: Мы поднимаемся *наверх*.
+  morphemes: yukarı çık-ıyor-uz
+  gloss: вверх подниматься-НАСТ-1МН
+- tr: "*Aşağı* iniyorum."
+  ru: Я спускаюсь *вниз*.
+  morphemes: aşağı in-iyor-um
+  gloss: вниз спускаться-НАСТ-1ЕД
+- tr: Ali *içeride* bekliyor.
+  ru: Али ждёт *внутри*.
+  morphemes: ali içeri-de bekli-yor
+  gloss: Али внутрь-МЕСТ ждать-НАСТ
+  note: На вопрос «где?» наречие отвечает с местным падежом.
+- tr: Çocuklar *dışarıda* oynuyor.
+  ru: Дети играют *на улице*.
+  morphemes: çocuk-lar dışarı-da oynu-yor
+  gloss: ребёнок-МН наружу-МЕСТ играть-НАСТ
+- tr: "*Yukarıdan* ses geliyor."
+  ru: "*Сверху* доносится звук."
+  morphemes: yukarı-dan ses gel-iyor
+  gloss: вверх-ИСХ звук приходить-НАСТ
+- tr: Banka biraz *ileride*.
+  ru: Банк немного *дальше*.
+  morphemes: banka biraz ileri-de
+  gloss: банк немного вперёд-МЕСТ

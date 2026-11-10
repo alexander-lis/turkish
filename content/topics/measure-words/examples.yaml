@@ -1,0 +1,30 @@
+- tr: iki *tane* elma
+  ru: два яблока
+  note: Слово tane — «штука» — здесь можно опустить.
+- tr: üç *kişi*
+  ru: три *человека*
+- tr: bir *bardak* su
+  ru: "*стакан* воды"
+  note: Слово su стоит без аффикса — родительный падеж, как в русском, не нужен.
+- tr: iki *fincan* kahve
+  ru: две *чашки* кофе
+- tr: bir *kilo* domates
+  ru: "*килограмм* помидоров"
+- tr: İki *tane* lütfen.
+  ru: Две *штуки*, пожалуйста.
+- tr: Sınıfta yirmi *kişi* var.
+  ru: В классе двадцать *человек*.
+  morphemes: sınıf-ta yirmi kişi var
+  gloss: класс-МЕСТ двадцать человек есть
+- tr: Kaç *tane* istiyorsunuz?
+  ru: Сколько *штук* вы хотите?
+  morphemes: kaç tane isti-yor-sunuz
+  gloss: сколько штука хотеть-НАСТ-2МН
+- tr: Bir *şişe* su alıyorum.
+  ru: Я беру *бутылку* воды.
+  morphemes: bir şişe su al-ıyor-um
+  gloss: один бутылка вода брать-НАСТ-1ЕД
+- tr: Her gün iki *bardak* çay içiyorum.
+  ru: Каждый день я пью два *стакана* чая.
+  morphemes: her gün iki bardak çay iç-iyor-um
+  gloss: каждый день два стакан чай пить-НАСТ-1ЕД

@@ -1,0 +1,39 @@
+- tr: ev*den*
+  ru: "*из дома*"
+  morphemes: ev-den
+  gloss: дом-ИСХ
+- tr: okul*dan*
+  ru: "*из школы*"
+  morphemes: okul-dan
+  gloss: школа-ИСХ
+- tr: sokak*tan*
+  ru: "*с улицы*"
+  morphemes: sokak-tan
+  gloss: улица-ИСХ
+  note: После глухого k аффикс начинается с t.
+- tr: İş*ten* geliyorum.
+  ru: Я иду *с работы*.
+  morphemes: iş-ten gel-iyor-um
+  gloss: работа-ИСХ приходить-НАСТ-1ЕД
+- tr: Nere*den* geliyorsunuz?
+  ru: "*Откуда* вы едете?"
+  morphemes: nere-den gel-iyor-sunuz
+  gloss: какое.место-ИСХ приходить-НАСТ-2МН
+- tr: Ali'*den* mektup var.
+  ru: Есть письмо *от Али*.
+  morphemes: ali-den mektup var
+  gloss: Али-ИСХ письмо есть
+- tr: Bu masa tahta*dan*.
+  ru: Этот стол *из дерева*.
+  morphemes: bu masa tahta-dan
+  gloss: этот стол дерево-ИСХ
+- tr: Kedi pencere*den* bakıyor.
+  ru: Кошка смотрит *в окно*.
+  morphemes: kedi pencere-den bak-ıyor
+  gloss: кошка окно-ИСХ смотреть-НАСТ
+  note: Исходный падеж называет путь взгляда — «через окно».
+- tr: Köpek*ten* korkuyorum.
+  ru: Я боюсь *собак*.
+  morphemes: köpek-ten kork-uyor-um
+  gloss: собака-ИСХ бояться-НАСТ-1ЕД
+  note: Глагол korkmak требует исходного падежа.

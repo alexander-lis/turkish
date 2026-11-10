@@ -1,0 +1,45 @@
+- tr: Ali'*nin*
+  ru: Али (чей?)
+  morphemes: ali-nin
+  gloss: Али-РОД
+- tr: İstanbul'*da*
+  ru: в Стамбуле
+  morphemes: istanbul-da
+  gloss: Стамбул-МЕСТ
+- tr: Ankara'*ya*
+  ru: в Анкару
+  morphemes: ankara-ya
+  gloss: Анкара-ДАТ
+  note: Соединительный согласный y стоит после апострофа, вместе с аффиксом.
+- tr: Türk'*üm*.
+  ru: Я турок.
+  morphemes: türk-üm
+  gloss: турок-1ЕД
+- tr: Ahmet'*i* tanıyorum.
+  ru: Я знаю Ахмета.
+  morphemes: ahmet-i tanı-yor-um
+  gloss: Ахмет-ВИН знать-НАСТ-1ЕД
+  note: Перед гласной аффикса t в имени на письме не меняется.
+- tr: Türkiye'*den* geliyorum.
+  ru: Я еду из Турции.
+  morphemes: türkiye-den gel-iyor-um
+  gloss: Турция-ИСХ приходить-НАСТ-1ЕД
+- tr: Ayşe'*yle* konuşuyorum.
+  ru: Я разговариваю с Айше.
+  morphemes: ayşe-yle konuş-uyor-um
+  gloss: Айше-ОРУД говорить-НАСТ-1ЕД
+- tr: Saat 5'*te* geliyorum.
+  ru: Я прихожу в пять часов.
+  morphemes: saat 5-te gel-iyor-um
+  gloss: час 5-МЕСТ приходить-НАСТ-1ЕД
+  note: Аффикс выбран по слову beş — оно кончается на глухой согласный.
+- tr: Ahmetler evde.
+  ru: Ахмет с семьёй дома.
+  morphemes: ahmet-ler ev-de
+  gloss: Ахмет-МН дом-МЕСТ
+  note: Аффикс множественного числа апострофом не отделяют.
+- tr: Türkçe öğreniyorum.
+  ru: Я учу турецкий.
+  morphemes: türkçe öğren-iyor-um
+  gloss: турецкий.язык учить-НАСТ-1ЕД
+  note: Словообразовательный аффикс пишется слитно, без апострофа.
