@@ -1,0 +1,30 @@
+- id: phonetics
+  title: Фонетика и письмо
+- id: nouns
+  title: Существительное
+- id: pronouns
+  title: Местоимения
+- id: adjectives-adverbs
+  title: Прилагательные и наречия
+- id: numerals
+  title: Числительные
+- id: postpositions
+  title: Послелоги
+- id: nominal-predicate
+  title: Именное сказуемое
+- id: verb-basics
+  title: 'Глагол: основа, отрицание, составные формы'
+- id: tenses
+  title: Времена глагола
+- id: mood-modality
+  title: Наклонения и модальность
+- id: voice
+  title: Залоги
+- id: verbals
+  title: Причастия, деепричастия и имена действия
+- id: conjunctions-particles
+  title: Союзы и частицы
+- id: syntax
+  title: Синтаксис
+- id: word-formation
+  title: Словообразование

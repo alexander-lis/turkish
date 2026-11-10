@@ -1,0 +1,42 @@
+- tr: kız*lar*
+  ru: девочки
+  morphemes: kız-lar
+  gloss: девочка-МН
+  note: Последняя гласная ı — задняя, поэтому в аффиксе типа A стоит a.
+- tr: göz*ler*
+  ru: глаза
+  morphemes: göz-ler
+  gloss: глаз-МН
+  note: Последняя гласная ö — передняя, поэтому в аффиксе стоит e.
+- tr: Kitap*lar* masa*da*.
+  ru: Книги на столе.
+  morphemes: kitap-lar masa-da
+  gloss: книга-МН стол-МЕСТ
+  note: В слове kitap гласные разного ряда; аффикс смотрит на последнюю — a.
+- tr: Okul*u* seviyorum.
+  ru: Я люблю школу.
+  morphemes: okul-u sev-iyor-um
+  gloss: школа-ВИН любить-НАСТ-1ЕД
+  note: Аффикс типа I после u даёт u — заднюю гласную с округлёнными губами.
+- tr: Süt*ü* içiyorum.
+  ru: Я пью молоко.
+  morphemes: süt-ü iç-iyor-um
+  gloss: молоко-ВИН пить-НАСТ-1ЕД
+  note: После ü аффикс типа I даёт ü.
+- tr: Okul*larımızda*
+  ru: в наших школах
+  morphemes: okul-lar-ımız-da
+  gloss: школа-МН-1МН.ПРИТ-МЕСТ
+  note: Каждый аффикс смотрит на гласную перед собой.
+- tr: Ev*lerimde*
+  ru: в моих домах
+  morphemes: ev-ler-im-de
+  gloss: дом-МН-1ЕД.ПРИТ-МЕСТ
+- tr: Otobüs gel*iyor*.
+  ru: Автобус едет.
+  morphemes: otobüs gel-iyor
+  gloss: автобус приходить-НАСТ
+  note: В аффиксе -(I)yor меняется только первая гласная, o остаётся всегда.
+- tr: saat*ler*
+  ru: часы
+  note: "Исключение: заимствованное слово берёт передний вариант аффикса, хотя последняя гласная у него a."

@@ -1,0 +1,33 @@
+- tr: Ev*de*yim.
+  ru: Я *дома*.
+  morphemes: ev-de-yim
+  gloss: дом-МЕСТ-1ЕД
+- tr: Kitap masa*da*.
+  ru: Книга *на столе*.
+  morphemes: kitap masa-da
+  gloss: книга стол-МЕСТ
+- tr: Çocuklar sokak*ta* oynuyor.
+  ru: Дети играют *на улице*.
+  morphemes: çocuk-lar sokak-ta oyn-uyor
+  gloss: ребёнок-МН улица-МЕСТ играть-НАСТ
+  note: После глухого k — вариант -ta.
+- tr: İstanbul'*da* yaşıyorum.
+  ru: Я живу *в Стамбуле*.
+  morphemes: istanbul-da yaş-ıyor-um
+  gloss: Стамбул-МЕСТ жить-НАСТ-1ЕД
+  note: Аффикс отделяется от имени собственного апострофом.
+- tr: Kalem ben*de*.
+  ru: Ручка *у меня*.
+  morphemes: kalem ben-de
+  gloss: ручка я-МЕСТ
+- tr: Sepet*te* elma var.
+  ru: "*В корзине* есть яблоки."
+  note: После глухого t — вариант -te.
+- tr: Ders saat dokuz*da* başlıyor.
+  ru: Урок начинается *в девять* часов.
+  note: С часами -DA отвечает на вопрос «во сколько?».
+- tr: Mart*ta* tatile gidiyoruz.
+  ru: "*В марте* мы едем в отпуск."
+- tr: Ben *de* evdeyim.
+  ru: Я *тоже* дома.
+  note: Здесь de — отдельная частица «тоже», а не падежный аффикс.

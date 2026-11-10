@@ -1,0 +1,34 @@
+- tr: Ev*ler* büyük.
+  ru: Дома большие.
+  morphemes: ev-ler büyük
+  gloss: дом-МН большой
+- tr: Kitap*lar* masada.
+  ru: Книги на столе.
+  morphemes: kitap-lar masa-da
+  gloss: книга-МН стол-МЕСТ
+- tr: Çocuk*lar* okulda.
+  ru: Дети в школе.
+  morphemes: çocuk-lar okul-da
+  gloss: ребёнок-МН школа-МЕСТ
+- tr: Arkadaş*lar*ım geliyor.
+  ru: Мои друзья идут.
+  morphemes: arkadaş-lar-ım gel-iyor
+  gloss: друг-МН-1ЕД.ПРИТ приходить-НАСТ
+  note: -lAr стоит перед аффиксом принадлежности, а сказуемое остаётся в единственном числе.
+- tr: İki *kitap* okuyorum.
+  ru: Я читаю две книги.
+  morphemes: iki kitap oku-yor-um
+  gloss: два книга читать-НАСТ-1ЕД
+  note: После числительного существительное остаётся в единственном числе.
+- tr: Burada çok *öğrenci* var.
+  ru: Здесь много студентов.
+  note: После çok тоже единственное число.
+- tr: Kitap okuyorum.
+  ru: Я читаю книгу. / Я читаю книги.
+  note: Без -lAr слово называет предмет вообще и не уточняет количество.
+- tr: İyi akşam*lar*!
+  ru: Добрый вечер!
+  note: Пожелания стоят во множественном числе.
+- tr: Ahmet*ler* bugün geliyor.
+  ru: Ахмет с семьёй приезжает сегодня.
+  note: С именем человека -lAr значит «он и его близкие».
