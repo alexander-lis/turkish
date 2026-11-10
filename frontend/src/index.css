@@ -25,7 +25,7 @@
 }
 
 .article-text {
-  @apply prose-headings:font-semibold prose-headings:tracking-tight prose-a:font-medium prose-a:text-red-700 prose-a:no-underline hover:prose-a:underline;
+  @apply prose-headings:font-semibold prose-headings:tracking-tight prose-a:font-medium prose-a:text-red-700 prose-a:no-underline prose-a:hover:underline;
 }
 
 .article-text .table-scroll {
