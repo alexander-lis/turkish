@@ -6,6 +6,7 @@ import {
   ReactFlow,
   ReactFlowProvider,
   useReactFlow,
+  type EdgeTypes,
   type FitViewOptions,
   type NodeTypes,
 } from "@xyflow/react";
@@ -15,6 +16,7 @@ import { useLocation, useSearchParams } from "react-router";
 import { graphQuery, sectionsQuery } from "../api/queries.ts";
 import type { Level, Section, TopicGraph } from "../api/types.ts";
 import { MapNodeActionsContext } from "../components/mapNodeActions.ts";
+import { ArcEdge } from "../components/MapEdges.tsx";
 import { RootNode, SectionNode, TopicNode } from "../components/MapNodes.tsx";
 import { MapToolbar } from "../components/MapToolbar.tsx";
 import { MapTopicDialog } from "../components/MapTopicDialog.tsx";
@@ -46,6 +48,8 @@ const nodeTypes = {
   section: SectionNode,
   topic: TopicNode,
 } satisfies NodeTypes;
+
+const edgeTypes = { arc: ArcEdge } satisfies EdgeTypes;
 
 const ARIA_LABELS = {
   "node.a11yDescription.default": "Узел карты тем.",
@@ -283,6 +287,7 @@ function MapView({
           nodes={nodes}
           edges={edges}
           nodeTypes={nodeTypes}
+          edgeTypes={edgeTypes}
           nodesDraggable={false}
           nodesConnectable={false}
           nodesFocusable={false}

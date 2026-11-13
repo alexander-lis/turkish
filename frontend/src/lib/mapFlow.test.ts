@@ -5,7 +5,12 @@
 import { describe, expect, test } from "vitest";
 import type { Level } from "../api/types.ts";
 import { graph, sections } from "../test/fixtures.ts";
-import { flowNodes, nodeFitsCanvas, type TopicFlowNode } from "./mapFlow.ts";
+import {
+  arcPath,
+  flowNodes,
+  nodeFitsCanvas,
+  type TopicFlowNode,
+} from "./mapFlow.ts";
 import { layoutMap, splitSections, type PlacedNode } from "./mapLayout.ts";
 import { buildMapTree, topicNodeId } from "./mapTree.ts";
 
@@ -100,5 +105,28 @@ describe("узел на холсте", () => {
 
   test("масштаб учитывается: уменьшенный узел у края помещается", () => {
     expect(nodeFitsCanvas(node, centeredAt(100, 400, 0.5), canvas)).toBe(true);
+  });
+});
+
+describe("дуга между темами одного столбца", () => {
+  /** Насколько контрольные точки дуги отстоят от столбца. */
+  function bend(path: string): number {
+    const numbers = path.match(/-?[\d.]+/g)?.map(Number) ?? [];
+    return (numbers[2] ?? 0) - (numbers[0] ?? 0);
+  }
+
+  test("дуга справа от столбца выгнута вправо, слева — влево", () => {
+    const from = { x: 100, y: 0 };
+    const to = { x: 100, y: 200 };
+    expect(bend(arcPath(from, to, 1))).toBeGreaterThan(0);
+    expect(bend(arcPath(from, to, -1))).toBeLessThan(0);
+  });
+
+  test("дуга к дальней теме выгнута сильнее, чем к соседней", () => {
+    const from = { x: 0, y: 0 };
+    const near = bend(arcPath(from, { x: 0, y: 50 }, 1));
+    const far = bend(arcPath(from, { x: 0, y: 300 }, 1));
+    expect(near).toBeGreaterThan(0);
+    expect(far).toBeGreaterThan(near);
   });
 });

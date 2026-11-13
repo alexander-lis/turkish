@@ -26,6 +26,8 @@ export type TopicFlowNode = Node<
   "topic"
 >;
 export type MapFlowNode = RootFlowNode | SectionFlowNode | TopicFlowNode;
+/** Линия между узлами одного столбца: дуга, выгнутая наружу от столбца. */
+export type ArcFlowEdge = Edge<Record<string, never>, "arc">;
 
 /** Точки крепления линий у каждого узла: входящая и исходящая с обеих сторон. */
 export const HANDLES = {
@@ -137,6 +139,31 @@ function edgeStyle(
   };
 }
 
+/** Насколько дуга уходит от столбца: тем дальше, чем дальше друг от друга её концы. */
+const ARC_BEND = { share: 0.4, min: 28, max: 220 } as const;
+
+/**
+ * Путь SVG дуги между точками одной стороны столбца: `side` — 1, если дуга выгибается
+ * вправо, −1 — влево. Дуги к дальним узлам выгнуты сильнее и не ложатся на ближние.
+ */
+export function arcPath(
+  source: { x: number; y: number },
+  target: { x: number; y: number },
+  side: 1 | -1,
+): string {
+  const bend =
+    side *
+    Math.min(
+      ARC_BEND.max,
+      Math.max(ARC_BEND.min, Math.abs(target.y - source.y) * ARC_BEND.share),
+    );
+  return `M ${source.x},${source.y} C ${source.x + bend},${source.y} ${target.x + bend},${target.y} ${target.x},${target.y}`;
+}
+
+function sameColumn(source: PlacedNode, target: PlacedNode): boolean {
+  return Math.abs(source.x - target.x) < 1;
+}
+
 /**
  * Точки крепления линии между двумя узлами: от стороны начала, обращённой к концу.
  * Узлы одного столбца соединяются по внешней стороне, чтобы линия не шла сквозь узлы.
@@ -145,7 +172,7 @@ function handles(
   source: PlacedNode,
   target: PlacedNode,
 ): { sourceHandle: string; targetHandle: string } {
-  if (Math.abs(source.x - target.x) < 1) {
+  if (sameColumn(source, target)) {
     return source.x >= 0
       ? { sourceHandle: HANDLES.rightOut, targetHandle: HANDLES.rightIn }
       : { sourceHandle: HANDLES.leftOut, targetHandle: HANDLES.leftIn };
@@ -196,6 +223,7 @@ export function flowEdges(
         id: line.id,
         source: sourceId,
         target: targetId,
+        ...(sameColumn(source, target) ? { type: "arc" } : {}),
         ...handles(source, target),
         ...edgeStyle(line.kind, line.selected ? "selected" : "layer"),
         ariaLabel: `${LINE_STYLES[line.kind].name}: ${title(line.source)} — ${title(line.target)}`,
