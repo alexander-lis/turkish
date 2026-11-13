@@ -3,7 +3,7 @@ import type { paths } from "./schema";
 import type { Notation, Section, TopicDetail, TopicSummary } from "./types.ts";
 
 /** Сервер ответил, но не данными: например, темы с таким идентификатором нет. */
-export class ApiError extends Error {
+class ApiError extends Error {
   readonly status: number;
 
   constructor(status: number) {

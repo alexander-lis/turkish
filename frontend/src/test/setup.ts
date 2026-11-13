@@ -7,6 +7,9 @@ import { server } from "./server.ts";
 // клиент API запоминает fetch в момент своего создания.
 server.listen({ onUnhandledFrame: "error" });
 
+// В jsdom нет прокрутки: панель навигации прокручивает к открытой теме.
+Element.prototype.scrollIntoView = () => undefined;
+
 afterEach(() => {
   cleanup();
   server.resetHandlers();

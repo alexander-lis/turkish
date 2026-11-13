@@ -73,12 +73,12 @@ def parse_article(body: str, *, first_line: int = 1) -> ParsedArticle:
     lines = body.splitlines()
     problems: list[str] = []
 
-    for token in tokens:
-        if token.type == "heading_open" and token.tag == "h1":
-            problems.append(
-                f"строка {_line(token, first_line)}: заголовок первого уровня в статье недопустим, "
-                "блоки начинаются с «## »"
-            )
+    problems.extend(
+        f"строка {_line(token, first_line)}: заголовок первого уровня в статье недопустим, "
+        "блоки начинаются с «## »"
+        for token in tokens
+        if token.type == "heading_open" and token.tag == "h1"
+    )
 
     headings = [
         (index, token)

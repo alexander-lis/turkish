@@ -20,7 +20,9 @@ build-backend = "uv_build"
 
 [dependency-groups]
 dev = [
+    "import-linter>=2.16",
     "mypy>=2.4.1",
+    "pip-audit>=2.10.1",
     "pytest>=9.2.0",
     "ruff>=0.17.4",
     "types-pyyaml>=6.0.12.20261103",
@@ -33,12 +35,25 @@ target-version = "py314"
 src = ["src", "tests"]
 
 [tool.ruff.lint]
-select = ["E", "F", "W", "I", "UP", "B", "SIM", "C4", "PT", "PTH", "N", "RUF"]
+# ARG, ERA, PIE, RET, FURB, PERF — неиспользуемые аргументы, закомментированный и лишний код.
+select = [
+    "E", "F", "W", "I", "UP", "B", "SIM", "C4", "PT", "PTH", "N", "RUF",
+    "ARG", "ERA", "PIE", "RET", "FURB", "PERF", "PGH",
+]
 # RUF001–RUF003 ругаются на кириллицу в строках, докстрингах и комментариях.
 ignore = ["RUF001", "RUF002", "RUF003"]
 
+[tool.ruff.lint.per-file-ignores]
+# Фикстура pytest может требовать другую фикстуру ради её действия, не используя значение.
+"tests/**" = ["ARG001"]
+
 [tool.mypy]
 strict = true
+# Сверх strict: Any нельзя написать даже явно; у библиотеки без типов — Protocol на границе.
+disallow_any_explicit = true
+disallow_any_unimported = true
+warn_unreachable = true
+enable_error_code = ["ignore-without-code", "redundant-expr", "truthy-bool", "truthy-iterable", "possibly-undefined", "redundant-self", "unused-awaitable", "explicit-override", "mutable-override", "deprecated", "exhaustive-match"]
 files = ["src", "tests"]
 plugins = ["pydantic.mypy"]
 
@@ -49,3 +64,21 @@ ignore_missing_imports = true
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+
+[tool.importlinter]
+root_package = "turkish_grammar"
+
+# Слои из ARCHITECTURE.md, сверху вниз: импорт только вниз (через слой — можно), внутри слоя — свободно.
+# «api | wordforms» — один слой из двух независимых частей: они не импортируют друг друга.
+# exhaustive: новый подпакет или модуль верхнего уровня обязан попасть в слой.
+[[tool.importlinter.contracts]]
+name = "Слои"
+type = "layers"
+containers = ["turkish_grammar"]
+exhaustive = true
+layers = [
+    "cli",
+    "api | wordforms",
+    "content",
+    "settings",
+]

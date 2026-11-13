@@ -11,7 +11,8 @@
     "lint": "eslint . && prettier --check .",
     "format": "eslint --fix . && prettier --write .",
     "test": "vitest",
-    "gen:api": "openapi-typescript openapi.json --output src/api/schema.d.ts"
+    "gen:api": "openapi-typescript openapi.json --output src/api/schema.d.ts",
+    "knip": "knip"
   },
   "dependencies": {
     "@tanstack/react-query": "^5.107.1",
@@ -40,6 +41,7 @@
     "eslint-plugin-react-refresh": "^0.5.7",
     "globals": "^17.14.0",
     "jsdom": "^31.0.0",
+    "knip": "^6.45.1",
     "msw": "^3.0.4",
     "openapi-typescript": "^7.13.0",
     "prettier": "^3.9.10",
@@ -49,5 +51,10 @@
     "typescript-eslint": "^8.72.1",
     "vite": "^8.3.6",
     "vitest": "^5.1.0"
+  },
+  "knip": {
+    "ignore": [
+      "src/api/schema.d.ts"
+    ]
   }
 }

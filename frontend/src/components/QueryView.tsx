@@ -1,7 +1,7 @@
 import type { UseQueryResult } from "@tanstack/react-query";
 import type { ReactNode } from "react";
 
-export function Loading() {
+function Loading() {
   return (
     <p role="status" className="py-8 text-sm text-slate-500">
       Загрузка…
@@ -9,7 +9,7 @@ export function Loading() {
   );
 }
 
-export function LoadError({ onRetry }: { onRetry: () => void }) {
+function LoadError({ onRetry }: { onRetry: () => void }) {
   return (
     <div
       role="alert"

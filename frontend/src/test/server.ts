@@ -7,7 +7,7 @@ export const server = setupServer(
   http.get("*/api/topics", () => HttpResponse.json(topics)),
   http.get("*/api/sections", () => HttpResponse.json(sections)),
   http.get("*/api/topics/:id", ({ params }) => {
-    const topic = topicDetails[String(params.id)];
+    const topic = topicDetails[String(params["id"])];
     return topic
       ? HttpResponse.json(topic)
       : HttpResponse.json({ detail: "Тема не найдена" }, { status: 404 });

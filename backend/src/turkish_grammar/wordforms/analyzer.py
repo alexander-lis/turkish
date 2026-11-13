@@ -7,11 +7,17 @@ zeyrek — зависимость разработки, поэтому он им
 import logging
 import os
 from functools import cache
-from typing import Any
+from typing import Protocol
 
 _RECOGNIZED = 0
 _REJECTED = 1
 _FAILED = 2
+
+
+class _Analyzer(Protocol):
+    """То, что нужно от ``zeyrek.MorphAnalyzer``: у библиотеки нет аннотаций типов."""
+
+    def _parse(self, word: str) -> list[object]: ...
 
 
 class AnalyzerError(RuntimeError):
@@ -45,8 +51,9 @@ def is_recognized(word: str) -> bool:
 
 
 @cache
-def _load_analyzer() -> Any:
+def _load_analyzer() -> _Analyzer:
     """Загрузить анализатор один раз. Сам родительский процесс им ничего не разбирает."""
     import zeyrek
 
-    return zeyrek.MorphAnalyzer()
+    analyzer: _Analyzer = zeyrek.MorphAnalyzer()
+    return analyzer

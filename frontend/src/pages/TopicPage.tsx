@@ -131,7 +131,7 @@ function PathNavigation({ topic }: { topic: TopicDetail }) {
 }
 
 /** Страница темы по шаблону; у заглушки вместо статьи — сообщение. */
-export function TopicView({ topic }: { topic: TopicDetail }) {
+function TopicView({ topic }: { topic: TopicDetail }) {
   return (
     <article>
       <PageTitle>{topic.title}</PageTitle>

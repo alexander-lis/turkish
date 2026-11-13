@@ -52,7 +52,7 @@ function navLinkClass({ isActive }: { isActive: boolean }): string {
 
 function scrollIntoViewIfCurrent(link: HTMLAnchorElement | null): void {
   if (link?.getAttribute("aria-current") === "page") {
-    link.scrollIntoView?.({ block: "nearest" });
+    link.scrollIntoView({ block: "nearest" });
   }
 }
 

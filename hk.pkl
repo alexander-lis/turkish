@@ -1,0 +1,139 @@
+amends "package://github.com/jdx/hk/releases/download/v2.11.0/hk@2.11.0#/Config.pkl"
+import "package://github.com/jdx/hk/releases/download/v2.11.0/hk@2.11.0#/Builtins.pkl"
+
+// Единственный список проверок: хуки git и mise run check / lint / format берут шаги отсюда.
+
+// При коммите: быстрые проверки. Исправить то, что чинится само: mise run format.
+local fast = new Mapping<String, Step> {
+  ["betterleaks"] = Builtins.betterleaks
+  ["jactionlint"] = Builtins.jactionlint
+  ["ruff"] {
+    dir = "backend"
+    glob = List("**/*.py", "pyproject.toml")
+    check = "uv run ruff check"
+    fix = "uv run ruff check --fix"
+  }
+  // После ruff: оба шага исправления пишут одни и те же файлы.
+  ["ruff-format"] {
+    dir = "backend"
+    glob = List("**/*.py")
+    depends = List("ruff")
+    check = "uv run ruff format --check"
+    fix = "uv run ruff format"
+  }
+  ["uv-lock"] {
+    dir = "backend"
+    glob = List("pyproject.toml", "uv.lock")
+    check = "uv lock --check"
+  }
+  ["eslint"] {
+    dir = "frontend"
+    glob = List("**/*.ts", "**/*.tsx", "**/*.js")
+    check = "pnpm exec eslint ."
+    fix = "pnpm exec eslint --fix ."
+  }
+  // После eslint: оба шага исправления пишут одни и те же файлы.
+  ["prettier"] {
+    dir = "frontend"
+    depends = List("eslint")
+    check = "pnpm exec prettier --check ."
+    fix = "pnpm exec prettier --write ."
+  }
+  // Контент проверяется и при правке кода: правила проверки живут в backend.
+  ["content"] {
+    glob = List("content/**", "backend/src/**")
+    check = "mise run content:check"
+  }
+}
+
+// Типы и структура кода.
+local typed = (fast) {
+  ["mypy"] {
+    dir = "backend"
+    glob = List("**/*.py", "pyproject.toml")
+    check = "uv run mypy"
+  }
+  // Слои из ARCHITECTURE.md: контракт в backend/pyproject.toml.
+  ["layers"] {
+    dir = "backend"
+    glob = List("src/**/*.py", "pyproject.toml")
+    check = "uv run lint-imports"
+  }
+  // frontend/src/api/schema.d.ts генерируется из схем ответов API. Шаг падает, если сохранённый файл отстал:
+  // исправить — mise run gen:api и закоммитить файл. exclusive: шаг пишет frontend/openapi.json.
+  ["api-types"] {
+    glob = List("backend/src/**/*.py", "frontend/package.json", "frontend/src/api/schema.d.ts")
+    exclusive = true
+    check = "mise run gen:api:check"
+  }
+  ["tsc"] {
+    dir = "frontend"
+    glob = List("**/*.ts", "**/*.tsx", "tsconfig*.json")
+    check = "pnpm run --silent typecheck"
+  }
+  // Неиспользуемые файлы, экспорты и зависимости интерфейса.
+  ["knip"] {
+    dir = "frontend"
+    check = "pnpm run --silent knip"
+  }
+  // Только спецификации: незавершённое изменение в openspec/changes законно неполно.
+  ["openspec"] {
+    glob = List("openspec/specs/**")
+    check = "OPENSPEC_TELEMETRY=0 openspec validate --specs"
+  }
+}
+
+// Перед push: всё, чему не нужна база уязвимостей.
+local full = (typed) {
+  // Тесты читают и руководство автора (образцы файлов), и карту кода в ARCHITECTURE.md.
+  ["pytest"] {
+    glob = List("backend/**", "content/README.md", "ARCHITECTURE.md")
+    check = "uv run --directory backend pytest -q"
+  }
+  ["vitest"] {
+    dir = "frontend"
+    check = "pnpm exec vitest --run"
+  }
+  ["content-words"] {
+    glob = List("content/**", "backend/src/**")
+    check = "mise run content:words"
+  }
+}
+
+hooks {
+  ["pre-commit"] {
+    stash = "none"
+    steps = fast
+  }
+  ["commit-msg"] {
+    steps {
+      ["commitlint"] {
+        check = "pnpm exec commitlint --edit {{commit_msg_file}}"
+      }
+    }
+  }
+  ["pre-push"] {
+    steps = full
+  }
+  ["lint"] {
+    steps = typed
+  }
+  ["check"] {
+    steps = (full) {
+      // Только зависимости времени выполнения: инструменты разработки до читателя не доходят.
+      ["pnpm-audit"] {
+        dir = "frontend"
+        check = "pnpm audit --prod"
+      }
+      ["pip-audit"] {
+        dir = "backend"
+        check = "uv export --quiet --frozen --no-dev --no-emit-project --format requirements-txt -o .venv/audit-requirements.txt && uv run pip-audit --disable-pip --require-hashes -r .venv/audit-requirements.txt"
+      }
+    }
+  }
+  ["fix"] {
+    fix = true
+    stash = "none"
+    steps = fast
+  }
+}

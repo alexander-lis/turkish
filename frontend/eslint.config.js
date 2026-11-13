@@ -12,11 +12,24 @@ export default defineConfig([
     files: ["**/*.{ts,tsx}"],
     extends: [
       js.configs.recommended,
-      tseslint.configs.recommendedTypeChecked,
+      tseslint.configs.strictTypeChecked,
+      tseslint.configs.stylisticTypeChecked,
       reactHooks.configs.flat.recommended,
       reactRefresh.configs.vite,
       prettier,
     ],
+    rules: {
+      // Стрелка-однострочник с вызовом, который ничего не возвращает (onClick={() => setOpen(false)}), понятна и так.
+      "@typescript-eslint/no-confusing-void-expression": [
+        "error",
+        { ignoreArrowShorthand: true },
+      ],
+      // Число в шаблонной строке однозначно; запрещены остальные нестроковые значения.
+      "@typescript-eslint/restrict-template-expressions": [
+        "error",
+        { allowNumber: true },
+      ],
+    },
     languageOptions: {
       globals: globals.browser,
       parserOptions: {

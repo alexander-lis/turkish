@@ -39,7 +39,9 @@ test("страница темы показывает название, уров�
   const main = await topicPage("Местный падеж -DA");
 
   const title = main.getByRole("heading", { level: 1 });
-  const header = within(title.parentElement!);
+  const parent = title.parentElement;
+  if (parent === null) throw new Error("у заголовка темы нет родителя");
+  const header = within(parent);
   expect(header.getByText("A1")).toBeInTheDocument();
   expect(header.getByText("Существительное")).toBeInTheDocument();
   expect(

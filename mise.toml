@@ -3,6 +3,11 @@ python = "3.14.10"
 node = "26.13.0"
 uv = "0.13.7"
 pnpm = "12.18.0"
+hk = "2.11.0"
+betterleaks = "1.9.0"
+jactionlint = { version = "2.4.0", workflow = "release.yaml" }
+shellcheck = "0.11.0"  # jactionlint проверяет им скрипты в workflow
+"npm:@fission-ai/openspec" = "1.15.0"
 
 [env]
 # uv использует ровно тот Python, который поставил mise: не скачивает собственный
@@ -11,8 +16,13 @@ UV_PYTHON = { value = "{{ tools.python.path }}/bin/python", tools = true }
 VIRTUAL_ENV = false
 
 [tasks.install]
-description = "Установить зависимости бэкенда и интерфейса"
-run = ["uv sync --directory backend", "pnpm --dir frontend install"]
+description = "Установить зависимости бэкенда, интерфейса и commitlint"
+run = ["uv sync --directory backend", "pnpm --dir frontend install", "pnpm install"]
+
+[tasks.setup]
+description = "Установить зависимости и git-хуки"
+depends = ["install"]
+run = "hk install --mise"
 
 [tasks.dev]
 description = "Запустить справочник локально: API и интерфейс"
@@ -33,20 +43,12 @@ dir = "frontend"
 run = "pnpm dev"
 
 [tasks.lint]
-description = "Линтеры и проверка форматирования: ruff, ESLint, Prettier"
-run = [
-  "uv run --directory backend ruff check",
-  "uv run --directory backend ruff format --check",
-  "pnpm --dir frontend lint",
-]
+description = "Линтеры, форматирование, типы, слои, свежесть типов API; шаги — в hk.pkl"
+run = "hk run lint --all"
 
 [tasks.format]
 description = "Исправить форматирование и автоисправляемые замечания линтеров"
-run = [
-  "uv run --directory backend ruff check --fix",
-  "uv run --directory backend ruff format",
-  "pnpm --dir frontend format",
-]
+run = "hk fix --all"
 
 [tasks.typecheck]
 description = "Проверка типов: mypy и tsc"
@@ -84,5 +86,5 @@ run = [
 ]
 
 [tasks.check]
-description = "Все проверки перед коммитом"
-depends = ["lint", "typecheck", "test", "content:check", "content:words", "gen:api:check"]
+description = "Все проверки: то же запускает CI; шаги — в hk.pkl"
+run = "hk check --all"

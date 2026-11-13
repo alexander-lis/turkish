@@ -97,7 +97,7 @@ function detail(
 }
 
 /** Первая тема маршрута: без пререквизитов и без части блоков. */
-export const vowelHarmony = detail("vowel-harmony", {
+const vowelHarmony = detail("vowel-harmony", {
   blocks: [
     {
       kind: "formula",
@@ -225,7 +225,7 @@ export const locativeDa = detail("locative-da", {
 });
 
 /** Заглушка в середине маршрута. */
-export const pastDi = detail("past-di", {
+const pastDi = detail("past-di", {
   blocks: [],
   examples: [],
   prerequisites: [ref("vowel-harmony")],
@@ -233,7 +233,7 @@ export const pastDi = detail("past-di", {
 });
 
 /** Последняя тема маршрута. */
-export const ablativeDan = detail("ablative-dan", {
+const ablativeDan = detail("ablative-dan", {
   blocks: [],
   examples: [],
   prerequisites: [],

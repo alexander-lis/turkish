@@ -1,0 +1,58 @@
+name: CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0 # commitlint читает запушенные коммиты
+          persist-credentials: false
+
+      # Ставит инструменты из mise.toml, те же, что локально.
+      - name: Setup mise
+        uses: jdx/mise-action@f5be966e4a917d54244728e6a5fdcd1d93a35e6c # v5.2.6
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Install dependencies
+        run: mise run install
+
+      # У новой ветки и force push нет пригодного "before": проверяем последний коммит.
+      # В pull request — коммиты от базы до головы ветки.
+      - name: Check commit messages
+        env:
+          BEFORE: ${{ github.event.before }}
+          BASE: ${{ github.event.pull_request.base.sha }}
+          HEAD: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          if [ -n "$BASE" ]; then
+            pnpm exec commitlint --from "$BASE" --to "$HEAD"
+          elif git cat-file -e "$BEFORE^{commit}" 2>/dev/null; then
+            pnpm exec commitlint --from "$BEFORE" --to "$HEAD"
+          else
+            pnpm exec commitlint --last
+          fi
+
+      - name: Run checks
+        run: mise run check
+
+      # Проверки не должны менять файлы репозитория: контент, типы API, lock-файлы.
+      - name: Check the working tree stayed clean
+        run: |
+          git status --porcelain
+          test -z "$(git status --porcelain)"
