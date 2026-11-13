@@ -1,7 +1,8 @@
 /**
  * Требования «Страница темы следует шаблону», «Пререквизиты на странице темы»,
  * «Обзоры и темы обзора на странице темы», «Блок «Не путать»», «Переходы по учебному маршруту»,
- * «Страница заглушки», «У каждой темы постоянный адрес» и переходы по ссылкам на темы.
+ * «Страница заглушки», «У каждой темы постоянный адрес», «Ссылка на карту со страницы темы»
+ * и переходы по ссылкам на темы.
  */
 import { screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
@@ -413,4 +414,33 @@ test("заглушка среди связанных тем помечена «�
   expect(
     main.getByRole("region", { name: "Связанные темы" }),
   ).toHaveTextContent("не написано");
+});
+
+test("ссылка «Показать на карте» открывает карту с этой темой, выбранной на ней", async () => {
+  const user = userEvent.setup();
+  renderApp("/topics/locative-da");
+  const main = await topicPage("Местный падеж -DA");
+
+  const link = main.getByRole("link", { name: "Показать на карте" });
+  expect(link).toHaveAttribute("href", "/map?topic=locative-da");
+  await user.click(link);
+
+  const panel = await screen.findByRole(
+    "complementary",
+    { name: "Тема на карте" },
+    { timeout: 5000 },
+  );
+  expect(
+    within(panel).getByRole("heading", { name: "Местный падеж -DA" }),
+  ).toBeInTheDocument();
+});
+
+test("у заглушки есть ссылка «Показать на карте»", async () => {
+  renderApp("/topics/past-di");
+  const main = await topicPage("Прошедшее время -DI");
+
+  expect(main.getByRole("link", { name: "Показать на карте" })).toHaveAttribute(
+    "href",
+    "/map?topic=past-di",
+  );
 });

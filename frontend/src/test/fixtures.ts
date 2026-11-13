@@ -2,6 +2,7 @@ import type {
   Notation,
   Section,
   TopicDetail,
+  TopicGraph,
   TopicRef,
   TopicSummary,
 } from "../api/types.ts";
@@ -360,6 +361,49 @@ export const topicDetails: Record<string, TopicDetail> = {
   [pastDi.id]: pastDi,
   [tenseOverview.id]: tenseOverview,
   [ablativeDan.id]: ablativeDan,
+};
+
+/**
+ * Граф тем для карты. Связи тем из topicDetails повторены, и к ним добавлено то, чего карте
+ * нужно больше:
+ * - у «Местного падежа» два пререквизита;
+ * - «Множественное число -lAr» из раздела «Существительное» входит в «Обзор времён»
+ *   из «Времён глагола»: тот же аффикс — окончание третьего лица множественного числа;
+ * - различение трёх тем вместо различения двух: связанная пара locative-da и ablative-dan
+ *   уступает ему, как на сервере, и остаётся одна связанная пара — past-di и passive-il.
+ *
+ * Связи идут в порядке маршрута темы-начала, затем темы-конца, как в ответе сервера.
+ */
+export const graph: TopicGraph = {
+  topics,
+  edges: [
+    { kind: "prerequisite", source: "vowel-harmony", target: "plural-lar" },
+    { kind: "prerequisite", source: "vowel-harmony", target: "cases-overview" },
+    { kind: "prerequisite", source: "vowel-harmony", target: "locative-da" },
+    { kind: "prerequisite", source: "vowel-harmony", target: "past-di" },
+    { kind: "prerequisite", source: "plural-lar", target: "locative-da" },
+    { kind: "member", source: "cases-overview", target: "dative-a" },
+    { kind: "member", source: "cases-overview", target: "locative-da" },
+    { kind: "member", source: "cases-overview", target: "ablative-dan" },
+    { kind: "prerequisite", source: "past-di", target: "tense-overview" },
+    { kind: "related", source: "past-di", target: "passive-il" },
+    { kind: "prerequisite", source: "past-mis", target: "tense-overview" },
+    { kind: "member", source: "tense-overview", target: "plural-lar" },
+    { kind: "member", source: "tense-overview", target: "past-di" },
+    { kind: "member", source: "tense-overview", target: "past-mis" },
+  ],
+  contrasts: [
+    {
+      title: "«Где», «куда» и «откуда»",
+      topics: ["locative-da", "dative-a", "ablative-dan"],
+      explained_in: ["locative-da", "cases-overview"],
+    },
+    {
+      title: "-DI и -mIş",
+      topics: ["past-di", "past-mis"],
+      explained_in: ["tense-overview"],
+    },
+  ],
 };
 
 export const notation: Notation = {

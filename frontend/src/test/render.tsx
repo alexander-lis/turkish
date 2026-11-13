@@ -8,6 +8,7 @@ import {
 import type { ReactNode } from "react";
 import { MemoryRouter } from "react-router";
 import { AppRoutes } from "../AppRoutes.tsx";
+import { LOCATION_PROBE_ID, LocationProbe } from "./LocationProbe.tsx";
 
 /** Запросы к части страницы: то, что возвращает within(). */
 export type Scope = BoundFunctions<typeof queries>;
@@ -26,7 +27,18 @@ function renderWithProviders(ui: ReactNode, route: string): RenderResult {
 
 /** Открыть приложение целиком по адресу, как это сделал бы читатель. */
 export function renderApp(route = "/"): RenderResult {
-  return renderWithProviders(<AppRoutes />, route);
+  return renderWithProviders(
+    <>
+      <AppRoutes />
+      <LocationProbe />
+    </>,
+    route,
+  );
+}
+
+/** Текущий адрес приложения, открытого renderApp. */
+export function currentLocation(): string {
+  return document.getElementById(LOCATION_PROBE_ID)?.textContent ?? "";
 }
 
 /** Отрисовать отдельный компонент, которому нужны ссылки маршрутизатора. */

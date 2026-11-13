@@ -1,4 +1,4 @@
-/** Требования «Неизвестный адрес» и «Состояния загрузки и ошибки». */
+/** Требования «Неизвестный адрес», «Состояния загрузки и ошибки» и «Карта тем доступна из шапки». */
 import { screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { delay, http, HttpResponse } from "msw";
@@ -90,4 +90,26 @@ test("после восстановления сервера кнопка пов
     await main().findByRole("link", { name: "Гармония гласных" }),
   ).toBeInTheDocument();
   expect(main().queryByRole("alert")).not.toBeInTheDocument();
+});
+
+test("ссылка «Карта тем» в шапке открывает карту тем", async () => {
+  renderApp("/topics/locative-da");
+  const header = within(screen.getByRole("banner"));
+  expect(header.getByRole("link", { name: "Карта тем" })).not.toHaveAttribute(
+    "aria-current",
+  );
+
+  await userEvent.click(header.getByRole("link", { name: "Карта тем" }));
+
+  expect(
+    await screen.findByRole(
+      "application",
+      { name: "Карта тем" },
+      { timeout: 5000 },
+    ),
+  ).toBeInTheDocument();
+  expect(header.getByRole("link", { name: "Карта тем" })).toHaveAttribute(
+    "aria-current",
+    "page",
+  );
 });

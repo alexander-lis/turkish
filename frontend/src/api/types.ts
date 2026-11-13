@@ -12,3 +12,5 @@ export type Example = Schemas["Example"];
 export type MarkedText = Schemas["MarkedText"];
 export type GlossedWord = Schemas["GlossedWord"];
 export type Notation = Schemas["Notation"];
+export type EdgeKind = Schemas["EdgeKind"];
+export type TopicGraph = Schemas["TopicGraph"];

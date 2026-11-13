@@ -1,6 +1,6 @@
 import { http, HttpResponse } from "msw";
 import { setupServer } from "msw/node";
-import { notation, sections, topicDetails, topics } from "./fixtures.ts";
+import { graph, notation, sections, topicDetails, topics } from "./fixtures.ts";
 
 /** Сервер API для тестов: отдаёт тестовые данные так же, как настоящий. */
 export const server = setupServer(
@@ -12,5 +12,6 @@ export const server = setupServer(
       ? HttpResponse.json(topic)
       : HttpResponse.json({ detail: "Тема не найдена" }, { status: 404 });
   }),
+  http.get("*/api/graph", () => HttpResponse.json(graph)),
   http.get("*/api/notation", () => HttpResponse.json(notation)),
 );

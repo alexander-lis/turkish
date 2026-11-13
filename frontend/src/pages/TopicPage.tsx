@@ -11,7 +11,7 @@ import { LevelBadge } from "../components/LevelBadge.tsx";
 import { PageTitle } from "../components/PageTitle.tsx";
 import { QueryView } from "../components/QueryView.tsx";
 import { StubMark } from "../components/TopicMarks.tsx";
-import { NOTATION_PATH, topicPath } from "../lib/site.ts";
+import { mapTopicPath, NOTATION_PATH, topicPath } from "../lib/site.ts";
 import {
   TEMPLATE,
   TEMPLATE_ORDER,
@@ -214,6 +214,11 @@ function TopicView({ topic }: { topic: TopicDetail }) {
         </h1>
         <p className="mt-3 text-lg text-slate-700">
           <AffixText>{topic.summary}</AffixText>
+        </p>
+        <p className="mt-2 text-sm">
+          <Link to={mapTopicPath(topic.id)} className={LINK_CLASS}>
+            Показать на карте
+          </Link>
         </p>
         {hasPlaceOnMap && (
           <div className="mt-4 space-y-3 rounded-lg bg-slate-100 px-4 py-3 text-sm">

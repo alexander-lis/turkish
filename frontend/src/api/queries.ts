@@ -1,5 +1,6 @@
 import { QueryClient, queryOptions } from "@tanstack/react-query";
 import {
+  fetchGraph,
   fetchNotation,
   fetchSections,
   fetchTopic,
@@ -33,6 +34,12 @@ export function topicQuery(id: string) {
     queryFn: () => fetchTopic(id),
   });
 }
+
+/** Граф тем: все темы, связи между ними и различения. Нужен только карте тем. */
+export const graphQuery = queryOptions({
+  queryKey: ["graph"],
+  queryFn: fetchGraph,
+});
 
 export const notationQuery = queryOptions({
   queryKey: ["notation"],

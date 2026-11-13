@@ -1,7 +1,8 @@
 import type { UseQueryResult } from "@tanstack/react-query";
 import type { ReactNode } from "react";
 
-function Loading() {
+/** Индикатор загрузки: его же показывает страница, пока грузится её код. */
+export function Loading() {
   return (
     <p role="status" className="py-8 text-sm text-slate-500">
       Загрузка…

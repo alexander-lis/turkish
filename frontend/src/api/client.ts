@@ -1,6 +1,12 @@
 import createClient from "openapi-fetch";
 import type { paths } from "./schema";
-import type { Notation, Section, TopicDetail, TopicSummary } from "./types.ts";
+import type {
+  Notation,
+  Section,
+  TopicDetail,
+  TopicGraph,
+  TopicSummary,
+} from "./types.ts";
 
 /** Сервер ответил, но не данными: например, темы с таким идентификатором нет. */
 class ApiError extends Error {
@@ -39,6 +45,10 @@ export async function fetchTopic(id: string): Promise<TopicDetail> {
   return unwrap(
     await client.GET("/api/topics/{id}", { params: { path: { id } } }),
   );
+}
+
+export async function fetchGraph(): Promise<TopicGraph> {
+  return unwrap(await client.GET("/api/graph"));
 }
 
 export async function fetchNotation(): Promise<Notation> {
