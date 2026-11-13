@@ -20,6 +20,7 @@ from turkish_grammar.content.article import (
 from turkish_grammar.content.errors import ContentFormatError, ContentIssue, InvalidContentError
 from turkish_grammar.content.files import (
     AbbreviationEntry,
+    ContrastEntry,
     ExampleEntry,
     KnownWordEntry,
     SectionEntry,
@@ -40,6 +41,7 @@ from turkish_grammar.content.model import (
     LEVEL_ORDER,
     Abbreviation,
     Catalog,
+    Contrast,
     Example,
     GlossedWord,
     KnownWord,
@@ -55,6 +57,7 @@ EXAMPLES_FILE = "examples.yaml"
 SECTIONS_FILE = "sections.yaml"
 PATH_FILE = "path.yaml"
 ABBREVIATIONS_FILE = "abbreviations.yaml"
+CONTRASTS_FILE = "contrasts.yaml"
 NOTATION_FILE = "notation.md"
 KNOWN_WORDS_FILE = "known-words.yaml"
 
@@ -78,6 +81,14 @@ class _TopicDraft:
 
 
 @dataclass(frozen=True)
+class _ContrastDraft:
+    """Различение и номер его записи в файле: по номеру запись называют сообщения об ошибках."""
+
+    number: int
+    contrast: Contrast
+
+
+@dataclass(frozen=True)
 class _Notation:
     markdown: str
     topic_links: tuple[TopicLink, ...]
@@ -94,12 +105,15 @@ def load_catalog(content_dir: Path) -> Catalog:
     abbreviations = _read_abbreviations(content_dir, report)
     notation = _read_notation(content_dir, report)
     path = _read_path(content_dir, report)
+    contrasts = _read_contrasts(content_dir, report)
     topic_ids, drafts = _read_topics(content_dir, report)
 
     all_topics_read = len(drafts) == len(topic_ids)
     if sections is not None:
         _check_sections(sections, drafts, report, report_unused=all_topics_read)
     _check_topic_references(drafts, topic_ids, report)
+    _check_overviews(drafts, topic_ids, report)
+    _check_contrasts(contrasts, drafts, topic_ids, report)
     if path is not None:
         _check_path(path, drafts, topic_ids, report)
     _check_text_links(drafts, notation, topic_ids, report)
@@ -121,6 +135,7 @@ def load_catalog(content_dir: Path) -> Catalog:
         topics=tuple(topics[topic_id] for topic_id in path),
         abbreviations=abbreviations,
         notation_markdown=notation.markdown,
+        contrasts=tuple(draft.contrast for draft in contrasts),
     )
 
 
@@ -296,6 +311,22 @@ def _read_path(root: Path, report: _Report) -> tuple[str, ...] | None:
     return tuple(dict.fromkeys(path))
 
 
+def _read_contrasts(root: Path, report: _Report) -> list[_ContrastDraft]:
+    """Прочитать различения. Файла может не быть: тогда различений нет."""
+    items = _read_yaml_list(root, CONTRASTS_FILE, report, required=False) or []
+    contrasts: list[_ContrastDraft] = []
+    for number, item in enumerate(items, 1):
+        entry = _validate(ContrastEntry, item, CONTRASTS_FILE, report, where=f"запись {number}: ")
+        if entry is not None:
+            contrast = Contrast(
+                topics=tuple(entry.topics),
+                title=entry.title,
+                explained_in=tuple(entry.explained_in),
+            )
+            contrasts.append(_ContrastDraft(number=number, contrast=contrast))
+    return contrasts
+
+
 def _read_topics(root: Path, report: _Report) -> tuple[set[str], list[_TopicDraft]]:
     """Прочитать все каталоги тем.
 
@@ -375,6 +406,7 @@ def _read_topic(root: Path, topic_id: str, report: _Report) -> _TopicDraft | Non
             summary=meta.summary,
             prerequisites=tuple(meta.prerequisites),
             related=tuple(meta.related),
+            members=tuple(meta.members),
             blocks=article.blocks,
             examples=examples,
         ),
@@ -383,7 +415,12 @@ def _read_topic(root: Path, topic_id: str, report: _Report) -> _TopicDraft | Non
 
 
 def _check_own_references(topic_id: str, meta: TopicMeta, rel: str, report: _Report) -> None:
-    for field, ids in (("prerequisites", meta.prerequisites), ("related", meta.related)):
+    references = (
+        ("prerequisites", meta.prerequisites),
+        ("related", meta.related),
+        ("members", meta.members),
+    )
+    for field, ids in references:
         if topic_id in ids:
             report.add(rel, f"поле `{field}`: тема ссылается сама на себя")
         for other, count in Counter(ids).items():
@@ -483,11 +520,121 @@ def _check_topic_references(
 ) -> None:
     for draft in drafts:
         topic = draft.topic
-        references = (("пререквизит", topic.prerequisites), ("связанная тема", topic.related))
+        references = (
+            ("пререквизит", topic.prerequisites),
+            ("связанная тема", topic.related),
+            ("тема обзора", topic.members),
+        )
         for role, ids in references:
             for other in ids:
                 if other not in topic_ids:
                     report.add(_topic_file(topic.id), f"{role} «{other}»: такой темы нет")
+
+
+def _check_overviews(drafts: list[_TopicDraft], topic_ids: set[str], report: _Report) -> None:
+    members = {draft.topic.id: draft.topic.members for draft in drafts if draft.topic.is_overview}
+    for draft in drafts:
+        topic = draft.topic
+        if not topic.is_overview:
+            continue
+        if len(set(topic.members)) < 2:
+            report.add(
+                _topic_file(topic.id), "поле `members`: у обзора должно быть не меньше двух тем"
+            )
+        if topic.is_stub:
+            # Заглушке ссылаться неоткуда: правило начнёт действовать, когда обзор напишут.
+            continue
+        linked = {link.topic_id for link in draft.article_links}
+        for member in dict.fromkeys(topic.members):
+            if member in topic_ids and member != topic.id and member not in linked:
+                report.add(
+                    _topic_file(topic.id),
+                    f"тема обзора «{member}»: в статье нет ссылки topic:{member} — "
+                    "написанный обзор ссылается на каждую свою тему",
+                )
+
+    reported: set[frozenset[str]] = set()
+    for overview in sorted(members):
+        chain = _chain_back_to(overview, members)
+        if chain is not None and frozenset(chain) not in reported:
+            reported.add(frozenset(chain))
+            shown = " → ".join(f"«{topic_id}»" for topic_id in [*chain, overview])
+            report.add(
+                _topic_file(overview), f"обзор входит сам в себя через цепочку обзоров: {shown}"
+            )
+
+
+def _chain_back_to(start: str, members: dict[str, tuple[str, ...]]) -> list[str] | None:
+    """Цепочка обзоров от ``start`` до обзора, который снова включает ``start``.
+
+    Обзор, который указал сам себя, сюда не относится: об этом сообщает проверка ссылок темы.
+    """
+    visited = {start}
+    chains = [[start]]
+    while chains:
+        chain = chains.pop()
+        for member in members.get(chain[-1], ()):
+            if member == start and len(chain) > 1:
+                return chain
+            if member not in visited:
+                visited.add(member)
+                chains.append([*chain, member])
+    return None
+
+
+def _check_contrasts(
+    contrasts: list[_ContrastDraft],
+    drafts: list[_TopicDraft],
+    topic_ids: set[str],
+    report: _Report,
+) -> None:
+    links_of_written_topic = {
+        draft.topic.id: {link.topic_id for link in draft.article_links}
+        for draft in drafts
+        if not draft.topic.is_stub
+    }
+    first_record_with_topics: dict[frozenset[str], int] = {}
+    for draft in contrasts:
+        contrast = draft.contrast
+        where = f"запись {draft.number}: "
+        for field, ids in (("topics", contrast.topics), ("explained_in", contrast.explained_in)):
+            for topic_id, count in Counter(ids).items():
+                if topic_id not in topic_ids:
+                    report.add(
+                        CONTRASTS_FILE, f"{where}поле `{field}`: тема «{topic_id}» — такой темы нет"
+                    )
+                if count > 1:
+                    report.add(
+                        CONTRASTS_FILE,
+                        f"{where}поле `{field}`: тема «{topic_id}» указана больше одного раза",
+                    )
+        if len(set(contrast.topics)) < 2:
+            report.add(
+                CONTRASTS_FILE, f"{where}поле `topics`: в различении должно быть не меньше двух тем"
+            )
+        if not contrast.explained_in:
+            report.add(
+                CONTRASTS_FILE,
+                f"{where}поле `explained_in`: нужна хотя бы одна тема, где различие разобрано",
+            )
+
+        first = first_record_with_topics.setdefault(frozenset(contrast.topics), draft.number)
+        if first != draft.number:
+            report.add(CONTRASTS_FILE, f"{where}набор тем тот же, что в записи {first}")
+
+        for explaining in dict.fromkeys(contrast.explained_in):
+            # У заглушки статьи нет: правило начнёт действовать, когда тему напишут.
+            linked = links_of_written_topic.get(explaining)
+            if linked is None:
+                continue
+            for topic_id in dict.fromkeys(contrast.topics):
+                if topic_id != explaining and topic_id in topic_ids and topic_id not in linked:
+                    report.add(
+                        _topic_file(explaining),
+                        f"различение «{contrast.title}» ({CONTRASTS_FILE}, запись {draft.number}): "
+                        f"в статье нет ссылки topic:{topic_id} — тема, где различие разобрано, "
+                        "ссылается на каждую его тему",
+                    )
 
 
 def _check_path(

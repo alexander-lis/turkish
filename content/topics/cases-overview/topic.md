@@ -3,7 +3,8 @@ title: Обзор падежей
 section: nouns
 level: A1
 prerequisites: [vowel-harmony, consonant-assimilation, buffer-consonants]
-related: [accusative-i, dative-a, locative-da, ablative-dan, genitive-in, instrumental-la, verb-government, suffix-order-nouns]
+related: [verb-government, suffix-order-nouns]
+members: [accusative-i, dative-a, locative-da, ablative-dan, genitive-in, instrumental-la]
 summary: Шесть падежей и их основные вопросы; у каждого падежа один аффикс для всех существительных.
 ---
 

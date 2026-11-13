@@ -55,6 +55,23 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/graph": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Граф тем: все темы, связи между ними и различения */
+        get: operations["get_graph"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/notation": {
         parameters: {
             query?: never;
@@ -94,6 +111,12 @@ export interface components {
          * @enum {string}
          */
         BlockKind: "formula" | "forms" | "pitfalls" | "vs_russian";
+        /**
+         * EdgeKind
+         * @description Вид связи. Порядок значений — от более определённой связи к менее определённой.
+         * @enum {string}
+         */
+        EdgeKind: "prerequisite" | "member" | "related";
         /** ErrorResponse */
         ErrorResponse: {
             /** Detail */
@@ -125,6 +148,29 @@ export interface components {
         GlossedWord: {
             /** Morphemes */
             morphemes: components["schemas"]["Morpheme"][];
+        };
+        /**
+         * GraphContrast
+         * @description Различение в графе тем: темы названы идентификаторами.
+         */
+        GraphContrast: {
+            /** Title */
+            title: string;
+            /** Topics */
+            topics: string[];
+            /** Explained In */
+            explained_in: string[];
+        };
+        /**
+         * GraphEdge
+         * @description Связь графа тем: у пререквизита начало — пререквизит, у темы обзора — обзор.
+         */
+        GraphEdge: {
+            kind: components["schemas"]["EdgeKind"];
+            /** Source */
+            source: string;
+            /** Target */
+            target: string;
         };
         /** HTTPValidationError */
         HTTPValidationError: {
@@ -177,6 +223,18 @@ export interface components {
             /** Emphasized */
             emphasized: boolean;
         };
+        /**
+         * TopicContrast
+         * @description Различение в ответе о теме: остальные его темы и темы, где различие разобрано.
+         */
+        TopicContrast: {
+            /** Title */
+            title: string;
+            /** Topics */
+            topics: components["schemas"]["TopicRef"][];
+            /** Explained In */
+            explained_in: components["schemas"]["TopicRef"][];
+        };
         /** TopicDetail */
         TopicDetail: {
             /** Id */
@@ -190,6 +248,8 @@ export interface components {
             summary: string;
             /** Is Stub */
             is_stub: boolean;
+            /** Is Overview */
+            is_overview: boolean;
             section: components["schemas"]["Section"];
             /** Blocks */
             blocks: components["schemas"]["ArticleBlock"][];
@@ -197,10 +257,25 @@ export interface components {
             examples: components["schemas"]["Example"][];
             /** Prerequisites */
             prerequisites: components["schemas"]["TopicRef"][];
+            /** Overviews */
+            overviews: components["schemas"]["TopicRef"][];
+            /** Members */
+            members: components["schemas"]["TopicRef"][];
+            /** Contrasts */
+            contrasts: components["schemas"]["TopicContrast"][];
             /** Related */
             related: components["schemas"]["TopicRef"][];
             previous: components["schemas"]["TopicRef"] | null;
             next: components["schemas"]["TopicRef"] | null;
+        };
+        /** TopicGraph */
+        TopicGraph: {
+            /** Topics */
+            topics: components["schemas"]["TopicSummary"][];
+            /** Edges */
+            edges: components["schemas"]["GraphEdge"][];
+            /** Contrasts */
+            contrasts: components["schemas"]["GraphContrast"][];
         };
         /**
          * TopicRef
@@ -227,6 +302,8 @@ export interface components {
             summary: string;
             /** Is Stub */
             is_stub: boolean;
+            /** Is Overview */
+            is_overview: boolean;
         };
         /** ValidationError */
         ValidationError: {
@@ -326,6 +403,26 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_graph: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TopicGraph"];
                 };
             };
         };

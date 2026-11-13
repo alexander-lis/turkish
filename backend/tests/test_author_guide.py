@@ -21,6 +21,17 @@ SAMPLE = re.compile(
 GLOSS_SAMPLE = re.compile(r"`(?P<morphemes>[^`\n]+)` — `(?P<gloss>[^`\n]+)`")
 CONVENTION = re.compile(r"^\d+\. .*$", re.MULTILINE)
 
+# Темы, на которые ссылается образец `contrasts.yaml` и которых нет среди образцов тем.
+CONTRAST_SAMPLE_TOPICS = (
+    "particle-da",
+    "locative-ki",
+    "possessive-ki",
+    "conjunction-ki",
+    "accusative-i",
+    "indefinite-bir",
+    "definiteness",
+)
+
 
 def test_samples_from_author_guide_pass_content_check(content: ContentBuilder) -> None:
     samples = {match["path"]: match["body"] for match in SAMPLE.finditer(GUIDE.read_text("utf-8"))}
@@ -30,6 +41,7 @@ def test_samples_from_author_guide_pass_content_check(content: ContentBuilder) -
         "topics/ablative-dan/topic.md",
         "sections.yaml",
         "path.yaml",
+        "contrasts.yaml",
         "abbreviations.yaml",
         "known-words.yaml",
     }
@@ -37,8 +49,12 @@ def test_samples_from_author_guide_pass_content_check(content: ContentBuilder) -
     # Темы, на которые образцы ссылаются, но которые руководство не приводит.
     content.topic("vowel-harmony", section="phonetics")
     content.topic("consonant-assimilation", section="phonetics")
+    for topic_id in CONTRAST_SAMPLE_TOPICS:
+        content.topic(topic_id)
     for path, body in samples.items():
         content.write(path, body)
+    # Образец маршрута короткий: тем из образца различений в нём нет.
+    content.path([*yaml.safe_load(samples["path.yaml"]), *CONTRAST_SAMPLE_TOPICS])
 
     catalog = content.load()
     known_words, known_words_issues = load_known_words(content.root)
@@ -46,6 +62,7 @@ def test_samples_from_author_guide_pass_content_check(content: ContentBuilder) -
     assert len(catalog.topic("locative-da").blocks) == 4
     assert len(catalog.topic("locative-da").examples) == 3
     assert catalog.topic("ablative-dan").is_stub
+    assert [len(contrast.topics) for contrast in catalog.contrasts] == [2, 3, 2]
     assert len(known_words) == 1
     assert known_words_issues == ()
 

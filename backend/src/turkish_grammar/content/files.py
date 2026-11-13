@@ -24,6 +24,7 @@ class TopicMeta(_FileEntry):
     level: Level
     prerequisites: list[NonEmptyStr]
     related: list[NonEmptyStr] = []
+    members: list[NonEmptyStr] = []
     summary: NonEmptyStr
 
 
@@ -50,6 +51,18 @@ class AbbreviationEntry(_FileEntry):
 
     code: NonEmptyStr
     meaning: NonEmptyStr
+
+
+class ContrastEntry(_FileEntry):
+    """Одно различение в ``contrasts.yaml``.
+
+    Сколько тем должно быть в списках, проверяет загрузчик: в сообщении об ошибке
+    нужно назвать номер записи.
+    """
+
+    topics: list[NonEmptyStr]
+    title: NonEmptyStr
+    explained_in: list[NonEmptyStr]
 
 
 class KnownWordEntry(_FileEntry):

@@ -1,10 +1,12 @@
-"""Операции API. Все они только читают каталог, загруженный при старте."""
+"""Операции API. Все они только читают каталог и граф тем, построенные при старте."""
 
+from collections.abc import Iterable
 from typing import Annotated
 
 from fastapi import APIRouter, Depends, HTTPException, Path, Request, status
 
 from turkish_grammar.api import schemas
+from turkish_grammar.content.graph import TopicGraph
 from turkish_grammar.content.model import Catalog, Topic
 
 router = APIRouter(prefix="/api")
@@ -15,7 +17,13 @@ def get_catalog(request: Request) -> Catalog:
     return catalog
 
 
+def get_topic_graph(request: Request) -> TopicGraph:
+    graph: TopicGraph = request.app.state.graph
+    return graph
+
+
 CatalogDep = Annotated[Catalog, Depends(get_catalog)]
+GraphDep = Annotated[TopicGraph, Depends(get_topic_graph)]
 
 
 @router.get("/topics", summary="Все темы в порядке учебного маршрута")
@@ -34,11 +42,14 @@ def list_sections(catalog: CatalogDep) -> list[schemas.Section]:
     responses={status.HTTP_404_NOT_FOUND: {"model": schemas.ErrorResponse}},
 )
 def get_topic(
-    topic_id: Annotated[str, Path(alias="id")], catalog: CatalogDep
+    topic_id: Annotated[str, Path(alias="id")], catalog: CatalogDep, graph: GraphDep
 ) -> schemas.TopicDetail:
     topic = catalog.find_topic(topic_id)
     if topic is None:
         raise HTTPException(status.HTTP_404_NOT_FOUND, detail=f"Тема «{topic_id}» не найдена")
+
+    def refs(topic_ids: Iterable[str]) -> list[schemas.TopicRef]:
+        return [_ref(catalog.topic(other)) for other in topic_ids]
 
     previous, following = catalog.neighbours(topic.id)
     return schemas.TopicDetail(
@@ -46,10 +57,31 @@ def get_topic(
         section=schemas.Section.model_validate(catalog.section(topic.section_id)),
         blocks=[schemas.ArticleBlock.model_validate(block) for block in topic.blocks],
         examples=[schemas.Example.model_validate(example) for example in topic.examples],
-        prerequisites=[_ref(catalog.topic(other)) for other in topic.prerequisites],
-        related=[_ref(catalog.topic(other)) for other in topic.related],
+        prerequisites=refs(topic.prerequisites),
+        overviews=refs(graph.overviews_of(topic.id)),
+        members=refs(topic.members),
+        contrasts=[
+            schemas.TopicContrast(
+                title=contrast.title,
+                topics=refs(other for other in contrast.topics if other != topic.id),
+                explained_in=refs(contrast.explained_in),
+            )
+            for contrast in graph.contrasts_of(topic.id)
+        ],
+        related=refs(graph.related_of(topic.id)),
         previous=_ref(previous) if previous else None,
         next=_ref(following) if following else None,
+    )
+
+
+@router.get("/graph", summary="Граф тем: все темы, связи между ними и различения")
+def get_graph(catalog: CatalogDep, graph: GraphDep) -> schemas.TopicGraph:
+    return schemas.TopicGraph(
+        topics=[schemas.TopicSummary.model_validate(topic) for topic in catalog.topics],
+        edges=[schemas.GraphEdge.model_validate(edge) for edge in graph.edges],
+        contrasts=[
+            schemas.GraphContrast.model_validate(contrast) for contrast in catalog.contrasts
+        ],
     )
 
 

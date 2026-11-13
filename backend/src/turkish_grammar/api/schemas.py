@@ -2,6 +2,7 @@
 
 from pydantic import BaseModel, ConfigDict
 
+from turkish_grammar.content.graph import EdgeKind
 from turkish_grammar.content.model import BlockKind, ExampleSource, Level
 
 
@@ -22,6 +23,7 @@ class TopicSummary(_Schema):
     section_id: str
     summary: str
     is_stub: bool
+    is_overview: bool
 
 
 class TopicRef(_Schema):
@@ -72,14 +74,47 @@ class Example(_Schema):
     gloss: list[GlossedWord] | None
 
 
+class TopicContrast(_Schema):
+    """Различение в ответе о теме: остальные его темы и темы, где различие разобрано."""
+
+    title: str
+    topics: list[TopicRef]
+    explained_in: list[TopicRef]
+
+
 class TopicDetail(TopicSummary):
     section: Section
     blocks: list[ArticleBlock]
     examples: list[Example]
     prerequisites: list[TopicRef]
+    overviews: list[TopicRef]
+    members: list[TopicRef]
+    contrasts: list[TopicContrast]
     related: list[TopicRef]
     previous: TopicRef | None
     next: TopicRef | None
+
+
+class GraphEdge(_Schema):
+    """Связь графа тем: у пререквизита начало — пререквизит, у темы обзора — обзор."""
+
+    kind: EdgeKind
+    source: str
+    target: str
+
+
+class GraphContrast(_Schema):
+    """Различение в графе тем: темы названы идентификаторами."""
+
+    title: str
+    topics: list[str]
+    explained_in: list[str]
+
+
+class TopicGraph(_Schema):
+    topics: list[TopicSummary]
+    edges: list[GraphEdge]
+    contrasts: list[GraphContrast]
 
 
 class Abbreviation(_Schema):

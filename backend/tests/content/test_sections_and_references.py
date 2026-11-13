@@ -73,6 +73,36 @@ def test_repeated_id_in_one_list_is_reported(content: ContentBuilder) -> None:
     assert has_issue(issues, "topics/plural-lar/topic.md", "`related`", "vowel-harmony")
 
 
+def test_missing_overview_member_is_reported_with_overview_and_id(content: ContentBuilder) -> None:
+    content.topic("dative-a")
+    content.topic("cases-overview", members=["dative-a", "locativ-da"])
+
+    issues = content.issues()
+
+    assert has_issue(issues, "topics/cases-overview/topic.md", "тема обзора", "locativ-da")
+
+
+def test_repeated_overview_member_is_reported_with_overview_and_id(content: ContentBuilder) -> None:
+    content.topic("locative-da")
+    content.topic("dative-a")
+    content.topic("cases-overview", members=["locative-da", "dative-a", "locative-da"])
+
+    issues = content.issues()
+
+    assert has_issue(issues, "topics/cases-overview/topic.md", "`members`", "locative-da")
+
+
+def test_overview_listing_itself_is_reported(content: ContentBuilder) -> None:
+    content.topic("locative-da")
+    content.topic("dative-a")
+    content.topic("cases-overview", members=["locative-da", "dative-a", "cases-overview"])
+
+    issues = content.issues()
+
+    assert has_issue(issues, "topics/cases-overview/topic.md", "`members`", "сама на себя")
+    assert len(issues) == 1
+
+
 def test_reference_to_topic_with_broken_metadata_is_not_reported_as_missing(
     content: ContentBuilder,
 ) -> None:

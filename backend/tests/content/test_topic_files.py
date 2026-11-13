@@ -63,6 +63,15 @@ def test_topic_with_empty_prerequisites_is_loaded(content: ContentBuilder) -> No
     assert content.load().topic("vowel-harmony").prerequisites == ()
 
 
+def test_topic_without_members_is_loaded_and_is_not_overview(content: ContentBuilder) -> None:
+    content.topic("locative-da")
+
+    topic = content.load().topic("locative-da")
+
+    assert topic.members == ()
+    assert not topic.is_overview
+
+
 def test_file_without_metadata_is_reported(content: ContentBuilder) -> None:
     content.topic("vowel-harmony")
     content.write("topics/vowel-harmony/topic.md", "## Формула\n\nТекст.\n")

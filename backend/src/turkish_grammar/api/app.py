@@ -8,6 +8,7 @@ from fastapi import FastAPI
 
 from turkish_grammar.api.routes import router
 from turkish_grammar.content.errors import InvalidContentError
+from turkish_grammar.content.graph import build_graph
 from turkish_grammar.content.loader import load_catalog
 from turkish_grammar.settings import Settings
 
@@ -25,11 +26,13 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     @asynccontextmanager
     async def lifespan(app: FastAPI) -> AsyncIterator[None]:
         try:
-            app.state.catalog = load_catalog(settings.content_dir)
+            catalog = load_catalog(settings.content_dir)
         except InvalidContentError as error:
             # С невалидным контентом сервер не стартует: читатель не должен его увидеть.
             logger.error(error.report(settings.content_dir))
             raise
+        app.state.catalog = catalog
+        app.state.graph = build_graph(catalog)
         yield
 
     app = FastAPI(

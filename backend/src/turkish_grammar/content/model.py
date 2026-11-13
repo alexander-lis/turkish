@@ -103,6 +103,7 @@ class Topic:
     summary: str
     prerequisites: tuple[str, ...] = ()
     related: tuple[str, ...] = ()
+    members: tuple[str, ...] = ()
     blocks: tuple[ArticleBlock, ...] = ()
     examples: tuple[Example, ...] = ()
 
@@ -110,6 +111,20 @@ class Topic:
     def is_stub(self) -> bool:
         """Заглушка — тема, к которой ещё не написано ни одного блока статьи."""
         return not self.blocks
+
+    @property
+    def is_overview(self) -> bool:
+        """Обзор — тема, которая перечисляет темы своей группы."""
+        return bool(self.members)
+
+
+@dataclass(frozen=True)
+class Contrast:
+    """Различение: темы, явления которых путают, и темы, где различие разобрано."""
+
+    topics: tuple[str, ...]
+    title: str
+    explained_in: tuple[str, ...]
 
 
 @dataclass(frozen=True)
@@ -140,6 +155,7 @@ class Catalog:
     topics: tuple[Topic, ...]
     abbreviations: tuple[Abbreviation, ...]
     notation_markdown: str
+    contrasts: tuple[Contrast, ...] = ()
     _positions: dict[str, int] = field(init=False, repr=False, compare=False)
     _sections_by_id: dict[str, Section] = field(init=False, repr=False, compare=False)
 

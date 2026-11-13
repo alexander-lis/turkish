@@ -31,6 +31,7 @@ class ContentBuilder:
         self.root = root
         self._path: list[str] = []
         self._sections: list[str] = []
+        self._contrasts: list[dict[str, object]] = []
         self._auto_path = True
         self._auto_sections = True
         (root / "topics").mkdir(parents=True, exist_ok=True)
@@ -56,6 +57,7 @@ class ContentBuilder:
         level: str = "A1",
         prerequisites: Sequence[str] = (),
         related: Sequence[str] | None = None,
+        members: Sequence[str] | None = None,
         summary: str = "Одна фраза о том, что это за явление.",
         article: str = "",
         examples: str | None = None,
@@ -72,6 +74,8 @@ class ContentBuilder:
             }
             if related is not None:
                 fields["related"] = list(related)
+            if members is not None:
+                fields["members"] = list(members)
             metadata = yaml.safe_dump(fields, allow_unicode=True, sort_keys=False)
         self.write(f"topics/{topic_id}/topic.md", f"---\n{metadata.strip()}\n---\n\n{article}")
         if examples is not None:
@@ -89,6 +93,24 @@ class ContentBuilder:
     def sections(self, section_ids: Sequence[str]) -> None:
         self._auto_sections = False
         self._write_sections(section_ids)
+
+    def contrast(
+        self,
+        topics: Sequence[str],
+        *,
+        explained_in: Sequence[str],
+        title: str = "Что с чем путают",
+    ) -> None:
+        """Добавить различение в конец ``contrasts.yaml``.
+
+        Чтобы проверить ошибку в форме записи, файл пишут целиком через ``write()``.
+        """
+        self._contrasts.append(
+            {"topics": list(topics), "title": title, "explained_in": list(explained_in)}
+        )
+        self.write(
+            "contrasts.yaml", yaml.safe_dump(self._contrasts, allow_unicode=True, sort_keys=False)
+        )
 
     def abbreviations(self, meanings_by_code: dict[str, str]) -> None:
         entries = [{"code": code, "meaning": meaning} for code, meaning in meanings_by_code.items()]

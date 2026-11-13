@@ -125,7 +125,7 @@ Göksel, A., Kerslake, C. *Turkish: A Comprehensive Grammar*. Routledge. 1-е и
 - **B1:** `impersonal-passive`, `suffix-order-verbs`, `participle-headless`, `postpositions-abstract`, `particle-ise`, `question-acaba`, `mi-placement`, `agreement-plural`, `partitive`, `definiteness`, `distributive-ar`.
 - **B2:** `probability-dir`, `possessive-adjective-phrase`, `universal-conditional`, `verbs-from-nouns`, `nouns-from-verbs`, `m-reduplication`, `suspended-affixation`.
 
-Обзорные темы (`cases-overview`, `tense-overview`, `voice-overview`, `participle-overview` и другие с `-overview` в идентификаторе) стоят на уровне тем, которые обобщают.
+Обзоры (`cases-overview`, `tense-overview`, `voice-overview`, `participle-overview` и ещё девять) стоят на уровне тем, которые обобщают. Обзором тему делает поле `members` в её метаданных, а не идентификатор.
 
 ## Сверка с оглавлением справочной грамматики
 

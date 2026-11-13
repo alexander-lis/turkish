@@ -10,7 +10,13 @@ from markdown_it.token import Token
 
 from turkish_grammar.content.article import MARKDOWN
 from turkish_grammar.content.errors import ContentIssue
-from turkish_grammar.content.loader import EXAMPLES_FILE, NOTATION_FILE, TOPIC_FILE, TOPICS_DIR
+from turkish_grammar.content.loader import (
+    CONTRASTS_FILE,
+    EXAMPLES_FILE,
+    NOTATION_FILE,
+    TOPIC_FILE,
+    TOPICS_DIR,
+)
 from turkish_grammar.content.model import ARTICLE_TEMPLATE, Catalog
 
 # Запись между пробелами и знаками препинания. Дефис, апостроф, скобки и косая черта в неё
@@ -48,6 +54,8 @@ def find_words(catalog: Catalog) -> FoundWords:
         examples_file = f"{TOPICS_DIR}/{topic.id}/{EXAMPLES_FILE}"
         for number, example in enumerate(topic.examples, 1):
             found.add(examples_file, f"пример {number}", [example.tr.text], turkish_text=True)
+    for number, contrast in enumerate(catalog.contrasts, 1):
+        found.add(CONTRASTS_FILE, f"запись {number}", _inline_markdown_text(contrast.title))
     found.add(NOTATION_FILE, "", _markdown_text(catalog.notation_markdown))
     return FoundWords(turkish=tuple(found.turkish), script_issues=tuple(found.script_issues))
 

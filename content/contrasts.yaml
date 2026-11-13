@@ -1,0 +1,174 @@
+# Различения: явления каких тем легко спутать и в каких темах различие разобрано.
+# Формат и правила — в README.md, раздел «Различения».
+
+- topics: [locative-da, particle-da]
+  title: Аффикс -DA и частица dA
+  explained_in: [locative-da, particle-da, consonant-assimilation]
+
+- topics: [accusative-i, possessive-suffixes]
+  title: 'evi: винительный падеж или «его дом»'
+  explained_in: [accusative-i, buffer-consonants]
+
+- topics: [possessive-suffixes, genitive-in]
+  title: 'evin: «твой дом» или родительный падеж'
+  explained_in: [possessive-suffixes, genitive-in]
+
+- topics: [personal-endings-nominal, possessive-suffixes]
+  title: 'doktorum: «я врач» или «мой врач»'
+  explained_in: [personal-endings-nominal, possessive-suffixes]
+
+- topics: [pronominal-n, possessive-suffixes]
+  title: 'evinde: «в его доме» или «в твоём доме»'
+  explained_in: [pronominal-n]
+
+- topics: [izafet-definite, izafet-indefinite]
+  title: çocuğun kitabı и çocuk kitabı
+  explained_in: [izafet-definite, izafet-indefinite]
+
+- topics: [izafet-indefinite, noun-as-adjective]
+  title: çocuk kitabı и altın yüzük
+  explained_in: [izafet-indefinite]
+
+- topics: [locative-ki, possessive-ki, conjunction-ki]
+  title: Три разных ki
+  explained_in: [locative-ki]
+
+- topics: [possessive-ki, possessive-suffixes]
+  title: benim arabam и benimki
+  explained_in: [possessive-ki]
+
+- topics: [verb-negation-ma, negation-degil, var-yok]
+  title: '«Не» и «нет»: -mA, değil и yok'
+  explained_in: [negation-degil, negation-overview]
+
+- topics: [dative-a, locative-da]
+  title: '«Куда» и «где»: -(y)A и -DA'
+  explained_in: [dative-a, locative-da, cases-overview]
+
+- topics: [instrumental-la, locative-da]
+  title: '«На автобусе»: -(y)lA, а не -DA'
+  explained_in: [instrumental-la]
+
+- topics: [possession-var-yok, locative-da]
+  title: '«У меня есть»: arabam var и bende araba var'
+  explained_in: [possession-var-yok]
+
+- topics: [instrumental-la, suffix-li-siz]
+  title: 'Два «с»: -(y)lA и -lI'
+  explained_in: [instrumental-la, suffix-li-siz]
+
+- topics: [instrumental-la, conjunction-ve]
+  title: 'ile: «с» или «и»'
+  explained_in: [instrumental-la]
+
+- topics: [spatial-nouns, locative-da]
+  title: masada и masanın üstünde
+  explained_in: [spatial-nouns, locative-da]
+
+- topics: [spatial-nouns, direction-adverbs]
+  title: içinde и içeride
+  explained_in: [spatial-nouns, direction-adverbs]
+
+- topics: [buffer-consonants, pronominal-n]
+  title: Соединительный согласный и вставное n
+  explained_in: [buffer-consonants, pronominal-n]
+
+- topics: [consonant-assimilation, consonant-softening]
+  title: 'kitapta и kitabı: уподобление и озвончение'
+  explained_in: [consonant-assimilation]
+
+- topics: [vowel-drop, consonant-softening]
+  title: 'burnu и kitabı: выпадение гласной и озвончение'
+  explained_in: [vowel-drop]
+
+- topics: [demonstratives, personal-pronouns]
+  title: 'o: «тот» или «он»'
+  explained_in: [demonstratives]
+
+- topics: [past-di, past-continuous-yordu]
+  title: '-DI и -(I)yordu'
+  explained_in: [past-continuous-yordu, past-di]
+
+- topics: [present-continuous-yor, aorist-r]
+  title: '-(I)yor и -(A/I)r'
+  explained_in: [present-continuous-yor, tense-overview]
+
+- topics: [present-continuous-yor, present-makta]
+  title: '-(I)yor и -mAktA'
+  explained_in: [present-makta]
+
+- topics: [past-di, past-mis]
+  title: '-DI и -mIş'
+  explained_in: [past-di, tense-overview]
+
+- topics: [imperative, optative-a]
+  title: «Сделай» и «давай сделаем»
+  explained_in: [imperative]
+
+- topics: [conjunction-ama, particle-da]
+  title: '«А» и «но»: dA и ama'
+  explained_in: [conjunction-ama]
+
+- topics: [conjunction-ve, particle-da]
+  title: '«И» и «а»: ve и dA'
+  explained_in: [conjunction-ve]
+
+- topics: [conjunction-cunku, conjunction-bu-yuzden]
+  title: '«Потому что» и «поэтому»: çünkü и bu yüzden'
+  explained_in: [conjunction-cunku]
+
+- topics: [conjunction-cunku, converb-digi-icin]
+  title: 'Причина: çünkü или -DIğI için'
+  explained_in: [conjunction-cunku]
+
+- topics: [conjunction-ve, converb-ip]
+  title: ve или -(y)Ip
+  explained_in: [conjunction-ve]
+
+- topics: [postposition-a-kadar, postposition-once-sonra]
+  title: 'Два «до»: -(y)A kadar и önce'
+  explained_in: [postposition-a-kadar]
+
+- topics: [postposition-a-kadar, postposition-kadar]
+  title: kadar с дательным падежом и без него
+  explained_in: [postposition-a-kadar]
+
+- topics: [postposition-gore, suffix-ca]
+  title: bana göre и bence
+  explained_in: [postposition-gore, suffix-ca]
+
+- topics: [postposition-gore, postposition-icin]
+  title: bana göre и benim için
+  explained_in: [postposition-gore]
+
+- topics: [comparative-daha, adverbs-artik-hala]
+  title: 'daha: «более» или «ещё»'
+  explained_in: [comparative-daha]
+
+- topics: [converb-madan-once, converb-madan]
+  title: '-mAdAn önce и -mAdAn'
+  explained_in: [converb-madan-once]
+
+- topics: [converb-madan-once, verb-negation-ma]
+  title: '-mA в -mAdAn önce — не отрицание'
+  explained_in: [converb-madan-once]
+
+- topics: [converb-diktan-sonra, past-di]
+  title: '-DIk в -DIktAn sonra — не «мы сделали»'
+  explained_in: [converb-diktan-sonra]
+
+- topics: [want-mak-istemek, indirect-command]
+  title: «Хочу сделать» и «хочу, чтобы ты сделал»
+  explained_in: [want-mak-istemek]
+
+- topics: [demonstrative-places, suffix-li-siz]
+  title: '«Откуда вы?»: nereden и nereli'
+  explained_in: [demonstrative-places]
+
+- topics: [accusative-i, indefinite-bir]
+  title: kitap, bir kitap, kitabı
+  explained_in: [indefinite-bir, definiteness]
+
+- topics: [indefinite-pronouns, negative-pronouns]
+  title: 'bir şey: «что-то» или «ничего»'
+  explained_in: [indefinite-pronouns]

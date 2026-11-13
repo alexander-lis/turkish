@@ -34,6 +34,93 @@ VOWEL_HARMONY_EXAMPLES = """\
 """
 
 
+# Учебный маршрут справочника со связями: темы идут в порядке добавления.
+LINKED_PATH = [
+    "vowel-harmony",
+    "plural-lar",
+    "cases-overview",
+    "accusative-i",
+    "dative-a",
+    "locative-da",
+    "ablative-dan",
+    "particle-da",
+    "indefinite-bir",
+    "definiteness",
+    "locative-ki",
+    "possessive-ki",
+    "conjunction-ki",
+    "past-di",
+    "past-mis",
+    "imperative",
+    "tense-overview",
+    "personal-endings-overview",
+]
+
+
+@pytest.fixture
+def linked_client(content: ContentBuilder) -> Iterator[TestClient]:
+    """Сервер со справочником, в котором есть связи всех видов.
+
+    Обзоры: «Обзор падежей» открывает свою группу, «Обзор времён» подводит ей итог,
+    а тема past-di входит в два обзора. Различений три: пара, тройка и пара с разбором
+    в третьей теме. Написана одна тема — vowel-harmony.
+    """
+    topics: dict[str, dict[str, list[str]]] = {
+        "vowel-harmony": {"related": ["plural-lar"]},
+        "plural-lar": {"prerequisites": ["vowel-harmony"]},
+        "cases-overview": {"members": ["accusative-i", "dative-a", "locative-da"]},
+        "locative-da": {
+            "prerequisites": ["vowel-harmony"],
+            "related": ["cases-overview", "ablative-dan", "particle-da"],
+        },
+        "ablative-dan": {"related": ["locative-da"]},
+        "definiteness": {"related": ["accusative-i"]},
+        "tense-overview": {
+            "prerequisites": ["past-di", "past-mis"],
+            "members": ["past-di", "past-mis"],
+        },
+        "personal-endings-overview": {"members": ["imperative", "past-di"]},
+    }
+    titles = {
+        "vowel-harmony": "Гармония гласных",
+        "cases-overview": "Обзор падежей",
+        "locative-da": "Местный падеж -DA",
+        "ablative-dan": "Исходный падеж -DAn",
+        "particle-da": "Частица dA: «тоже»",
+        "tense-overview": "Обзор времён",
+    }
+    for topic_id in LINKED_PATH:
+        links = topics.get(topic_id, {})
+        written = topic_id == "vowel-harmony"
+        content.topic(
+            topic_id,
+            title=titles.get(topic_id),
+            prerequisites=links.get("prerequisites", []),
+            related=links.get("related"),
+            members=links.get("members"),
+            article=VOWEL_HARMONY_ARTICLE if written else "",
+            examples=VOWEL_HARMONY_EXAMPLES if written else None,
+        )
+    content.contrast(
+        ["locative-da", "particle-da"],
+        title="Аффикс -DA и частица dA",
+        explained_in=["locative-da"],
+    )
+    content.contrast(
+        ["locative-ki", "possessive-ki", "conjunction-ki"],
+        title="Три разных ki",
+        explained_in=["locative-ki"],
+    )
+    content.contrast(
+        ["accusative-i", "indefinite-bir"],
+        title="kitap, bir kitap, kitabı",
+        explained_in=["indefinite-bir", "definiteness"],
+    )
+
+    with TestClient(create_app(Settings(content_dir=content.root))) as test_client:
+        yield test_client
+
+
 @pytest.fixture
 def client(content: ContentBuilder) -> Iterator[TestClient]:
     """Сервер с небольшим справочником: четыре темы, три раздела.

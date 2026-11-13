@@ -28,6 +28,7 @@ def test_notation_has_intro_and_abbreviations_in_content_order(client: TestClien
         ("DELETE", "/api/topics/plural-lar"),
         ("POST", "/api/sections"),
         ("PUT", "/api/notation"),
+        ("POST", "/api/graph"),
     ],
 )
 def test_modifying_methods_are_rejected(client: TestClient, method: str, url: str) -> None:
@@ -55,14 +56,29 @@ def test_openapi_document_covers_every_operation_and_response_schema(client: Tes
         "/api/topics/{id}",
         "/api/sections",
         "/api/notation",
+        "/api/graph",
     }
     assert response_schema("/api/topics")["items"] == {"$ref": "#/components/schemas/TopicSummary"}
     assert response_schema("/api/sections")["items"] == {"$ref": "#/components/schemas/Section"}
     assert response_schema("/api/topics/{id}") == {"$ref": "#/components/schemas/TopicDetail"}
     assert response_schema("/api/notation") == {"$ref": "#/components/schemas/Notation"}
-    assert {"TopicDetail", "Example", "ArticleBlock", "BlockKind", "TopicRef"} <= set(
-        document["components"]["schemas"]
-    )
+    assert response_schema("/api/graph") == {"$ref": "#/components/schemas/TopicGraph"}
+    assert {
+        "TopicDetail",
+        "Example",
+        "ArticleBlock",
+        "BlockKind",
+        "TopicRef",
+        "TopicContrast",
+        "GraphEdge",
+        "EdgeKind",
+        "GraphContrast",
+    } <= set(document["components"]["schemas"])
+    assert document["components"]["schemas"]["EdgeKind"]["enum"] == [
+        "prerequisite",
+        "member",
+        "related",
+    ]
 
 
 def test_openapi_document_describes_only_read_operations(client: TestClient) -> None:

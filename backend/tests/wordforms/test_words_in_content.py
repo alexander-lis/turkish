@@ -74,6 +74,30 @@ def test_title_examples_and_notation_are_checked(
     assert report_names(errors, "notation.md", "«evlerimdde»")
 
 
+def test_word_in_contrast_title_is_checked(
+    content: ContentBuilder, analyzer: FakeAnalyzer, check_words: CheckWords
+) -> None:
+    for topic_id in ("locative-da", "particle-da", "possessive-suffixes"):
+        content.topic(topic_id, title="Тема без латиницы")
+    content.contrast(
+        ["locative-da", "particle-da"],
+        title="Аффикс -DA и частица dA",
+        explained_in=["locative-da"],
+    )
+    content.contrast(
+        ["locative-da", "possessive-suffixes"],
+        title="evlarimde и ev-im-de",
+        explained_in=["possessive-suffixes"],
+    )
+    analyzer.reject("evlarimde")
+
+    exit_code, errors = check_words()
+
+    assert exit_code != 0
+    assert report_names(errors, "contrasts.yaml", "«evlarimde»", "запись 2")
+    assert analyzer.asked == ["evlarimde", "evimde"]
+
+
 # --- Турецкое слово в русском тексте ---
 
 

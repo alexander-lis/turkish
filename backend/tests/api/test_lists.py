@@ -25,6 +25,7 @@ def test_topic_summary_has_all_fields(client: TestClient) -> None:
         "section_id": "nouns",
         "summary": "Показывает, что предметов несколько.",
         "is_stub": True,
+        "is_overview": False,
     }
 
 
@@ -33,6 +34,14 @@ def test_stub_flag_is_set_only_for_topics_without_article(client: TestClient) ->
 
     assert topics["plural-lar"]["is_stub"] is True
     assert topics["vowel-harmony"]["is_stub"] is False
+
+
+def test_overview_flag_is_set_only_for_topics_with_members(linked_client: TestClient) -> None:
+    topics = {topic["id"]: topic for topic in linked_client.get("/api/topics").json()}
+
+    assert topics["cases-overview"]["is_overview"] is True
+    assert topics["locative-da"]["is_overview"] is False
+    assert sum(topic["is_overview"] for topic in topics.values()) == 3
 
 
 def test_sections_come_in_content_order(client: TestClient) -> None:
