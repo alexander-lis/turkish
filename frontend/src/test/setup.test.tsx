@@ -1,7 +1,10 @@
-/** Заглушки окружения из setup.ts: без них холст карты тем не рисуется в jsdom. */
+/**
+ * Заглушки окружения из setup.ts: без них в jsdom не рисуется холст карты тем
+ * и не открывается окно темы.
+ */
 import { render, screen } from "@testing-library/react";
 import { ReactFlow, ReactFlowProvider } from "@xyflow/react";
-import { expect, test } from "vitest";
+import { expect, test, vi } from "vitest";
 
 test("пустой холст React Flow рисуется в jsdom", () => {
   render(
@@ -37,4 +40,25 @@ test("узел с заданным размером виден на холсте
   );
 
   expect(await screen.findByText("Узел")).toBeVisible();
+});
+
+test("<dialog> открывается и закрывается: атрибут open и событие close", () => {
+  render(<dialog aria-label="Окно">Содержимое</dialog>);
+  const dialog = document.querySelector("dialog");
+  if (dialog === null) throw new Error("окно не отрисовано");
+  const onClose = vi.fn();
+  dialog.addEventListener("close", onClose);
+  expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+
+  dialog.showModal();
+  expect(dialog).toHaveAttribute("open");
+  expect(screen.getByRole("dialog", { name: "Окно" })).toBeVisible();
+
+  dialog.close();
+  expect(dialog).not.toHaveAttribute("open");
+  expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+  expect(onClose).toHaveBeenCalledTimes(1);
+
+  dialog.close();
+  expect(onClose).toHaveBeenCalledTimes(1);
 });

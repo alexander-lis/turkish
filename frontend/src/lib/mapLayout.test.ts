@@ -6,11 +6,12 @@ import {
   layoutMap,
   NODE_HEIGHT,
   NODE_WIDTH,
+  SECTION_HEIGHT,
   splitSections,
   type PlacedNode,
   type Side,
 } from "./mapLayout.ts";
-import { buildMapTree, sectionNodeId } from "./mapTree.ts";
+import { buildMapTree, sectionNodeId, topicNodeId } from "./mapTree.ts";
 
 const ALL_LEVELS = new Set<Level>(["A1", "A2", "B1", "B2"]);
 const ALL_SECTIONS = new Set(sections.map((section) => section.id));
@@ -19,8 +20,16 @@ function expandedTree(levels: ReadonlySet<Level> = ALL_LEVELS) {
   return buildMapTree(graph, sections, { levels, expanded: ALL_SECTIONS });
 }
 
+/** Узел раздела выше узла темы; корень стоит один и в сравнении не участвует. */
+function height(node: PlacedNode): number {
+  return node.kind === "section" ? SECTION_HEIGHT : NODE_HEIGHT;
+}
+
 function overlap(a: PlacedNode, b: PlacedNode): boolean {
-  return Math.abs(a.x - b.x) < NODE_WIDTH && Math.abs(a.y - b.y) < NODE_HEIGHT;
+  return (
+    Math.abs(a.x - b.x) < NODE_WIDTH &&
+    Math.abs(a.y - b.y) < (height(a) + height(b)) / 2
+  );
 }
 
 function sideOfNode(node: PlacedNode): Side | null {
@@ -117,6 +126,31 @@ describe("раскладка", () => {
         }
       });
     }
+  });
+
+  test("свёрнутые разделы не перекрываются: просвет между ними тот же, что между темами", () => {
+    const oneSide = new Map(sections.map((s) => [s.id, "right" as const]));
+    const collapsed = layoutMap(
+      buildMapTree(graph, sections, {
+        levels: ALL_LEVELS,
+        expanded: new Set(),
+      }),
+      oneSide,
+    )
+      .nodes.filter((node) => node.kind === "section")
+      .sort((a, b) => a.y - b.y);
+    const topicGap =
+      placed(layout.nodes, topicNodeId("locative-da")).y -
+      placed(layout.nodes, topicNodeId("dative-a")).y -
+      NODE_HEIGHT;
+
+    expect(collapsed).toHaveLength(sections.length);
+    expect(topicGap).toBeGreaterThan(0);
+    collapsed.slice(1).forEach((node, index) => {
+      const above = collapsed[index];
+      if (!above) throw new Error("нет соседнего раздела");
+      expect(node.y - above.y - SECTION_HEIGHT).toBeCloseTo(topicGap);
+    });
   });
 
   test("повторный вызов даёт те же координаты", () => {

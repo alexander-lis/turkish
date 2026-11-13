@@ -8,12 +8,7 @@ function Mark({ children }: { children: ReactNode }) {
   );
 }
 
-/** Пометка темы-заглушки в списках. */
+/** Пометка темы-заглушки у ссылки на неё. */
 export function StubMark() {
   return <Mark>не написано</Mark>;
-}
-
-/** Пометка обзора в списках. */
-export function OverviewMark() {
-  return <Mark>обзор</Mark>;
 }

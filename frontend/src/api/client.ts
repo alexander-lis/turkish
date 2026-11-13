@@ -1,12 +1,6 @@
 import createClient from "openapi-fetch";
 import type { paths } from "./schema";
-import type {
-  Notation,
-  Section,
-  TopicDetail,
-  TopicGraph,
-  TopicSummary,
-} from "./types.ts";
+import type { Notation, Section, TopicDetail, TopicGraph } from "./types.ts";
 
 /** Сервер ответил, но не данными: например, темы с таким идентификатором нет. */
 class ApiError extends Error {
@@ -31,10 +25,6 @@ function unwrap<T>(result: { data?: T; response: Response }): T {
     throw new ApiError(result.response.status);
   }
   return result.data;
-}
-
-export async function fetchTopics(): Promise<TopicSummary[]> {
-  return unwrap(await client.GET("/api/topics"));
 }
 
 export async function fetchSections(): Promise<Section[]> {

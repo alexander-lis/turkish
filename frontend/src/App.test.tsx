@@ -1,14 +1,30 @@
-/** Требования «Неизвестный адрес», «Состояния загрузки и ошибки» и «Карта тем доступна из шапки». */
+/**
+ * Требования «Неизвестный адрес», «Состояния загрузки и ошибки», «Ссылка «Карта тем» в шапке»
+ * и адреса карты из требования «Карта тем показывает все темы деревом».
+ */
 import { screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { delay, http, HttpResponse } from "msw";
-import { expect, test } from "vitest";
-import { topics } from "./test/fixtures.ts";
-import { renderApp } from "./test/render.tsx";
+import { describe, expect, test } from "vitest";
+import { topicDetails } from "./test/fixtures.ts";
+import { currentLocation, renderApp } from "./test/render.tsx";
 import { server } from "./test/server.ts";
+
+const SLOW = { timeout: 5000 };
 
 function main() {
   return within(screen.getByRole("main"));
+}
+
+/** Шапка страницы — первая: шапку статьи темы Testing Library тоже считает шапкой. */
+function header() {
+  const [banner] = screen.getAllByRole("banner");
+  if (banner === undefined) throw new Error("на странице нет шапки");
+  return within(banner);
+}
+
+function findMap() {
+  return screen.findByRole("application", { name: "Карта тем" }, SLOW);
 }
 
 test("неизвестный адрес показывает «Страница не найдена» и ссылку на главную", () => {
@@ -37,25 +53,25 @@ test("адрес несуществующей темы показывает «С
 
 test("пока данные загружаются, виден индикатор загрузки", async () => {
   server.use(
-    http.get("*/api/topics", async () => {
+    http.get("*/api/topics/:id", async () => {
       await delay(50);
-      return HttpResponse.json(topics);
+      return HttpResponse.json(topicDetails["vowel-harmony"]);
     }),
   );
-  renderApp("/");
+  renderApp("/topics/vowel-harmony");
 
   expect(main().getByRole("status")).toHaveTextContent("Загрузка");
   expect(
-    await main().findByRole("link", { name: "Гармония гласных" }),
+    await main().findByRole("heading", { level: 1, name: "Гармония гласных" }),
   ).toBeInTheDocument();
   expect(main().queryByRole("status")).not.toBeInTheDocument();
 });
 
 test("при недоступном сервере видны сообщение об ошибке и кнопка повтора", async () => {
-  server.use(http.get("*/api/topics", () => HttpResponse.error()));
+  server.use(http.get("*/api/graph", () => HttpResponse.error()));
   renderApp("/");
 
-  const alert = await main().findByRole("alert");
+  const alert = await main().findByRole("alert", {}, SLOW);
   expect(alert).toHaveTextContent("Не удалось загрузить данные");
   expect(
     within(alert).getByRole("button", { name: "Повторить" }),
@@ -79,37 +95,104 @@ test("при ошибке сервера страница темы показы�
 
 test("после восстановления сервера кнопка повтора загружает данные", async () => {
   const user = userEvent.setup();
-  server.use(http.get("*/api/topics", () => HttpResponse.error()));
-  renderApp("/");
+  server.use(http.get("*/api/topics/:id", () => HttpResponse.error()));
+  renderApp("/topics/vowel-harmony");
   const retry = await main().findByRole("button", { name: "Повторить" });
 
   server.resetHandlers();
   await user.click(retry);
 
   expect(
-    await main().findByRole("link", { name: "Гармония гласных" }),
+    await main().findByRole("heading", { level: 1, name: "Гармония гласных" }),
   ).toBeInTheDocument();
   expect(main().queryByRole("alert")).not.toBeInTheDocument();
 });
 
-test("ссылка «Карта тем» в шапке открывает карту тем", async () => {
-  renderApp("/topics/locative-da");
-  const header = within(screen.getByRole("banner"));
-  expect(header.getByRole("link", { name: "Карта тем" })).not.toHaveAttribute(
-    "aria-current",
-  );
+describe("адреса карты тем", () => {
+  test("по адресу / открывается карта тем", async () => {
+    renderApp("/");
 
-  await userEvent.click(header.getByRole("link", { name: "Карта тем" }));
+    expect(await findMap()).toBeInTheDocument();
+  });
 
-  expect(
-    await screen.findByRole(
-      "application",
-      { name: "Карта тем" },
-      { timeout: 5000 },
-    ),
-  ).toBeInTheDocument();
-  expect(header.getByRole("link", { name: "Карта тем" })).toHaveAttribute(
-    "aria-current",
-    "page",
+  test("старый адрес /map перенаправляет на / с той же темой", async () => {
+    renderApp("/map?topic=locative-da");
+
+    expect(await findMap()).toBeInTheDocument();
+    expect(currentLocation()).toBe("/?topic=locative-da");
+    expect(
+      await screen.findByRole("dialog", { name: "Местный падеж -DA" }),
+    ).toBeInTheDocument();
+  });
+
+  test("старый адрес /map без темы перенаправляет на /", async () => {
+    renderApp("/map");
+
+    expect(await findMap()).toBeInTheDocument();
+    expect(currentLocation()).toBe("/");
+  });
+});
+
+describe("ссылка «Карта тем» в шапке", () => {
+  test("со страницы темы открывает карту с этой темой в окне темы", async () => {
+    renderApp("/topics/locative-da");
+    const link = header().getByRole("link", { name: "Карта тем" });
+    expect(link).toHaveAttribute("href", "/?topic=locative-da");
+    expect(link).not.toHaveAttribute("aria-current");
+
+    await userEvent.click(link);
+
+    expect(await findMap()).toBeInTheDocument();
+    expect(currentLocation()).toBe("/?topic=locative-da");
+    expect(
+      await screen.findByRole("dialog", { name: "Местный падеж -DA" }),
+    ).toBeInTheDocument();
+  });
+
+  test("со страницы обозначений открывает карту без окна темы", async () => {
+    renderApp("/notation");
+
+    await userEvent.click(header().getByRole("link", { name: "Карта тем" }));
+
+    expect(await findMap()).toBeInTheDocument();
+    expect(currentLocation()).toBe("/");
+    expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+  });
+
+  test("на карте отмечена как текущая страница", async () => {
+    renderApp("/");
+    await findMap();
+
+    expect(header().getByRole("link", { name: "Карта тем" })).toHaveAttribute(
+      "aria-current",
+      "page",
+    );
+  });
+
+  test("название справочника в шапке ведёт туда же", () => {
+    renderApp("/topics/locative-da");
+
+    expect(
+      header().getByRole("link", { name: "Турецкая грамматика" }),
+    ).toHaveAttribute("href", "/?topic=locative-da");
+  });
+
+  test.each([
+    ["/", () => findMap()],
+    ["/topics/locative-da", () => main().findByRole("heading", { level: 1 })],
+  ])(
+    "на странице %s нет списка всех тем и кнопки, которая его открывает",
+    async (route, loaded) => {
+      renderApp(route);
+      await loaded();
+
+      expect(header().getAllByRole("link")).toHaveLength(2);
+      expect(header().queryByRole("button")).not.toBeInTheDocument();
+      expect(screen.queryByRole("complementary")).not.toBeInTheDocument();
+      // Навигация остаётся только внутри страницы: переходы по учебному маршруту.
+      for (const navigation of screen.queryAllByRole("navigation")) {
+        expect(screen.getByRole("main")).toContainElement(navigation);
+      }
+    },
   );
 });

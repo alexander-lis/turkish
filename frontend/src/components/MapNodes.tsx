@@ -1,5 +1,5 @@
 import { Handle, Position, type NodeProps } from "@xyflow/react";
-import { use, type MouseEvent } from "react";
+import { use, type PointerEvent } from "react";
 import { cx } from "../lib/cx.ts";
 import {
   HANDLES,
@@ -47,11 +47,6 @@ function Handles() {
   );
 }
 
-// Нажатие на узел не должно доходить до холста: там оно сняло бы выбор.
-function stop(event: MouseEvent) {
-  event.stopPropagation();
-}
-
 /** Имя узла темы для программ чтения с экрана: название, уровень и пометки. */
 function topicLabel(topic: TopicFlowNode["data"]["topic"]): string {
   return [
@@ -84,17 +79,16 @@ export function SectionNode({ data }: NodeProps<SectionFlowNode>) {
         aria-expanded={expanded}
         aria-label={`${section.title}, тем: ${topicCount}`}
         title={section.title}
-        onClick={(event) => {
-          stop(event);
-          toggleSection(section.id);
-        }}
+        onClick={() => toggleSection(section.id)}
         className={cx(
           "nodrag flex size-full items-center gap-2 rounded-lg border bg-white px-3 text-left text-sm font-semibold text-slate-900 shadow-sm",
           "hover:border-slate-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-700",
           expanded ? "border-slate-400" : "border-slate-300",
         )}
       >
-        <span className="min-w-0 flex-1 truncate">{section.title}</span>
+        <span className="line-clamp-3 min-w-0 flex-1 leading-4">
+          {section.title}
+        </span>
         <span className="shrink-0 rounded-full bg-slate-100 px-1.5 text-xs font-medium text-slate-600">
           {topicCount}
         </span>
@@ -107,8 +101,15 @@ export function SectionNode({ data }: NodeProps<SectionFlowNode>) {
 }
 
 export function TopicNode({ data }: NodeProps<TopicFlowNode>) {
-  const { selectTopic } = use(MapNodeActionsContext);
+  const { selectTopic, highlightTopic } = use(MapNodeActionsContext);
   const { topic, selected, dimmed } = data;
+  // Только мышь: на сенсорном экране событие ухода после касания может не прийти,
+  // и подсветка осталась бы.
+  const onPointer = (on: boolean) => (event: PointerEvent) => {
+    if (event.pointerType === "mouse") {
+      highlightTopic(topic.id, on);
+    }
+  };
   return (
     <>
       <Handles />
@@ -118,10 +119,17 @@ export function TopicNode({ data }: NodeProps<TopicFlowNode>) {
         aria-label={topicLabel(topic)}
         data-dimmed={dimmed}
         title={topic.title}
-        onClick={(event) => {
-          stop(event);
-          selectTopic(topic.id);
+        onClick={() => selectTopic(topic.id)}
+        onPointerEnter={onPointer(true)}
+        onPointerLeave={onPointer(false)}
+        // Подсвечивает фокус клавиатуры, а не любой: после закрытия окна темы мышью браузер
+        // возвращает фокус на узел, и подсветка осталась бы без указателя на нём.
+        onFocus={(event) => {
+          if (event.currentTarget.matches(":focus-visible")) {
+            highlightTopic(topic.id, true);
+          }
         }}
+        onBlur={() => highlightTopic(topic.id, false)}
         className={cx(
           "nodrag flex size-full items-center gap-2 overflow-hidden rounded-md border bg-white pr-2 text-left text-[0.8125rem] transition-opacity",
           "hover:border-slate-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-700",

@@ -1,8 +1,10 @@
 /** Требования «Текст статьи отображается форматированным» и «Ссылки на темы ведут на их страницы». */
 import { screen, within } from "@testing-library/react";
 import { expect, test } from "vitest";
+import { mapTopicPath } from "../lib/site.ts";
 import { renderInRouter } from "../test/render.tsx";
 import { ArticleMarkdown } from "./ArticleMarkdown.tsx";
+import { TopicHrefContext } from "./topicHref.ts";
 
 test("таблица отображается строками и столбцами внутри прокручиваемой области", () => {
   const markdown =
@@ -64,6 +66,20 @@ test("ссылка вида topic:<id> ведёт на страницу темы
   expect(
     screen.getByRole("link", { name: "гармонию гласных" }),
   ).toHaveAttribute("href", "/topics/vowel-harmony");
+});
+
+test("в окне темы ссылка вида topic:<id> ведёт на карту с этой темой", () => {
+  renderInRouter(
+    <TopicHrefContext value={mapTopicPath}>
+      <ArticleMarkdown>
+        {"См. [гармонию гласных](topic:vowel-harmony)."}
+      </ArticleMarkdown>
+    </TopicHrefContext>,
+  );
+
+  expect(
+    screen.getByRole("link", { name: "гармонию гласных" }),
+  ).toHaveAttribute("href", "/?topic=vowel-harmony");
 });
 
 test("внешняя ссылка сохраняет свой адрес", () => {

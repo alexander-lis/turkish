@@ -4,9 +4,12 @@ import { createContext } from "react";
 interface MapNodeActions {
   selectTopic: (id: string) => void;
   toggleSection: (id: string) => void;
+  /** Показать связи темы, пока на её узле указатель или фокус, и снять показ. */
+  highlightTopic: (id: string, on: boolean) => void;
 }
 
 export const MapNodeActionsContext = createContext<MapNodeActions>({
   selectTopic: () => undefined,
   toggleSection: () => undefined,
+  highlightTopic: () => undefined,
 });

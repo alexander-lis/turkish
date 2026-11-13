@@ -7,9 +7,6 @@ import { server } from "./server.ts";
 // клиент API запоминает fetch в момент своего создания.
 server.listen({ onUnhandledFrame: "error" });
 
-// В jsdom нет прокрутки: панель навигации прокручивает к открытой теме.
-Element.prototype.scrollIntoView = () => undefined;
-
 /*
  * Холст карты тем (React Flow) измеряет себя и узлы, а jsdom ничего не раскладывает.
  * Заглушки ниже — из руководства React Flow по тестированию: наблюдатель размеров сразу
@@ -69,6 +66,22 @@ Object.defineProperties(HTMLElement.prototype, {
 Object.defineProperty(SVGElement.prototype, "getBBox", {
   value: () => ({ x: 0, y: 0, width: 0, height: 0 }),
 });
+
+/*
+ * Модальных окон в jsdom нет: у <dialog> нет ни showModal, ни close. Заглушки ставят
+ * и снимают атрибут open и посылают событие close, как браузер. Неактивный фон, фокус
+ * и закрытие по Escape проверяются в браузере.
+ */
+HTMLDialogElement.prototype.showModal = function (this: HTMLDialogElement) {
+  this.setAttribute("open", "");
+};
+HTMLDialogElement.prototype.close = function (this: HTMLDialogElement) {
+  if (!this.hasAttribute("open")) {
+    return;
+  }
+  this.removeAttribute("open");
+  this.dispatchEvent(new Event("close"));
+};
 
 afterEach(() => {
   cleanup();

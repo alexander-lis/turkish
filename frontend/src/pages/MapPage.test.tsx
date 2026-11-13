@@ -1,20 +1,35 @@
 /**
- * Страница «Карта тем»: связка дерева, раскладки и линий с холстом, панелью темы, адресом
+ * Страница «Карта тем»: связка дерева, раскладки и линий с холстом, окном темы, адресом
  * и хранилищем. Логику дерева и линий проверяют тесты src/lib/map*.test.ts.
  */
-import { fireEvent, screen, within } from "@testing-library/react";
+import {
+  act,
+  fireEvent,
+  screen,
+  waitFor,
+  within,
+} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { http, HttpResponse } from "msw";
 import { describe, expect, test } from "vitest";
 import { graph, topics } from "../test/fixtures.ts";
-import { storeMapSettings } from "../lib/mapSettings.ts";
-import { currentLocation, renderApp, type Scope } from "../test/render.tsx";
+import {
+  loadViewport,
+  storeMapSettings,
+  storeViewport,
+} from "../lib/mapSettings.ts";
+import {
+  currentLocation,
+  goBack,
+  renderApp,
+  type Scope,
+} from "../test/render.tsx";
 import { server } from "../test/server.ts";
 
 const SLOW = { timeout: 5000 };
 
 /** Открыть карту и дождаться холста с разделами. */
-async function openMap(route = "/map"): Promise<Scope> {
+async function openMap(route = "/"): Promise<Scope> {
   renderApp(route);
   const map = within(
     await screen.findByRole("application", { name: "Карта тем" }, SLOW),
@@ -107,7 +122,7 @@ describe("дерево на холсте", () => {
 
   test("если граф не загрузился, видны сообщение и кнопка повтора", async () => {
     server.use(http.get("*/api/graph", () => HttpResponse.error()));
-    renderApp("/map");
+    renderApp("/");
 
     const alert = await screen.findByRole("alert", {}, SLOW);
     expect(alert).toHaveTextContent("Не удалось загрузить данные");
@@ -128,19 +143,27 @@ describe("дерево на холсте", () => {
   });
 });
 
-function panel(): Scope {
-  return within(screen.getByRole("complementary", { name: "Тема на карте" }));
+function dialogElement(): HTMLDialogElement {
+  const dialog = screen.getByRole("dialog");
+  if (!(dialog instanceof HTMLDialogElement))
+    throw new Error("окно — не <dialog>");
+  return dialog;
 }
 
-function queryPanel(): HTMLElement | null {
-  return screen.queryByRole("complementary", { name: "Тема на карте" });
+/** Открытое окно темы. */
+function topicDialog(): Scope {
+  return within(dialogElement());
 }
 
-/** Названия тем в списке панели под подписью. */
-function panelList(label: string): string[] {
-  return within(panel().getByRole("list", { name: label }))
-    .getAllByRole("button")
-    .map((button) => button.textContent.replace(/\s*не написано$/, ""));
+function queryDialog(): HTMLElement | null {
+  return screen.queryByRole("dialog");
+}
+
+/** Окно темы, в котором статья уже загружена. */
+async function loadedDialog(title: string): Promise<Scope> {
+  const dialog = topicDialog();
+  await dialog.findByRole("heading", { level: 1, name: title });
+  return dialog;
 }
 
 function line(map: Scope, name: string): HTMLElement | null {
@@ -148,7 +171,7 @@ function line(map: Scope, name: string): HTMLElement | null {
 }
 
 describe("выбор темы", () => {
-  test("нажатие на узел выделяет тему, открывает панель и меняет адрес", async () => {
+  test("нажатие на узел выделяет тему, открывает окно темы и меняет адрес", async () => {
     const map = await openMap();
     clickOnMap(sectionNode(map, "Существительное"));
 
@@ -158,44 +181,75 @@ describe("выбор темы", () => {
       "aria-pressed",
       "true",
     );
-    const info = panel();
+    expect(currentLocation()).toBe("/?topic=locative-da");
     expect(
-      info.getByRole("heading", { name: "Местный падеж -DA" }),
+      screen.getByRole("dialog", { name: "Местный падеж -DA" }),
     ).toBeInTheDocument();
-    expect(info.getByText("A1")).toBeInTheDocument();
-    expect(info.getByText("Существительное")).toBeInTheDocument();
+    const dialog = await loadedDialog("Местный падеж -DA");
+    expect(dialog.getByText("A1")).toBeInTheDocument();
+    expect(dialog.getByText("Существительное")).toBeInTheDocument();
     expect(
-      info.getByText("Показывает, где что-то находится."),
+      dialog.getByText("Показывает, где что-то находится."),
     ).toBeInTheDocument();
     expect(
-      info.getByRole("link", { name: /Открыть страницу темы/ }),
-    ).toHaveAttribute("href", "/topics/locative-da");
-    expect(currentLocation()).toBe("/map?topic=locative-da");
+      dialog
+        .getAllByRole("heading", { level: 2 })
+        .map((heading) => heading.textContent),
+    ).toEqual([
+      "Формула",
+      "Формы",
+      "Примеры",
+      "Подводные камни",
+      "Сравнение с русским",
+      "Не путать",
+      "Связанные темы",
+    ]);
+    expect(
+      dialog.getByRole("navigation", { name: "Учебный маршрут" }),
+    ).toBeInTheDocument();
+    expect(
+      dialog.getByRole("link", { name: "Развернуть" }),
+    ).toBeInTheDocument();
+    expect(dialog.getByRole("button", { name: "Закрыть" })).toBeInTheDocument();
   });
 
-  test("нажатие на пустое место карты снимает выбор и закрывает панель", async () => {
-    const map = await openMap("/map?topic=locative-da");
-    await screen.findByRole("complementary", { name: "Тема на карте" });
+  test("окно заглушки показывает суть и сообщение «Статья ещё не написана»", async () => {
+    const map = await openMap();
+    clickOnMap(sectionNode(map, "Существительное"));
 
-    const pane = document.querySelector(".react-flow__pane");
-    if (!(pane instanceof HTMLElement)) throw new Error("на холсте нет фона");
-    clickOnMap(pane);
+    clickOnMap(topicNode(map, "Дательный падеж -(y)A"));
 
-    expect(queryPanel()).not.toBeInTheDocument();
-    expect(topicNode(map, "Местный падеж -DA")).toHaveAttribute(
-      "aria-pressed",
-      "false",
-    );
-    expect(currentLocation()).toBe("/map");
+    const dialog = await loadedDialog("Дательный падеж -(y)A");
+    expect(
+      dialog.getByText("Показывает, куда направлено движение."),
+    ).toBeInTheDocument();
+    expect(dialog.getByText("Статья ещё не написана.")).toBeInTheDocument();
   });
 
-  test("кнопка «Закрыть» снимает выбор", async () => {
-    await openMap("/map?topic=locative-da");
+  test("окно показывает список «Нужна для»: темы, которым выбранная нужна как пререквизит", async () => {
+    await openMap("/?topic=vowel-harmony");
+    const dialog = await loadedDialog("Гармония гласных");
 
-    await userEvent.click(panel().getByRole("button", { name: "Закрыть" }));
+    const requiredFor = within(dialog.getByRole("list", { name: "Нужна для" }));
+    expect(
+      requiredFor
+        .getAllByRole("link")
+        .map((link) => [link.textContent, link.getAttribute("href")]),
+    ).toEqual([
+      ["Множественное число -lAr", "/?topic=plural-lar"],
+      ["Обзор падежей", "/?topic=cases-overview"],
+      ["Местный падеж -DA", "/?topic=locative-da"],
+      ["Прошедшее время -DI", "/?topic=past-di"],
+    ]);
+    expect(dialog.queryByText("Пререквизиты")).not.toBeInTheDocument();
+  });
 
-    expect(queryPanel()).not.toBeInTheDocument();
-    expect(currentLocation()).toBe("/map");
+  test("у темы, которая не нужна другим, списка «Нужна для» в окне нет", async () => {
+    await openMap("/?topic=locative-da");
+    const dialog = await loadedDialog("Местный падеж -DA");
+
+    expect(dialog.getByText("Пререквизиты")).toBeInTheDocument();
+    expect(dialog.queryByText("Нужна для")).not.toBeInTheDocument();
   });
 
   test("связи выбранной темы нарисованы линиями, несвязанные темы приглушены", async () => {
@@ -204,7 +258,7 @@ describe("выбор темы", () => {
       layers: new Set(),
       expanded: new Set(["nouns", "phonetics", "verbs"]),
     });
-    const map = await openMap("/map?topic=locative-da");
+    const map = await openMap("/?topic=locative-da");
 
     expect(
       line(map, "Пререквизит: Гармония гласных — Местный падеж -DA"),
@@ -229,51 +283,239 @@ describe("выбор темы", () => {
   });
 });
 
-describe("панель темы", () => {
-  test("перечисляет связи по видам, пустых списков нет", async () => {
-    await openMap("/map?topic=locative-da");
+describe("подсветка связей", () => {
+  const PREREQUISITE = "Пререквизит: Гармония гласных — Местный падеж -DA";
 
-    expect(panelList("Пререквизиты")).toEqual([
-      "Гармония гласных",
-      "Множественное число -lAr",
-    ]);
-    expect(panelList("Входит в обзор")).toEqual(["Обзор падежей"]);
-    const contrasts = within(panel().getByRole("list", { name: "Не путать" }));
-    expect(contrasts.getByText("«Где», «куда» и «откуда»")).toBeInTheDocument();
-    expect(
-      contrasts
-        .getAllByRole("button")
-        .map((button) => button.textContent.replace(/\s*не написано$/, "")),
-    ).toEqual(["Дательный падеж -(y)A", "Исходный падеж -DAn"]);
-    for (const absent of ["Нужна для", "Темы обзора", "Связанные темы"]) {
-      expect(panel().queryByText(absent)).not.toBeInTheDocument();
+  /** Все разделы развёрнуты, все слои выключены: линий, кроме подсветки, нет. */
+  async function openExpandedMap(): Promise<Scope> {
+    storeMapSettings({
+      levels: new Set(["A1", "A2", "B1", "B2"]),
+      layers: new Set(),
+      expanded: new Set(["nouns", "phonetics", "verbs"]),
+    });
+    return openMap();
+  }
+
+  test("наведение указателя показывает связи темы и приглушает несвязанные, уход — снимает", async () => {
+    const map = await openExpandedMap();
+    const node = topicNode(map, "Местный падеж -DA");
+    expect(line(map, PREREQUISITE)).not.toBeInTheDocument();
+
+    await userEvent.hover(node);
+
+    expect(line(map, PREREQUISITE)).toBeInTheDocument();
+    expect(topicNode(map, "Прошедшее время -mIş")).toHaveAttribute(
+      "data-dimmed",
+      "true",
+    );
+    expect(topicNode(map, "Гармония гласных")).toHaveAttribute(
+      "data-dimmed",
+      "false",
+    );
+    expect(node).toHaveAttribute("aria-pressed", "false");
+    expect(queryDialog()).not.toBeInTheDocument();
+
+    await userEvent.unhover(node);
+
+    expect(line(map, PREREQUISITE)).not.toBeInTheDocument();
+    expect(topicNode(map, "Прошедшее время -mIş")).toHaveAttribute(
+      "data-dimmed",
+      "false",
+    );
+  });
+
+  test("фокус клавиатуры на узле показывает связи темы, уход фокуса — снимает", async () => {
+    const map = await openExpandedMap();
+
+    act(() => {
+      topicNode(map, "Местный падеж -DA").focus();
+    });
+    expect(line(map, PREREQUISITE)).toBeInTheDocument();
+    expect(topicNode(map, "Прошедшее время -mIş")).toHaveAttribute(
+      "data-dimmed",
+      "true",
+    );
+
+    await userEvent.tab();
+    expect(line(map, PREREQUISITE)).not.toBeInTheDocument();
+  });
+
+  test("касание узла подсветку не включает", async () => {
+    const map = await openExpandedMap();
+
+    fireEvent.pointerEnter(topicNode(map, "Местный падеж -DA"), {
+      pointerType: "touch",
+    });
+
+    expect(line(map, PREREQUISITE)).not.toBeInTheDocument();
+  });
+
+  test("узел под указателем скрыт вместе с разделом — подсветка снята", async () => {
+    const map = await openExpandedMap();
+    await userEvent.hover(topicNode(map, "Гармония гласных"));
+    expect(topicNode(map, "Прошедшее время -mIş")).toHaveAttribute(
+      "data-dimmed",
+      "true",
+    );
+
+    clickOnMap(sectionNode(map, "Фонетика и письмо"));
+
+    expect(topicNode(map, "Прошедшее время -mIş")).toHaveAttribute(
+      "data-dimmed",
+      "false",
+    );
+  });
+});
+
+describe("положение карты", () => {
+  /** Сдвиг и масштаб, с которыми сейчас нарисован холст. */
+  function canvasViewport(): { x: number; y: number; zoom: number } {
+    const viewport = document.querySelector(".react-flow__viewport");
+    if (!(viewport instanceof HTMLElement)) throw new Error("холста нет");
+    const [x, y, zoom] = [
+      ...viewport.style.transform.matchAll(/-?\d+(?:\.\d+)?/g),
+    ].map(Number);
+    if (x === undefined || y === undefined || zoom === undefined) {
+      throw new Error(`непонятное положение: ${viewport.style.transform}`);
     }
+    return { x, y, zoom };
+  }
+
+  test("сохранённое положение применяется к холсту", async () => {
+    storeViewport({ x: -120, y: 80, zoom: 0.75 });
+
+    await openMap();
+
+    expect(canvasViewport()).toEqual({ x: -120, y: 80, zoom: 0.75 });
   });
 
-  test("у темы со связанной темой есть список «Связанные темы»", async () => {
-    await openMap("/map?topic=past-di");
+  test("после изменения масштаба положение записывается и переживает перезагрузку", async () => {
+    storeViewport({ x: -120, y: 80, zoom: 0.75 });
+    const firstVisit = renderApp("/");
+    await screen.findByRole("application", { name: "Карта тем" }, SLOW);
 
-    expect(panelList("Связанные темы")).toEqual(["Страдательный залог -Il"]);
-    expect(panelList("Нужна для")).toEqual(["Обзор времён"]);
+    await userEvent.click(screen.getByRole("button", { name: "Увеличить" }));
+
+    await waitFor(() => {
+      expect(loadViewport()?.zoom).toBeGreaterThan(0.75);
+    });
+    const stored = loadViewport();
+    firstVisit.unmount();
+
+    await openMap();
+    // Холст округляет масштаб в стиле, поэтому сравнение — с точностью до округления.
+    const reopened = canvasViewport();
+    expect(reopened.x).toBeCloseTo(stored?.x ?? NaN);
+    expect(reopened.y).toBeCloseTo(stored?.y ?? NaN);
+    expect(reopened.zoom).toBeCloseTo(stored?.zoom ?? NaN);
   });
 
-  test("нажатие на тему в панели выбирает её и раскрывает её раздел", async () => {
-    const map = await openMap("/map?topic=locative-da");
+  test("испорченное положение в хранилище не мешает открыть карту", async () => {
+    localStorage.setItem("topic-map-viewport", "{x:");
+
+    const map = await openMap();
+
+    expect(sectionNodeNames(map)).toHaveLength(3);
+  });
+});
+
+describe("закрытие окна темы", () => {
+  test("кнопка «Закрыть» закрывает окно и снимает выбор", async () => {
+    const map = await openMap("/?topic=locative-da");
+
+    await userEvent.click(
+      topicDialog().getByRole("button", { name: "Закрыть" }),
+    );
+
+    expect(queryDialog()).not.toBeInTheDocument();
+    expect(topicNode(map, "Местный падеж -DA")).toHaveAttribute(
+      "aria-pressed",
+      "false",
+    );
+    expect(currentLocation()).toBe("/");
+  });
+
+  test("нажатие на затемнение вокруг окна закрывает его", async () => {
+    await openMap("/?topic=locative-da");
+
+    // Содержимое занимает всю площадь окна: сам <dialog> под указателем — это затемнение.
+    await userEvent.click(dialogElement());
+
+    expect(queryDialog()).not.toBeInTheDocument();
+    expect(currentLocation()).toBe("/");
+  });
+
+  test("нажатие внутри окна и выделение, отпущенное за его краем, окно не закрывают", async () => {
+    await openMap("/?topic=locative-da");
+    const dialog = await loadedDialog("Местный падеж -DA");
+    const title = dialog.getByRole("heading", { level: 1 });
+
+    await userEvent.click(title);
+    fireEvent.mouseDown(title);
+    fireEvent.click(dialogElement());
+
+    expect(queryDialog()).toBeInTheDocument();
+    expect(currentLocation()).toBe("/?topic=locative-da");
+  });
+
+  test("второе нажатие двойного щелчка окно не закрывает", async () => {
+    await openMap("/?topic=locative-da");
+
+    fireEvent.mouseDown(dialogElement(), { detail: 2 });
+    fireEvent.click(dialogElement(), { detail: 2 });
+
+    expect(queryDialog()).toBeInTheDocument();
+  });
+
+  test("окно, закрытое браузером по Escape, снимает выбор темы", async () => {
+    const map = await openMap("/?topic=locative-da");
+
+    // Escape обрабатывает браузер: он закрывает окно и посылает событие close.
+    const dialog = dialogElement();
+    act(() => {
+      dialog.close();
+    });
+
+    expect(queryDialog()).not.toBeInTheDocument();
+    expect(topicNode(map, "Местный падеж -DA")).toHaveAttribute(
+      "aria-pressed",
+      "false",
+    );
+    expect(currentLocation()).toBe("/");
+  });
+  test("тема, выбранная снова сразу после Escape, открывает окно", async () => {
+    const map = await openMap("/?topic=locative-da");
+    const dialog = dialogElement();
+
+    // Браузер закрыл окно, а читатель тут же нажал Enter на узле, куда вернулся фокус:
+    // оба перехода по адресу приходят раньше, чем страница успевает их отрисовать.
+    act(() => {
+      dialog.close();
+      clickOnMap(topicNode(map, "Местный падеж -DA"));
+    });
+
+    expect(currentLocation()).toBe("/?topic=locative-da");
+    expect(await loadedDialog("Местный падеж -DA")).toBeDefined();
+  });
+});
+
+describe("переходы внутри окна темы", () => {
+  test("ссылка на пререквизит открывает его в том же окне и раскрывает его раздел", async () => {
+    const map = await openMap("/?topic=locative-da");
     expect(sectionNode(map, "Фонетика и письмо")).toHaveAttribute(
       "aria-expanded",
       "false",
     );
+    const dialog = await loadedDialog("Местный падеж -DA");
+    const link = within(
+      dialog.getByRole("list", { name: "Пререквизиты" }),
+    ).getByRole("link", { name: "Гармония гласных" });
+    expect(link).toHaveAttribute("href", "/?topic=vowel-harmony");
 
-    await userEvent.click(
-      within(panel().getByRole("list", { name: "Пререквизиты" })).getByRole(
-        "button",
-        { name: "Гармония гласных" },
-      ),
-    );
+    await userEvent.click(link);
 
-    expect(
-      panel().getByRole("heading", { name: "Гармония гласных" }),
-    ).toBeInTheDocument();
+    expect(currentLocation()).toBe("/?topic=vowel-harmony");
+    expect(await loadedDialog("Гармония гласных")).toBeDefined();
     expect(sectionNode(map, "Фонетика и письмо")).toHaveAttribute(
       "aria-expanded",
       "true",
@@ -282,13 +524,84 @@ describe("панель темы", () => {
       "aria-pressed",
       "true",
     );
-    expect(currentLocation()).toBe("/map?topic=vowel-harmony");
+    expect(topicNode(map, "Местный падеж -DA")).toHaveAttribute(
+      "aria-pressed",
+      "false",
+    );
+  });
+
+  test("ссылки «Не путать», «Связанные темы», в статье и по маршруту ведут на карту", async () => {
+    await openMap("/?topic=locative-da");
+    const dialog = await loadedDialog("Местный падеж -DA");
+
+    const hrefs = (scope: Scope) =>
+      scope.getAllByRole("link").map((link) => link.getAttribute("href"));
+    expect(
+      hrefs(within(dialog.getByRole("region", { name: "Не путать" }))),
+    ).toEqual(["/?topic=dative-a"]);
+    expect(
+      hrefs(within(dialog.getByRole("region", { name: "Связанные темы" }))),
+    ).toEqual(["/?topic=ablative-dan"]);
+    expect(
+      hrefs(within(dialog.getByRole("region", { name: "Формула" }))),
+    ).toEqual(["/?topic=vowel-harmony"]);
+    expect(
+      hrefs(
+        within(dialog.getByRole("navigation", { name: "Учебный маршрут" })),
+      ),
+    ).toEqual(["/?topic=dative-a", "/?topic=past-di"]);
+  });
+
+  test("переход по учебному маршруту открывает следующую тему в том же окне", async () => {
+    await openMap("/?topic=locative-da");
+    const dialog = await loadedDialog("Местный падеж -DA");
+
+    await userEvent.click(
+      dialog.getByRole("link", { name: /Следующая тема.*Прошедшее время -DI/ }),
+    );
+
+    expect(currentLocation()).toBe("/?topic=past-di");
+    expect(await loadedDialog("Прошедшее время -DI")).toBeDefined();
+  });
+
+  test("кнопка браузера «Назад» возвращает предыдущую тему в окно", async () => {
+    await openMap("/?topic=locative-da");
+    const dialog = await loadedDialog("Местный падеж -DA");
+    await userEvent.click(
+      within(dialog.getByRole("list", { name: "Пререквизиты" })).getByRole(
+        "link",
+        { name: "Гармония гласных" },
+      ),
+    );
+    await loadedDialog("Гармония гласных");
+
+    goBack();
+
+    expect(currentLocation()).toBe("/?topic=locative-da");
+    expect(await loadedDialog("Местный падеж -DA")).toBeDefined();
+  });
+
+  test("«Развернуть» открывает страницу темы", async () => {
+    await openMap("/?topic=locative-da");
+    const expand = topicDialog().getByRole("link", { name: "Развернуть" });
+    expect(expand).toHaveAttribute("href", "/topics/locative-da");
+
+    await userEvent.click(expand);
+
+    expect(currentLocation()).toBe("/topics/locative-da");
+    expect(
+      await within(screen.getByRole("main")).findByRole("heading", {
+        level: 1,
+        name: "Местный падеж -DA",
+      }),
+    ).toBeInTheDocument();
+    expect(queryDialog()).not.toBeInTheDocument();
   });
 });
 
 describe("адрес выбранной темы", () => {
-  test("открытие адреса темы разворачивает её раздел и выбирает её", async () => {
-    const map = await openMap("/map?topic=locative-da");
+  test("открытие адреса темы разворачивает её раздел, выбирает её и открывает окно", async () => {
+    const map = await openMap("/?topic=locative-da");
 
     expect(sectionNode(map, "Существительное")).toHaveAttribute(
       "aria-expanded",
@@ -298,9 +611,7 @@ describe("адрес выбранной темы", () => {
       "aria-pressed",
       "true",
     );
-    expect(
-      panel().getByRole("heading", { name: "Местный падеж -DA" }),
-    ).toBeInTheDocument();
+    expect(await loadedDialog("Местный падеж -DA")).toBeDefined();
   });
 
   test("тема выключенного уровня: уровень включается, тема выбрана", async () => {
@@ -310,7 +621,7 @@ describe("адрес выбранной темы", () => {
       expanded: new Set(),
     });
 
-    const map = await openMap("/map?topic=ablative-dan");
+    const map = await openMap("/?topic=ablative-dan");
 
     expect(screen.getByRole("button", { name: "B2" })).toHaveAttribute(
       "aria-pressed",
@@ -322,10 +633,10 @@ describe("адрес выбранной темы", () => {
     );
   });
 
-  test("несуществующая тема в адресе: карта без выбора и без ошибки", async () => {
-    const map = await openMap("/map?topic=no-such-topic");
+  test("несуществующая тема в адресе: карта без выбора, без окна и без ошибки", async () => {
+    const map = await openMap("/?topic=no-such-topic");
 
-    expect(queryPanel()).not.toBeInTheDocument();
+    expect(queryDialog()).not.toBeInTheDocument();
     expect(screen.queryByRole("alert")).not.toBeInTheDocument();
     expect(sectionNodeNames(map)).toHaveLength(3);
   });
@@ -402,15 +713,6 @@ describe("фильтр уровней", () => {
 
     expect(toolbarButton("A1")).toHaveAttribute("aria-pressed", "true");
   });
-
-  test("уровень выбранной темы выключен — выбор снят", async () => {
-    await openMap("/map?topic=past-di");
-
-    await userEvent.click(toolbarButton("A2"));
-
-    expect(queryPanel()).not.toBeInTheDocument();
-    expect(currentLocation()).toBe("/map");
-  });
 });
 
 describe("сворачивание разделов", () => {
@@ -435,19 +737,6 @@ describe("сворачивание разделов", () => {
     expect(topicNodeTitles(map)).toEqual([]);
   });
 
-  test("свёрнут раздел выбранной темы — выбор снят, панель закрыта", async () => {
-    const map = await openMap("/map?topic=locative-da");
-
-    clickOnMap(sectionNode(map, "Существительное"));
-
-    expect(queryPanel()).not.toBeInTheDocument();
-    expect(currentLocation()).toBe("/map");
-    expect(sectionNode(map, "Существительное")).toHaveAttribute(
-      "aria-expanded",
-      "false",
-    );
-  });
-
   test("«Развернуть все» и «Свернуть все»", async () => {
     const map = await openMap();
 
@@ -461,7 +750,7 @@ describe("сворачивание разделов", () => {
 });
 
 test("настройки вида сохраняются после перезагрузки страницы", async () => {
-  const firstVisit = renderApp("/map");
+  const firstVisit = renderApp("/");
   const map = within(
     await screen.findByRole("application", { name: "Карта тем" }, SLOW),
   );
@@ -519,7 +808,7 @@ describe("управление с клавиатуры", () => {
     expect(document.querySelector(".react-flow__node[tabindex]")).toBeNull();
   });
 
-  test("Enter на узле раздела разворачивает его, Enter на узле темы выбирает её", async () => {
+  test("Enter на узле раздела разворачивает его, Enter на узле темы открывает её окно с фокусом внутри", async () => {
     const map = await openMap();
 
     sectionNode(map, "Существительное").focus();
@@ -531,18 +820,12 @@ describe("управление с клавиатуры", () => {
 
     topicNode(map, "Местный падеж -DA").focus();
     await userEvent.keyboard("{Enter}");
-    expect(
-      panel().getByRole("heading", { name: "Местный падеж -DA" }),
-    ).toBeInTheDocument();
-    expect(currentLocation()).toBe("/map?topic=locative-da");
-  });
-
-  test("Escape снимает выбор и закрывает панель", async () => {
-    await openMap("/map?topic=locative-da");
-
-    await userEvent.keyboard("{Escape}");
-
-    expect(queryPanel()).not.toBeInTheDocument();
-    expect(currentLocation()).toBe("/map");
+    expect(await loadedDialog("Местный падеж -DA")).toBeDefined();
+    expect(currentLocation()).toBe("/?topic=locative-da");
+    expect(dialogElement()).toContainElement(
+      document.activeElement instanceof HTMLElement
+        ? document.activeElement
+        : null,
+    );
   });
 });

@@ -18,7 +18,7 @@
 - `mise run content:stats` — сводка наполнения: сколько тем написано на каждом уровне и сколько примеров у каждой написанной темы.
 - `mise run format` — исправляет форматирование.
 - Остальные задачи показывает `mise tasks`.
-- Один тест: `mise exec -- uv run --directory backend pytest tests/content/test_gloss.py -k <имя>`, `mise exec -- pnpm --dir frontend exec vitest --run src/components/NavPanel.test.tsx`.
+- Один тест: `mise exec -- uv run --directory backend pytest tests/content/test_gloss.py -k <имя>`, `mise exec -- pnpm --dir frontend exec vitest --run src/components/ExampleCard.test.tsx`.
 - Зависимости: `mise exec -- uv add --directory backend [--dev] <пакет>`, `mise exec -- pnpm --dir frontend add [-D] <пакет>`; точные версии — в `uv.lock` и `pnpm-lock.yaml`.
 
 Запускай инструменты через `mise run` или `mise exec --`: так берутся версии из `mise.toml`, а не из окружения оболочки.

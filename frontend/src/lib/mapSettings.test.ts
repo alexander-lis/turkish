@@ -1,13 +1,19 @@
-/** Требование «Настройки вида сохраняются» — в части чтения и записи настроек. */
+/**
+ * Требования «Настройки вида сохраняются» и «Положение карты сохраняется» — в части чтения
+ * и записи настроек и положения.
+ */
 import { describe, expect, test, vi } from "vitest";
 import { topics } from "../test/fixtures.ts";
 import {
   DEFAULT_SETTINGS,
   loadMapSettings,
+  loadViewport,
   parseMapSettings,
+  parseViewport,
   revealTopic,
   serializeMapSettings,
   storeMapSettings,
+  storeViewport,
   toggleLevel,
   type MapSettings,
 } from "./mapSettings.ts";
@@ -99,6 +105,63 @@ describe("хранилище", () => {
     try {
       expect(loadMapSettings(SECTION_IDS)).toEqual(DEFAULT_SETTINGS);
       expect(() => storeMapSettings(custom)).not.toThrow();
+    } finally {
+      getItem.mockRestore();
+      setItem.mockRestore();
+    }
+  });
+});
+
+describe("положение карты", () => {
+  test("при пустом хранилище положения нет", () => {
+    expect(parseViewport(null)).toBeNull();
+    expect(loadViewport()).toBeNull();
+  });
+
+  test("сохранённое положение восстанавливается", () => {
+    storeViewport({ x: -120.5, y: 80, zoom: 0.75 });
+
+    expect(loadViewport()).toEqual({ x: -120.5, y: 80, zoom: 0.75 });
+  });
+
+  test("в хранилище идут только сдвиг и масштаб", () => {
+    const viewport = { x: 1, y: 2, zoom: 1.5, extra: "лишнее" };
+
+    storeViewport(viewport);
+
+    expect(loadViewport()).toEqual({ x: 1, y: 2, zoom: 1.5 });
+  });
+
+  test.each([
+    ["не JSON", "{x:"],
+    ["не объект", "[0, 0, 1]"],
+    ["null", "null"],
+    ["без масштаба", '{"x": 0, "y": 0}'],
+    ["без сдвига", '{"zoom": 1}'],
+    ["строка вместо числа", '{"x": "0", "y": 0, "zoom": 1}'],
+    ["нулевой масштаб", '{"x": 0, "y": 0, "zoom": 0}'],
+    ["отрицательный масштаб", '{"x": 0, "y": 0, "zoom": -1}'],
+    ["число вне диапазона", '{"x": 1e999, "y": 0, "zoom": 1}'],
+  ])("испорченное или неполное значение (%s) отбрасывается", (_, raw) => {
+    expect(parseViewport(raw)).toBeNull();
+  });
+
+  test("при недоступном хранилище положения нет, а запись не падает", () => {
+    const getItem = vi
+      .spyOn(Storage.prototype, "getItem")
+      .mockImplementation(() => {
+        throw new Error("хранилище недоступно");
+      });
+    const setItem = vi
+      .spyOn(Storage.prototype, "setItem")
+      .mockImplementation(() => {
+        throw new Error("хранилище недоступно");
+      });
+    try {
+      expect(loadViewport()).toBeNull();
+      expect(() => {
+        storeViewport({ x: 0, y: 0, zoom: 1 });
+      }).not.toThrow();
     } finally {
       getItem.mockRestore();
       setItem.mockRestore();

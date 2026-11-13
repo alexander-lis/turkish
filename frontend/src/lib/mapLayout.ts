@@ -15,14 +15,18 @@ import {
 
 export type Side = "left" | "right";
 
-/** Размер узла темы и раздела. Длинное название обрезается многоточием. */
+/** Ширина узла темы и раздела и высота узла темы: её название стоит в одну строку. */
 export const NODE_WIDTH = 232;
 export const NODE_HEIGHT = 36;
+/** Узел раздела выше: название раздела занимает до трёх строк. */
+export const SECTION_HEIGHT = 56;
 /** Шаг между строками соседних узлов и между столбцами глубины дерева. */
 const ROW_STEP = 44;
 const COLUMN_STEP = NODE_WIDTH + 56;
 /** Между ветками разных родителей — чуть больше места, чем между братьями. */
 const COUSIN_SEPARATION = 1.4;
+/** Соседние разделы стоят с тем же просветом, что и темы, хотя их узлы выше. */
+const SECTION_SEPARATION = (SECTION_HEIGHT + ROW_STEP - NODE_HEIGHT) / ROW_STEP;
 
 export type PlacedNode =
   | { kind: "root"; id: string; x: number; y: number }
@@ -99,9 +103,12 @@ function layoutSide(sections: MapSectionNode[], side: Side): MapLayout {
   const root = hierarchy<Datum>({ kind: "root", sections }, children);
   const placed = tree<Datum>()
     .nodeSize([ROW_STEP, COLUMN_STEP])
-    .separation((a, b) => (a.parent === b.parent ? 1 : COUSIN_SEPARATION))(
-    root,
-  );
+    .separation((a, b) => {
+      if (a.data.kind === "section" && b.data.kind === "section") {
+        return SECTION_SEPARATION;
+      }
+      return a.parent === b.parent ? 1 : COUSIN_SEPARATION;
+    })(root);
   const sign = side === "right" ? 1 : -1;
   const nodes: PlacedNode[] = [];
   const branches: Branch[] = [];

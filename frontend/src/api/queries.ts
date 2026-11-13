@@ -4,28 +4,13 @@ import {
   fetchNotation,
   fetchSections,
   fetchTopic,
-  fetchTopics,
   isNotFound,
 } from "./client.ts";
-import type { Section, TopicSummary } from "./types.ts";
 
-export interface TopicMap {
-  /** Все темы в порядке учебного маршрута. */
-  topics: TopicSummary[];
-  /** Разделы в порядке, заданном в контенте. */
-  sections: Section[];
-}
-
-/** Темы и разделы: одна загрузка на главную страницу и панель навигации. */
-export const topicMapQuery = queryOptions({
-  queryKey: ["topic-map"],
-  queryFn: async (): Promise<TopicMap> => {
-    const [topics, sections] = await Promise.all([
-      fetchTopics(),
-      fetchSections(),
-    ]);
-    return { topics, sections };
-  },
+/** Разделы в порядке, заданном в контенте. Темы карта тем берёт из графа. */
+export const sectionsQuery = queryOptions({
+  queryKey: ["sections"],
+  queryFn: fetchSections,
 });
 
 export function topicQuery(id: string) {
@@ -35,7 +20,7 @@ export function topicQuery(id: string) {
   });
 }
 
-/** Граф тем: все темы, связи между ними и различения. Нужен только карте тем. */
+/** Граф тем: все темы в порядке учебного маршрута, связи между ними и различения. */
 export const graphQuery = queryOptions({
   queryKey: ["graph"],
   queryFn: fetchGraph,

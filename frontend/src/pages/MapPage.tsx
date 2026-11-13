@@ -1,23 +1,26 @@
 import { useQuery } from "@tanstack/react-query";
 import {
+  Background,
+  BackgroundVariant,
   Controls,
   ReactFlow,
   ReactFlowProvider,
   useReactFlow,
+  type FitViewOptions,
   type NodeTypes,
 } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { useLocation, useSearchParams } from "react-router";
-import { graphQuery, topicMapQuery } from "../api/queries.ts";
+import { graphQuery, sectionsQuery } from "../api/queries.ts";
 import type { Level, Section, TopicGraph } from "../api/types.ts";
 import { MapNodeActionsContext } from "../components/mapNodeActions.ts";
 import { RootNode, SectionNode, TopicNode } from "../components/MapNodes.tsx";
 import { MapToolbar } from "../components/MapToolbar.tsx";
-import { MapTopicPanel } from "../components/MapTopicPanel.tsx";
+import { MapTopicDialog } from "../components/MapTopicDialog.tsx";
 import { PageTitle } from "../components/PageTitle.tsx";
 import { QueryView } from "../components/QueryView.tsx";
-import { flowEdges, flowNodes } from "../lib/mapFlow.ts";
+import { flowEdges, flowNodes, nodeFitsCanvas } from "../lib/mapFlow.ts";
 import { layoutMap, splitSections } from "../lib/mapLayout.ts";
 import {
   crossLines,
@@ -27,8 +30,10 @@ import {
 } from "../lib/mapLinks.ts";
 import {
   loadMapSettings,
+  loadViewport,
   revealTopic,
   storeMapSettings,
+  storeViewport,
   toggleLayer,
   toggleLevel,
   toggleSection,
@@ -55,12 +60,32 @@ const ARIA_LABELS = {
   "handle.ariaLabel": "Точка связи",
 };
 
-const FIT_PADDING = 0.12;
-/** Ширина, с которой панель темы стоит справа, а не внизу: брейкпойнт sm у Tailwind. */
-const SIDE_PANEL_MIN_WIDTH = 640;
-/** Ширина панели темы справа вместе с отступом: w-80 и right-3. */
-const SIDE_PANEL_WIDTH = 332;
 const ANIMATION_MS = 300;
+/** Ширина, с которой блок переключателей раскрыт всегда: брейкпойнт sm у Tailwind. */
+const WIDE_MIN_WIDTH = 640;
+
+/**
+ * Вписывание в экран с отступами под блок переключателей, чтобы он не закрывал узлы:
+ * на широком экране блок стоит слева (left-3 и w-72), на узком свёрнут в кнопку сверху.
+ */
+function fitOptions(): FitViewOptions {
+  return {
+    padding:
+      window.innerWidth >= WIDE_MIN_WIDTH
+        ? { top: "32px", right: "32px", bottom: "32px", left: "324px" }
+        : { top: "60px", right: "16px", bottom: "16px", left: "16px" },
+  };
+}
+
+/**
+ * Положение карты при открытии: сохранённое, а если его нет — вписать карту в экран.
+ */
+function initialView() {
+  const saved = loadViewport();
+  return saved === null
+    ? { fitView: true, fitViewOptions: fitOptions() }
+    : { defaultViewport: saved };
+}
 const EMPTY = new Set<string>();
 
 function isVisible(
@@ -70,23 +95,6 @@ function isVisible(
   return (
     settings.levels.has(topic.level) && settings.expanded.has(topic.section_id)
   );
-}
-
-/**
- * Сдвиг центра вида, при котором узел встаёт посередине части холста, свободной от панели
- * темы: на узком экране панель занимает нижнюю половину, на широком — полосу справа.
- */
-function panelOffset(
-  container: HTMLElement | null,
-  zoom: number,
-): { dx: number; dy: number } {
-  if (!container) {
-    return { dx: 0, dy: 0 };
-  }
-  const { width, height } = container.getBoundingClientRect();
-  return width < SIDE_PANEL_MIN_WIDTH
-    ? { dx: 0, dy: height / 4 / zoom }
-    : { dx: SIDE_PANEL_WIDTH / 2 / zoom, dy: 0 };
 }
 
 /** Узел, место которого на экране не должно сдвинуться после новой раскладки. */
@@ -103,8 +111,7 @@ function MapView({
   graph: TopicGraph;
   sections: Section[];
 }) {
-  const { fitView, getViewport, setViewport, setCenter, getZoom } =
-    useReactFlow();
+  const { fitView, getViewport, setViewport, setCenter } = useReactFlow();
   const sectionIds = useMemo(
     () => sections.map((section) => section.id),
     [sections],
@@ -118,6 +125,10 @@ function MapView({
     [graph, sections],
   );
   const [settings, setSettings] = useState(() => loadMapSettings(sectionIds));
+  // Хранилище читается один раз: дальше положением карты владеет холст.
+  const [view] = useState(initialView);
+  // Тема, на узел которой наведён указатель или фокус клавиатуры.
+  const [hovered, setHovered] = useState<string | null>(null);
 
   const [searchParams, setSearchParams] = useSearchParams();
   const location = useLocation();
@@ -145,31 +156,41 @@ function MapView({
     [graph, sections, settings],
   );
   const layout = useMemo(() => layoutMap(tree, sides), [tree, sides]);
+
+  // Узел под указателем исчез вместе со свёрнутым разделом или выключенным уровнем:
+  // события ухода указателя уже не будет, подсветку снимаем сами.
+  if (hovered !== null && !tree.visible.has(hovered)) {
+    setHovered(null);
+  }
+  // Тема, связи которой показаны: выбранная, а пока выбора нет — та, на которую навели.
+  const highlighted = selected ?? hovered;
   const links = useMemo(
-    () => (selected === null ? null : topicLinks(graph, selected)),
-    [graph, selected],
+    () => (highlighted === null ? null : topicLinks(graph, highlighted)),
+    [graph, highlighted],
   );
   const nodes = useMemo(
     () =>
       flowNodes(layout, {
         selected,
+        highlighted,
         linked: links ? linkedTopicIds(links) : EMPTY,
       }),
-    [layout, selected, links],
+    [layout, selected, highlighted, links],
   );
   const edges = useMemo(
     () =>
       flowEdges(
         layout,
-        crossLines(graph, tree, { layers: settings.layers, selected }),
+        crossLines(graph, tree, {
+          layers: settings.layers,
+          selected: highlighted,
+        }),
         byId,
       ),
-    [layout, graph, tree, settings.layers, selected, byId],
+    [layout, graph, tree, settings.layers, highlighted, byId],
   );
 
   const [ready, setReady] = useState(false);
-  // Тема, которую нужно показать на экране: из адреса при открытии и из панели темы.
-  const focusTopic = useRef<string | null>(selected);
   const anchor = useRef<Anchor | null>(null);
   const fitPending = useRef(false);
   const container = useRef<HTMLDivElement>(null);
@@ -199,59 +220,45 @@ function MapView({
     const frame = requestAnimationFrame(() => {
       if (fitPending.current) {
         fitPending.current = false;
-        void fitView({ padding: FIT_PADDING, duration: ANIMATION_MS });
+        void fitView({ ...fitOptions(), duration: ANIMATION_MS });
       }
-      const target = focusTopic.current;
-      if (target === null) {
+      // Тема из адреса должна быть на экране, откуда бы адрес ни пришёл: открытие
+      // по ссылке, возврат со страницы темы, переход внутри окна. Если её узел виден
+      // целиком, вид не трогаем: читатель найдёт карту там, где оставил.
+      const node =
+        selected === null
+          ? undefined
+          : layout.nodes.find((placed) => placed.id === topicNodeId(selected));
+      const canvas = container.current?.getBoundingClientRect();
+      if (!node || !canvas) {
         return;
       }
-      const node = layout.nodes.find(
-        (placed) => placed.id === topicNodeId(target),
-      );
-      if (node) {
-        focusTopic.current = null;
-        const zoom = Math.max(getZoom(), 1);
-        const { dx, dy } = panelOffset(container.current, zoom);
-        void setCenter(node.x + dx, node.y + dy, {
-          zoom,
-          duration: ANIMATION_MS,
-        });
+      const viewport = getViewport();
+      if (!nodeFitsCanvas(node, viewport, canvas)) {
+        // Без анимации: карта в этот момент под окном темы, а следующий переход в окне
+        // застал бы вид на полпути и сверился бы с промежуточным положением.
+        void setCenter(node.x, node.y, { zoom: Math.max(viewport.zoom, 1) });
       }
     });
     return () => cancelAnimationFrame(frame);
-  }, [ready, layout, selected, fitView, setCenter, getZoom]);
-
-  function select(id: string | null, focus = false) {
-    focusTopic.current = focus ? id : null;
-    setSearchParams(id === null ? {} : { topic: id });
-  }
-
-  function change(next: MapSettings) {
-    setSettings(next);
-    if (selectedTopic && !isVisible(next, selectedTopic)) {
-      select(null);
-    }
-  }
-
-  useEffect(() => {
-    if (selected === null) {
-      return;
-    }
-    function deselectOnEscape(event: KeyboardEvent) {
-      if (event.key === "Escape") {
-        focusTopic.current = null;
-        setSearchParams({});
-      }
-    }
-    document.addEventListener("keydown", deselectOnEscape);
-    return () => document.removeEventListener("keydown", deselectOnEscape);
-  }, [selected, setSearchParams]);
+  }, [ready, layout, selected, fitView, getViewport, setCenter]);
 
   const actions = useMemo(
     () => ({
       selectTopic: (id: string) => {
-        focusTopic.current = null;
+        // Узел закроет окно темы, и событие ухода указателя с него может не прийти.
+        setHovered(null);
         setSearchParams({ topic: id });
+      },
+      // Снять подсветку может только тот узел, который её поставил: указатель и фокус
+      // клавиатуры могут стоять на разных узлах.
+      highlightTopic: (id: string, on: boolean) => {
+        setHovered((current) => {
+          if (on) {
+            return id;
+          }
+          return current === id ? null : current;
+        });
       },
       toggleSection: (id: string) => {
         const node = layout.nodes.find(
@@ -260,15 +267,10 @@ function MapView({
         if (node) {
           anchor.current = { nodeId: node.id, x: node.x, y: node.y };
         }
-        const next = toggleSection(settings, id);
-        setSettings(next);
-        if (selectedTopic && !isVisible(next, selectedTopic)) {
-          focusTopic.current = null;
-          setSearchParams({});
-        }
+        setSettings(toggleSection(settings, id));
       },
     }),
-    [layout, settings, selectedTopic, setSearchParams],
+    [layout, settings, setSearchParams],
   );
 
   const allExpanded = sectionIds.every((id) => settings.expanded.has(id));
@@ -289,45 +291,52 @@ function MapView({
           deleteKeyCode={null}
           selectionKeyCode={null}
           multiSelectionKeyCode={null}
-          fitView={selected === null}
-          fitViewOptions={{ padding: FIT_PADDING }}
+          {...view}
           minZoom={0.05}
           maxZoom={2}
           onInit={() => setReady(true)}
-          onPaneClick={() => select(null)}
+          // Срабатывает после сдвига, масштаба и анимации, а не на каждый кадр.
+          onMoveEnd={(_, viewport) => storeViewport(viewport)}
           ariaLabelConfig={ARIA_LABELS}
         >
+          <Background
+            variant={BackgroundVariant.Dots}
+            gap={28}
+            size={1.5}
+            color="#cbd5e1"
+          />
           <Controls showFitView={false} showInteractive={false} />
         </ReactFlow>
         <MapToolbar
           settings={settings}
           allExpanded={allExpanded}
-          onToggleLevel={(level: Level) => change(toggleLevel(settings, level))}
-          onToggleLayer={(layer: Layer) => change(toggleLayer(settings, layer))}
+          onToggleLevel={(level: Level) =>
+            setSettings(toggleLevel(settings, level))
+          }
+          onToggleLayer={(layer: Layer) =>
+            setSettings(toggleLayer(settings, layer))
+          }
           onExpandAll={(expand) => {
             fitPending.current = true;
-            change({
+            setSettings({
               ...settings,
               expanded: new Set(expand ? sectionIds : []),
             });
           }}
           onFitView={() =>
-            void fitView({ padding: FIT_PADDING, duration: ANIMATION_MS })
+            void fitView({ ...fitOptions(), duration: ANIMATION_MS })
           }
         />
-        {selectedTopic && links && (
-          <MapTopicPanel
-            topic={selectedTopic}
-            sectionTitle={
-              sections.find(
-                (section) => section.id === selectedTopic.section_id,
-              )?.title ?? ""
-            }
-            links={links}
-            onSelect={(id) => select(id, true)}
-            onClose={() => select(null)}
-          />
-        )}
+        <MapTopicDialog
+          topic={selectedTopic ?? null}
+          sectionTitle={
+            sections.find((section) => section.id === selectedTopic?.section_id)
+              ?.title ?? ""
+          }
+          // Пока тема выбрана, links — её связи: выбранная тема главнее наведения.
+          requiredFor={selected !== null && links ? links.requiredFor : []}
+          onClose={() => setSearchParams({})}
+        />
       </div>
     </MapNodeActionsContext>
   );
@@ -336,16 +345,16 @@ function MapView({
 /** Страница «Карта тем»: дерево разделов, обзоров и тем со связями графа тем. */
 export function MapPage() {
   const graph = useQuery(graphQuery);
-  const topicMap = useQuery(topicMapQuery);
+  const sections = useQuery(sectionsQuery);
   return (
     <div className="size-full [&>[role=alert]]:m-4 [&>[role=status]]:px-4">
       <PageTitle>Карта тем</PageTitle>
       <QueryView query={graph}>
         {(loadedGraph) => (
-          <QueryView query={topicMap}>
-            {({ sections }) => (
+          <QueryView query={sections}>
+            {(loadedSections) => (
               <ReactFlowProvider>
-                <MapView graph={loadedGraph} sections={sections} />
+                <MapView graph={loadedGraph} sections={loadedSections} />
               </ReactFlowProvider>
             )}
           </QueryView>

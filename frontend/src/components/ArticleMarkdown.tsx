@@ -1,7 +1,8 @@
+import { use, type ComponentProps } from "react";
 import Markdown, { defaultUrlTransform, type Components } from "react-markdown";
 import { Link } from "react-router";
 import remarkGfm from "remark-gfm";
-import { topicPath } from "../lib/site.ts";
+import { TopicHrefContext } from "./topicHref.ts";
 
 const TOPIC_SCHEME = "topic:";
 
@@ -10,19 +11,23 @@ function urlTransform(url: string): string {
   return url.startsWith(TOPIC_SCHEME) ? url : defaultUrlTransform(url);
 }
 
-const components: Components = {
-  a({ href, children }) {
-    if (href?.startsWith(TOPIC_SCHEME)) {
-      return (
-        <Link to={topicPath(href.slice(TOPIC_SCHEME.length))}>{children}</Link>
-      );
-    }
+/** Ссылка в тексте: на тему — по адресу из TopicHrefContext, внешняя — в новой вкладке. */
+function ArticleLink({ href, children }: ComponentProps<"a">) {
+  const topicHref = use(TopicHrefContext);
+  if (href?.startsWith(TOPIC_SCHEME)) {
     return (
-      <a href={href} target="_blank" rel="noreferrer">
-        {children}
-      </a>
+      <Link to={topicHref(href.slice(TOPIC_SCHEME.length))}>{children}</Link>
     );
-  },
+  }
+  return (
+    <a href={href} target="_blank" rel="noreferrer">
+      {children}
+    </a>
+  );
+}
+
+const components: Components = {
+  a: ArticleLink,
   // Широкая таблица прокручивается внутри своей области, а не вместе со страницей.
   table({ children }) {
     return (

@@ -6,9 +6,10 @@ export function topicPath(id: string): string {
 
 export const NOTATION_PATH = "/notation";
 
-export const MAP_PATH = "/map";
+/** Карта тем — главная страница. */
+export const MAP_PATH = "/";
 
-/** Карта тем с выбранной темой. */
+/** Карта тем с выбранной темой: её окно открыто. */
 export function mapTopicPath(id: string): string {
   return `${MAP_PATH}?${new URLSearchParams({ topic: id }).toString()}`;
 }

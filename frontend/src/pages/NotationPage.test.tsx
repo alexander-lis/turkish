@@ -1,4 +1,4 @@
-/** Требование «Страница обозначений». */
+/** Требование «Страница обозначений открывается из примеров». */
 import { screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { expect, test } from "vitest";
@@ -25,18 +25,17 @@ test("страница показывает вводный текст и таб�
   ]);
 });
 
-test("страница открывается из навигации на любой странице", async () => {
+test("ссылка «Обозначения» из блока «Примеры» открывает вводный текст и таблицу", async () => {
   const user = userEvent.setup();
-  renderApp("/topics/past-di");
-  const navigation = within(
-    screen.getByRole("navigation", { name: "Темы справочника" }),
-  );
-
-  await user.click(navigation.getByRole("link", { name: "Обозначения" }));
-
+  renderApp("/topics/locative-da");
   const main = within(screen.getByRole("main"));
+  const examples = within(await main.findByRole("region", { name: "Примеры" }));
+
+  await user.click(examples.getByRole("link", { name: "Обозначения" }));
+
   expect(
     await main.findByRole("heading", { level: 1, name: "Обозначения" }),
   ).toBeInTheDocument();
   expect(await main.findByRole("table")).toBeInTheDocument();
+  expect(main.getByText("чередующийся звук")).toBeInTheDocument();
 });

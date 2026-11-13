@@ -2,8 +2,9 @@ import type { Level, TopicSummary } from "../api/types.ts";
 import { LAYERS, type Layer } from "./mapLinks.ts";
 
 /*
- * Настройки вида карты тем: включённые уровни и слои, развёрнутые разделы. Это привычки
- * читателя, поэтому они живут в localStorage, а не в адресе.
+ * Настройки вида карты тем — включённые уровни и слои, развёрнутые разделы — и положение
+ * карты. Это привычки читателя и место, где он остановился, поэтому они живут
+ * в localStorage, а не в адресе.
  */
 
 /** Уровни в порядке изучения. Новый уровень в API ломает компиляцию, пока его не добавят. */
@@ -98,6 +99,58 @@ export function storeMapSettings(settings: MapSettings): void {
     localStorage.setItem(STORAGE_KEY, serializeMapSettings(settings));
   } catch {
     // Настройки не переживут перезагрузку, но карта продолжит работать.
+  }
+}
+
+/** Положение карты на холсте: сдвиг в пикселях экрана и масштаб. */
+export interface MapViewport {
+  x: number;
+  y: number;
+  zoom: number;
+}
+
+// Ключ отдельный от настроек вида: от настроек зависит раскладка, а положение меняется
+// при каждом сдвиге карты.
+const VIEWPORT_KEY = "topic-map-viewport";
+
+/** Положение карты из сохранённой строки или null, если она испорчена или неполна. */
+export function parseViewport(raw: string | null): MapViewport | null {
+  let stored: unknown = null;
+  try {
+    stored = raw === null ? null : JSON.parse(raw);
+  } catch {
+    // Испорченная строка: положения нет.
+  }
+  if (!isRecord(stored)) {
+    return null;
+  }
+  const { x, y, zoom } = stored;
+  if (
+    typeof x !== "number" ||
+    typeof y !== "number" ||
+    typeof zoom !== "number" ||
+    ![x, y, zoom].every(Number.isFinite) ||
+    zoom <= 0
+  ) {
+    return null;
+  }
+  return { x, y, zoom };
+}
+
+export function loadViewport(): MapViewport | null {
+  try {
+    return parseViewport(localStorage.getItem(VIEWPORT_KEY));
+  } catch {
+    // Хранилище недоступно: карта откроется вписанной в экран.
+    return null;
+  }
+}
+
+export function storeViewport({ x, y, zoom }: MapViewport): void {
+  try {
+    localStorage.setItem(VIEWPORT_KEY, JSON.stringify({ x, y, zoom }));
+  } catch {
+    // Положение не переживёт перезагрузку, но карта продолжит работать.
   }
 }
 

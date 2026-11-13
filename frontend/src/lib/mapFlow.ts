@@ -1,9 +1,10 @@
-import { MarkerType, type Edge, type Node } from "@xyflow/react";
+import { MarkerType, type Edge, type Node, type Viewport } from "@xyflow/react";
 import type { TopicSummary } from "../api/types.ts";
 import type { CrossLine } from "./mapLinks.ts";
 import {
   NODE_HEIGHT,
   NODE_WIDTH,
+  SECTION_HEIGHT,
   type MapLayout,
   type PlacedNode,
 } from "./mapLayout.ts";
@@ -12,7 +13,7 @@ import { topicNodeId, type MapSectionNode } from "./mapTree.ts";
 
 /*
  * Раскладка и линии карты тем в виде узлов и линий React Flow: размеры узлов, точки
- * крепления линий и их начертание.
+ * крепления линий и их начертание; виден ли узел на холсте.
  */
 
 const ROOT_WIDTH = 208;
@@ -35,20 +36,44 @@ export const HANDLES = {
 } as const;
 
 export interface Highlight {
+  /** Выбранная тема: её узел выделен. */
   selected: string | null;
-  /** Темы, связанные с выбранной: их узлы не приглушаются. */
+  /** Тема, связи которой показаны: выбранная или та, на узел которой навели. */
+  highlighted: string | null;
+  /** Темы, связанные с ней: их узлы не приглушаются. */
   linked: ReadonlySet<string>;
 }
 
 function size(node: PlacedNode): { width: number; height: number } {
-  return node.kind === "root"
-    ? { width: ROOT_WIDTH, height: ROOT_HEIGHT }
-    : { width: NODE_WIDTH, height: NODE_HEIGHT };
+  if (node.kind === "root") {
+    return { width: ROOT_WIDTH, height: ROOT_HEIGHT };
+  }
+  return {
+    width: NODE_WIDTH,
+    height: node.kind === "section" ? SECTION_HEIGHT : NODE_HEIGHT,
+  };
+}
+
+/** Виден ли узел целиком на холсте такого размера при таком положении карты. */
+export function nodeFitsCanvas(
+  node: PlacedNode,
+  viewport: Viewport,
+  canvas: { width: number; height: number },
+): boolean {
+  const { width, height } = size(node);
+  const left = (node.x - width / 2) * viewport.zoom + viewport.x;
+  const top = (node.y - height / 2) * viewport.zoom + viewport.y;
+  return (
+    left >= 0 &&
+    top >= 0 &&
+    left + width * viewport.zoom <= canvas.width &&
+    top + height * viewport.zoom <= canvas.height
+  );
 }
 
 export function flowNodes(
   layout: MapLayout,
-  { selected, linked }: Highlight,
+  { selected, highlighted, linked }: Highlight,
 ): MapFlowNode[] {
   return layout.nodes.map((placed): MapFlowNode => {
     const { width, height } = size(placed);
@@ -79,7 +104,9 @@ export function flowNodes(
         topic,
         selected: topic.id === selected,
         dimmed:
-          selected !== null && topic.id !== selected && !linked.has(topic.id),
+          highlighted !== null &&
+          topic.id !== highlighted &&
+          !linked.has(topic.id),
       },
     };
   });
