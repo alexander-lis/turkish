@@ -1,4 +1,7 @@
-/** Требования «Главная страница показывает маршрут по уровням» и «Заглушки отличимы в списках». */
+/**
+ * Требования «Главная страница показывает маршрут по уровням», «Заглушки отличимы в списках»
+ * и «Обзор помечен в списках».
+ */
 import { screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { expect, test } from "vitest";
@@ -23,6 +26,8 @@ test("темы сгруппированы по уровням от A1 до B2 и
   expect(a1.getAllByRole("link").map((link) => link.textContent)).toEqual([
     "Гармония гласных",
     "Множественное число -lAr",
+    "Обзор падежей",
+    "Дательный падеж -(y)A",
     "Местный падеж -DA",
   ]);
 });
@@ -62,4 +67,36 @@ test("заглушка помечена «не написано», написа�
     .closest("li");
   expect(stub).toHaveTextContent("не написано");
   expect(written).not.toHaveTextContent("не написано");
+});
+
+test("обзор помечен «обзор», тема без тем обзора — нет", async () => {
+  renderApp("/");
+  const main = await homePage();
+
+  const overview = main
+    .getByRole("link", { name: "Обзор падежей" })
+    .closest("li");
+  const topic = main
+    .getByRole("link", { name: "Местный падеж -DA" })
+    .closest("li");
+  if (overview === null || topic === null) {
+    throw new Error("тема стоит вне списка");
+  }
+  expect(within(overview).getByText("обзор")).toBeInTheDocument();
+  expect(within(overview).queryByText("не написано")).not.toBeInTheDocument();
+  expect(within(topic).queryByText("обзор")).not.toBeInTheDocument();
+});
+
+test("у обзора-заглушки видны обе пометки: «обзор» и «не написано»", async () => {
+  renderApp("/");
+  const main = await homePage();
+
+  const overview = main
+    .getByRole("link", { name: "Обзор времён" })
+    .closest("li");
+  if (overview === null) {
+    throw new Error("тема стоит вне списка");
+  }
+  expect(within(overview).getByText("обзор")).toBeInTheDocument();
+  expect(within(overview).getByText("не написано")).toBeInTheDocument();
 });

@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import type { ReactNode } from "react";
+import { useId, type ReactNode } from "react";
 import { Link, useParams } from "react-router";
 import { isNotFound } from "../api/client.ts";
 import { topicQuery } from "../api/queries.ts";
@@ -10,7 +10,7 @@ import { ExampleCard } from "../components/ExampleCard.tsx";
 import { LevelBadge } from "../components/LevelBadge.tsx";
 import { PageTitle } from "../components/PageTitle.tsx";
 import { QueryView } from "../components/QueryView.tsx";
-import { StubMark } from "../components/StubMark.tsx";
+import { StubMark } from "../components/TopicMarks.tsx";
 import { NOTATION_PATH, topicPath } from "../lib/site.ts";
 import {
   TEMPLATE,
@@ -29,6 +29,64 @@ function TopicRefLink({ topic }: { topic: TopicRef }) {
       </Link>
       {topic.is_stub && <StubMark />}
     </span>
+  );
+}
+
+/** Список ссылок на темы с подписью: пререквизиты, обзоры темы, темы обзора. */
+function TopicLinks({ label, topics }: { label: string; topics: TopicRef[] }) {
+  const labelId = useId();
+  if (topics.length === 0) {
+    return null;
+  }
+  return (
+    <div>
+      <p id={labelId} className="font-medium text-slate-600">
+        {label}
+      </p>
+      <ul
+        aria-labelledby={labelId}
+        className="mt-1 flex flex-wrap gap-x-4 gap-y-1"
+      >
+        {topics.map((topic) => (
+          <li key={topic.id}>
+            <TopicRefLink topic={topic} />
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+/** Различения темы: что путают, с какими темами и где разбор, если он не на этой странице. */
+function Contrasts({ topic }: { topic: TopicDetail }) {
+  return (
+    <ul className="space-y-4">
+      {topic.contrasts.map((contrast) => {
+        const explainedElsewhere = contrast.explained_in.filter(
+          (explaining) => explaining.id !== topic.id,
+        );
+        return (
+          <li key={contrast.topics.map((other) => other.id).join("+")}>
+            <p className="font-medium">
+              <AffixText>{contrast.title}</AffixText>
+            </p>
+            <p className="mt-1 flex flex-wrap gap-x-4 gap-y-1">
+              {contrast.topics.map((other) => (
+                <TopicRefLink key={other.id} topic={other} />
+              ))}
+            </p>
+            {explainedElsewhere.length > 0 && (
+              <p className="mt-1 flex flex-wrap gap-x-2 gap-y-1 text-sm">
+                <span className="text-slate-600">Разбор:</span>
+                {explainedElsewhere.map((explaining) => (
+                  <TopicRefLink key={explaining.id} topic={explaining} />
+                ))}
+              </p>
+            )}
+          </li>
+        );
+      })}
+    </ul>
   );
 }
 
@@ -59,6 +117,9 @@ function blockContent(kind: TemplateBlock, topic: TopicDetail): ReactNode {
   if (kind === "examples") {
     return topic.examples.length > 0 ? <Examples topic={topic} /> : null;
   }
+  if (kind === "contrasts") {
+    return topic.contrasts.length > 0 ? <Contrasts topic={topic} /> : null;
+  }
   if (kind === "related") {
     return topic.related.length > 0 ? (
       <ul className="space-y-1">
@@ -74,6 +135,10 @@ function blockContent(kind: TemplateBlock, topic: TopicDetail): ReactNode {
   return block ? <ArticleMarkdown>{block.markdown}</ArticleMarkdown> : null;
 }
 
+/**
+ * Блоки страницы в порядке шаблона. У заглушки нет ни статьи, ни примеров,
+ * поэтому от шаблона остаются только блоки из связей: «Не путать» и «Связанные темы».
+ */
 function Article({ topic }: { topic: TopicDetail }) {
   return TEMPLATE_ORDER.map((kind) => {
     const content = blockContent(kind, topic);
@@ -132,6 +197,10 @@ function PathNavigation({ topic }: { topic: TopicDetail }) {
 
 /** Страница темы по шаблону; у заглушки вместо статьи — сообщение. */
 function TopicView({ topic }: { topic: TopicDetail }) {
+  const hasPlaceOnMap =
+    topic.prerequisites.length > 0 ||
+    topic.overviews.length > 0 ||
+    topic.members.length > 0;
   return (
     <article>
       <PageTitle>{topic.title}</PageTitle>
@@ -146,32 +215,21 @@ function TopicView({ topic }: { topic: TopicDetail }) {
         <p className="mt-3 text-lg text-slate-700">
           <AffixText>{topic.summary}</AffixText>
         </p>
-        {topic.prerequisites.length > 0 && (
-          <div className="mt-4 rounded-lg bg-slate-100 px-4 py-3 text-sm">
-            <p id="prerequisites-label" className="font-medium text-slate-600">
-              Пререквизиты
-            </p>
-            <ul
-              aria-labelledby="prerequisites-label"
-              className="mt-1 flex flex-wrap gap-x-4 gap-y-1"
-            >
-              {topic.prerequisites.map((prerequisite) => (
-                <li key={prerequisite.id}>
-                  <TopicRefLink topic={prerequisite} />
-                </li>
-              ))}
-            </ul>
+        {hasPlaceOnMap && (
+          <div className="mt-4 space-y-3 rounded-lg bg-slate-100 px-4 py-3 text-sm">
+            <TopicLinks label="Пререквизиты" topics={topic.prerequisites} />
+            <TopicLinks label="Входит в обзор" topics={topic.overviews} />
+            <TopicLinks label="Темы обзора" topics={topic.members} />
           </div>
         )}
       </header>
 
-      {topic.is_stub ? (
+      {topic.is_stub && (
         <p className="mt-8 rounded-lg border border-dashed border-slate-300 px-4 py-6 text-center text-slate-600">
           Статья ещё не написана.
         </p>
-      ) : (
-        <Article topic={topic} />
       )}
+      <Article topic={topic} />
 
       <PathNavigation topic={topic} />
     </article>

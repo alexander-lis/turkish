@@ -1,6 +1,6 @@
 /**
- * Требования «Панель навигации с двумя группировками», «Выбранная группировка сохраняется»
- * и «Заглушки отличимы в списках» — в части панели.
+ * Требования «Панель навигации с двумя группировками», «Выбранная группировка сохраняется»,
+ * «Заглушки отличимы в списках» и «Обзор помечен в списках» — в части панели.
  */
 import { screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
@@ -25,7 +25,7 @@ function topicTitlesIn(panel: Scope, group: string): string[] {
   const region = panel.getByRole("region", { name: group });
   return within(region)
     .getAllByRole("link")
-    .map((link) => link.textContent.replace("не написано", ""));
+    .map((link) => link.textContent.replace(/(?:обзор)?(?:не написано)?$/, ""));
 }
 
 test("по умолчанию панель показывает темы по уровням в порядке маршрута", async () => {
@@ -40,6 +40,8 @@ test("по умолчанию панель показывает темы по у
   expect(topicTitlesIn(panel, "A1")).toEqual([
     "Гармония гласных",
     "Множественное число -lAr",
+    "Обзор падежей",
+    "Дательный падеж -(y)A",
     "Местный падеж -DA",
   ]);
 });
@@ -58,11 +60,15 @@ test("группировка «По разделам» показывает ра
   ]);
   expect(topicTitlesIn(panel, "Существительное")).toEqual([
     "Множественное число -lAr",
+    "Обзор падежей",
+    "Дательный падеж -(y)A",
     "Местный падеж -DA",
     "Исходный падеж -DAn",
   ]);
   expect(topicTitlesIn(panel, "Времена глагола")).toEqual([
     "Прошедшее время -DI",
+    "Прошедшее время -mIş",
+    "Обзор времён",
     "Страдательный залог -Il",
   ]);
 });
@@ -121,6 +127,29 @@ test("заглушка в панели помечена «не написано�
   expect(
     panel.getByRole("link", { name: /Гармония гласных/ }),
   ).not.toHaveTextContent("не написано");
+});
+
+test("обзор в панели помечен «обзор», тема без тем обзора — нет", async () => {
+  renderApp("/");
+  const panel = await navPanel();
+
+  const overview = panel.getByRole("link", { name: /Обзор падежей/ });
+  expect(within(overview).getByText("обзор")).toBeInTheDocument();
+  expect(within(overview).queryByText("не написано")).not.toBeInTheDocument();
+  expect(
+    within(panel.getByRole("link", { name: "Местный падеж -DA" })).queryByText(
+      "обзор",
+    ),
+  ).not.toBeInTheDocument();
+});
+
+test("у обзора-заглушки в панели видны обе пометки", async () => {
+  renderApp("/");
+  const panel = await navPanel();
+
+  const overview = within(panel.getByRole("link", { name: /Обзор времён/ }));
+  expect(overview.getByText("обзор")).toBeInTheDocument();
+  expect(overview.getByText("не написано")).toBeInTheDocument();
 });
 
 test("ссылка «Обозначения» в панели открывает страницу обозначений", async () => {

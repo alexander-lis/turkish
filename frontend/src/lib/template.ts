@@ -1,7 +1,10 @@
 import type { BlockKind } from "../api/types.ts";
 
-/** Блок страницы темы: текстовый блок статьи, примеры или связанные темы. */
-export type TemplateBlock = BlockKind | "examples" | "related";
+/**
+ * Блок страницы темы: текстовый блок статьи либо блок, который страница собирает сама, —
+ * примеры, различения («Не путать») или связанные темы.
+ */
+export type TemplateBlock = BlockKind | "examples" | "contrasts" | "related";
 
 /**
  * Шаблон статьи: порядок блоков на странице и их заголовки.
@@ -15,6 +18,7 @@ export const TEMPLATE = {
   examples: "Примеры",
   pitfalls: "Подводные камни",
   vs_russian: "Сравнение с русским",
+  contrasts: "Не путать",
   related: "Связанные темы",
 } as const satisfies Record<TemplateBlock, string>;
 

@@ -1,12 +1,15 @@
 /**
  * Требования «Страница темы следует шаблону», «Пререквизиты на странице темы»,
- * «Переходы по учебному маршруту», «Страница заглушки», «У каждой темы постоянный адрес»
- * и переходы по ссылкам на темы.
+ * «Обзоры и темы обзора на странице темы», «Блок «Не путать»», «Переходы по учебному маршруту»,
+ * «Страница заглушки», «У каждой темы постоянный адрес» и переходы по ссылкам на темы.
  */
 import { screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { http, HttpResponse } from "msw";
 import { expect, test } from "vitest";
+import { locativeDa, ref } from "../test/fixtures.ts";
 import { renderApp, type Scope } from "../test/render.tsx";
+import { server } from "../test/server.ts";
 
 async function topicPage(title: string) {
   const main = within(screen.getByRole("main"));
@@ -20,7 +23,23 @@ function blockTitles(main: Scope): string[] {
     .map((heading) => heading.textContent);
 }
 
-test("тема со всеми блоками показывает шесть блоков в порядке шаблона", async () => {
+function linkTitles(scope: Scope): string[] {
+  return scope.getAllByRole("link").map((link) => link.textContent);
+}
+
+/** Различения блока «Не путать»: по элементу списка на каждое. */
+function contrasts(main: Scope): HTMLElement[] {
+  const block = within(main.getByRole("region", { name: "Не путать" }));
+  return block.getAllByRole("listitem");
+}
+
+function isBefore(first: HTMLElement, second: HTMLElement): boolean {
+  return Boolean(
+    first.compareDocumentPosition(second) & Node.DOCUMENT_POSITION_FOLLOWING,
+  );
+}
+
+test("тема со всеми блоками показывает семь блоков в порядке шаблона", async () => {
   renderApp("/topics/locative-da");
   const main = await topicPage("Местный падеж -DA");
 
@@ -30,6 +49,7 @@ test("тема со всеми блоками показывает шесть б
     "Примеры",
     "Подводные камни",
     "Сравнение с русским",
+    "Не путать",
     "Связанные темы",
   ]);
 });
@@ -72,6 +92,7 @@ test("блоков, для которых у темы нет содержимо�
 
   expect(blockTitles(main)).toEqual(["Формула", "Примеры", "Подводные камни"]);
   expect(main.queryByText("Сравнение с русским")).not.toBeInTheDocument();
+  expect(main.queryByText("Не путать")).not.toBeInTheDocument();
   expect(main.queryByText("Связанные темы")).not.toBeInTheDocument();
 });
 
@@ -85,9 +106,7 @@ test("пререквизиты показаны ссылками в начале
     name: "Гармония гласных",
   });
   const firstBlock = main.getByRole("heading", { level: 2, name: "Формула" });
-  expect(
-    link.compareDocumentPosition(firstBlock) & Node.DOCUMENT_POSITION_FOLLOWING,
-  ).toBeTruthy();
+  expect(isBefore(link, firstBlock)).toBe(true);
 
   await user.click(link);
   expect(await topicPage("Гармония гласных")).toBeDefined();
@@ -100,6 +119,124 @@ test("у темы без пререквизитов списка пререкв�
   expect(main.queryByText("Пререквизиты")).not.toBeInTheDocument();
 });
 
+test("тема показывает обзор, в который входит, ссылкой в начале страницы", async () => {
+  const user = userEvent.setup();
+  renderApp("/topics/locative-da");
+  const main = await topicPage("Местный падеж -DA");
+
+  const overviews = main.getByRole("list", { name: "Входит в обзор" });
+  const link = within(overviews).getByRole("link", { name: "Обзор падежей" });
+  expect(
+    isBefore(link, main.getByRole("heading", { level: 2, name: "Формула" })),
+  ).toBe(true);
+  expect(main.queryByText("Темы обзора")).not.toBeInTheDocument();
+
+  await user.click(link);
+  expect(await topicPage("Обзор падежей")).toBeDefined();
+});
+
+test("страница обзора показывает темы обзора ссылками в порядке контента", async () => {
+  renderApp("/topics/cases-overview");
+  const main = await topicPage("Обзор падежей");
+
+  const members = main.getByRole("list", { name: "Темы обзора" });
+  expect(linkTitles(within(members))).toEqual([
+    "Местный падеж -DA",
+    "Дательный падеж -(y)A",
+    "Исходный падеж -DAn",
+  ]);
+  expect(
+    within(members).getByRole("link", { name: "Местный падеж -DA" }),
+  ).toHaveAttribute("href", "/topics/locative-da");
+  expect(
+    isBefore(members, main.getByRole("heading", { level: 2, name: "Формула" })),
+  ).toBe(true);
+  expect(main.queryByText("Входит в обзор")).not.toBeInTheDocument();
+});
+
+test("заглушка среди тем обзора помечена «не написано»", async () => {
+  renderApp("/topics/cases-overview");
+  const main = await topicPage("Обзор падежей");
+
+  const [written, stub] = within(
+    main.getByRole("list", { name: "Темы обзора" }),
+  ).getAllByRole("listitem");
+  expect(written).not.toHaveTextContent("не написано");
+  expect(stub).toHaveTextContent("не написано");
+});
+
+test("у темы вне обзоров нет ни обзоров, ни тем обзора", async () => {
+  renderApp("/topics/vowel-harmony");
+  const main = await topicPage("Гармония гласных");
+
+  expect(main.queryByText("Входит в обзор")).not.toBeInTheDocument();
+  expect(main.queryByText("Темы обзора")).not.toBeInTheDocument();
+});
+
+test("различение, разобранное в этой теме, показано без ссылки «Разбор»", async () => {
+  const user = userEvent.setup();
+  renderApp("/topics/locative-da");
+  const main = await topicPage("Местный падеж -DA");
+
+  const [contrast, ...rest] = contrasts(main);
+  if (contrast === undefined) throw new Error("в блоке нет различений");
+  expect(rest).toHaveLength(0);
+  expect(contrast).toHaveTextContent("«Где» и «куда»: -DA и -(y)A");
+  expect(linkTitles(within(contrast))).toEqual(["Дательный падеж -(y)A"]);
+  expect(contrast).not.toHaveTextContent("Разбор");
+
+  await user.click(within(contrast).getByRole("link"));
+  expect(await topicPage("Дательный падеж -(y)A")).toBeDefined();
+});
+
+test("различение, разобранное в другой теме, показывает ссылку «Разбор» на неё", async () => {
+  renderApp("/topics/past-di");
+  const main = await topicPage("Прошедшее время -DI");
+
+  const [contrast] = contrasts(main);
+  if (contrast === undefined) throw new Error("в блоке нет различений");
+  expect(contrast).toHaveTextContent("-DI и -mIş");
+  expect(linkTitles(within(contrast))).toEqual([
+    "Прошедшее время -mIş",
+    "Обзор времён",
+  ]);
+  const explanation = within(contrast).getByText(/Разбор/).parentElement;
+  if (explanation === null) throw new Error("у подписи «Разбор» нет строки");
+  expect(
+    within(explanation).getByRole("link", { name: "Обзор времён" }),
+  ).toHaveAttribute("href", "/topics/tense-overview");
+});
+
+test("различение трёх тем показывает ссылки на обе другие темы", async () => {
+  server.use(
+    http.get("*/api/topics/locative-da", () =>
+      HttpResponse.json({
+        ...locativeDa,
+        contrasts: [
+          {
+            title: "«Где», «куда» и «откуда»",
+            topics: [ref("dative-a"), ref("ablative-dan")],
+            explained_in: [ref("locative-da"), ref("cases-overview")],
+          },
+        ],
+      }),
+    ),
+  );
+  renderApp("/topics/locative-da");
+  const main = await topicPage("Местный падеж -DA");
+
+  const [contrast] = contrasts(main);
+  if (contrast === undefined) throw new Error("в блоке нет различений");
+  expect(linkTitles(within(contrast))).toEqual([
+    "Дательный падеж -(y)A",
+    "Исходный падеж -DAn",
+    "Обзор падежей",
+  ]);
+  expect(
+    within(contrast).queryByRole("link", { name: "Местный падеж -DA" }),
+  ).not.toBeInTheDocument();
+});
+
 test("ссылка на следующую тему открывает следующую тему маршрута", async () => {
   const user = userEvent.setup();
   renderApp("/topics/locative-da");
@@ -110,9 +247,9 @@ test("ссылка на следующую тему открывает след�
   );
   expect(
     path.getByRole("link", {
-      name: /Предыдущая тема.*Множественное число -lAr/,
+      name: /Предыдущая тема.*Дательный падеж -\(y\)A/,
     }),
-  ).toHaveAttribute("href", "/topics/plural-lar");
+  ).toHaveAttribute("href", "/topics/dative-a");
   await user.click(
     path.getByRole("link", { name: /Следующая тема.*Прошедшее время -DI/ }),
   );
@@ -166,7 +303,7 @@ test("страница заглушки показывает суть, сооб�
     }),
   ).toBeInTheDocument();
   expect(main.getByText("Статья ещё не написана.")).toBeInTheDocument();
-  expect(blockTitles(main)).toEqual([]);
+  expect(blockTitles(main)).toEqual(["Не путать", "Связанные темы"]);
 
   const path = within(
     main.getByRole("navigation", { name: "Учебный маршрут" }),
@@ -177,8 +314,34 @@ test("страница заглушки показывает суть, сооб�
   );
   expect(path.getByRole("link", { name: /Следующая тема/ })).toHaveAttribute(
     "href",
-    "/topics/passive-il",
+    "/topics/past-mis",
   );
+});
+
+test("страница обзора-заглушки показывает темы обзора и сообщение", async () => {
+  renderApp("/topics/tense-overview");
+  const main = await topicPage("Обзор времён");
+
+  expect(
+    linkTitles(within(main.getByRole("list", { name: "Темы обзора" }))),
+  ).toEqual(["Прошедшее время -DI", "Прошедшее время -mIş"]);
+  expect(main.getByText("Статья ещё не написана.")).toBeInTheDocument();
+  expect(blockTitles(main)).toEqual([]);
+});
+
+test("у заглушки блоки «Не путать» и «Связанные темы» стоят под сообщением", async () => {
+  renderApp("/topics/past-di");
+  const main = await topicPage("Прошедшее время -DI");
+
+  const message = main.getByText("Статья ещё не написана.");
+  const contrastsBlock = main.getByRole("region", { name: "Не путать" });
+  const related = main.getByRole("region", { name: "Связанные темы" });
+  expect(isBefore(message, contrastsBlock)).toBe(true);
+  expect(isBefore(contrastsBlock, related)).toBe(true);
+  expect(contrastsBlock).toHaveTextContent("-DI и -mIş");
+  expect(
+    within(related).getByRole("link", { name: "Страдательный залог -Il" }),
+  ).toHaveAttribute("href", "/topics/passive-il");
 });
 
 test("прямое открытие адреса темы показывает эту тему", async () => {

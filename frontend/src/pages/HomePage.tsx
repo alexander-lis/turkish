@@ -4,7 +4,7 @@ import { topicMapQuery, type TopicMap } from "../api/queries.ts";
 import { AffixText } from "../components/AffixText.tsx";
 import { PageTitle } from "../components/PageTitle.tsx";
 import { QueryView } from "../components/QueryView.tsx";
-import { StubMark } from "../components/StubMark.tsx";
+import { OverviewMark, StubMark } from "../components/TopicMarks.tsx";
 import { groupByLevel } from "../lib/grouping.ts";
 import { topicPath } from "../lib/site.ts";
 
@@ -38,6 +38,7 @@ function LearningPath({ topics, sections }: TopicMap) {
               >
                 <AffixText>{topic.title}</AffixText>
               </Link>
+              {topic.is_overview && <OverviewMark />}
               {topic.is_stub && <StubMark />}
               <span className="ml-auto text-xs text-slate-500">
                 {sectionTitles.get(topic.section_id)}

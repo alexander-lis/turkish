@@ -13,7 +13,10 @@ export const sections: Section[] = [
   { id: "verbs", title: "Времена глагола" },
 ];
 
-/** Учебный маршрут: по теме на каждый уровень сверх A1, две заглушки и три написанные темы. */
+/**
+ * Учебный маршрут: темы всех четырёх уровней, написанные и заглушки.
+ * Обзоров два: написанный «Обзор падежей» и заглушка «Обзор времён».
+ */
 export const topics: TopicSummary[] = [
   {
     id: "vowel-harmony",
@@ -22,6 +25,7 @@ export const topics: TopicSummary[] = [
     section_id: "phonetics",
     summary: "Гласная аффикса подстраивается под последнюю гласную слова.",
     is_stub: false,
+    is_overview: false,
   },
   {
     id: "plural-lar",
@@ -30,6 +34,25 @@ export const topics: TopicSummary[] = [
     section_id: "nouns",
     summary: "Показывает, что предметов несколько.",
     is_stub: false,
+    is_overview: false,
+  },
+  {
+    id: "cases-overview",
+    title: "Обзор падежей",
+    level: "A1",
+    section_id: "nouns",
+    summary: "Падежи и их основные вопросы.",
+    is_stub: false,
+    is_overview: true,
+  },
+  {
+    id: "dative-a",
+    title: "Дательный падеж -(y)A",
+    level: "A1",
+    section_id: "nouns",
+    summary: "Показывает, куда направлено движение.",
+    is_stub: true,
+    is_overview: false,
   },
   {
     id: "locative-da",
@@ -38,6 +61,7 @@ export const topics: TopicSummary[] = [
     section_id: "nouns",
     summary: "Показывает, где что-то находится.",
     is_stub: false,
+    is_overview: false,
   },
   {
     id: "past-di",
@@ -46,6 +70,25 @@ export const topics: TopicSummary[] = [
     section_id: "verbs",
     summary: "Действие, которое говорящий видел сам.",
     is_stub: true,
+    is_overview: false,
+  },
+  {
+    id: "past-mis",
+    title: "Прошедшее время -mIş",
+    level: "A2",
+    section_id: "verbs",
+    summary: "Действие, о котором говорящий узнал с чужих слов.",
+    is_stub: true,
+    is_overview: false,
+  },
+  {
+    id: "tense-overview",
+    title: "Обзор времён",
+    level: "A2",
+    section_id: "verbs",
+    summary: "Простые времена рядом.",
+    is_stub: true,
+    is_overview: true,
   },
   {
     id: "passive-il",
@@ -54,6 +97,7 @@ export const topics: TopicSummary[] = [
     section_id: "verbs",
     summary: "Действие без указания того, кто его совершает.",
     is_stub: true,
+    is_overview: false,
   },
   {
     id: "ablative-dan",
@@ -62,10 +106,11 @@ export const topics: TopicSummary[] = [
     section_id: "nouns",
     summary: "Показывает, откуда начинается движение.",
     is_stub: true,
+    is_overview: false,
   },
 ];
 
-function ref(id: string): TopicRef {
+export function ref(id: string): TopicRef {
   const topic = topics.find((candidate) => candidate.id === id);
   if (!topic) {
     throw new Error(`В тестовых данных нет темы ${id}`);
@@ -73,10 +118,14 @@ function ref(id: string): TopicRef {
   return { id: topic.id, title: topic.title, is_stub: topic.is_stub };
 }
 
-function detail(
-  id: string,
-  rest: Pick<TopicDetail, "blocks" | "examples" | "prerequisites" | "related">,
-): TopicDetail {
+type Article = Pick<TopicDetail, "blocks" | "examples">;
+type Links = Pick<
+  TopicDetail,
+  "prerequisites" | "overviews" | "members" | "contrasts" | "related"
+>;
+
+/** Тема целиком. Связи, которых у темы нет, можно не называть. */
+function detail(id: string, rest: Article & Partial<Links>): TopicDetail {
   const index = topics.findIndex((candidate) => candidate.id === id);
   const summary = topics[index];
   const section = sections.find(
@@ -90,6 +139,11 @@ function detail(
   return {
     ...summary,
     section,
+    prerequisites: [],
+    overviews: [],
+    members: [],
+    contrasts: [],
+    related: [],
     ...rest,
     previous: previous ? ref(previous.id) : null,
     next: next ? ref(next.id) : null,
@@ -117,11 +171,33 @@ const vowelHarmony = detail("vowel-harmony", {
       gloss: null,
     },
   ],
-  prerequisites: [],
-  related: [],
 });
 
-/** Тема со всеми блоками шаблона, пререквизитом, связанной темой и разными примерами. */
+/** Написанный обзор: темы обзора идут в порядке контента, а не учебного маршрута. */
+const casesOverview = detail("cases-overview", {
+  blocks: [
+    {
+      kind: "formula",
+      markdown: "Падеж выбирают по вопросу, на который отвечает слово.",
+    },
+  ],
+  examples: [
+    {
+      tr: { text: "evde", segments: [{ text: "evde", emphasized: false }] },
+      ru: { text: "дома", segments: [{ text: "дома", emphasized: false }] },
+      source: "authored",
+      note: null,
+      gloss: null,
+    },
+  ],
+  prerequisites: [ref("vowel-harmony")],
+  members: [ref("locative-da"), ref("dative-a"), ref("ablative-dan")],
+});
+
+/**
+ * Тема со всеми блоками шаблона: пререквизит, обзор, различение, разобранное в ней самой,
+ * связанная тема и разные примеры.
+ */
 export const locativeDa = detail("locative-da", {
   blocks: [
     {
@@ -221,29 +297,68 @@ export const locativeDa = detail("locative-da", {
     },
   ],
   prerequisites: [ref("vowel-harmony")],
+  overviews: [ref("cases-overview")],
+  contrasts: [
+    {
+      title: "«Где» и «куда»: -DA и -(y)A",
+      topics: [ref("dative-a")],
+      explained_in: [ref("locative-da")],
+    },
+  ],
   related: [ref("ablative-dan")],
 });
 
-/** Заглушка в середине маршрута. */
+/** Заглушка, на которую ведёт различение темы locative-da. */
+const dativeA = detail("dative-a", {
+  blocks: [],
+  examples: [],
+  overviews: [ref("cases-overview")],
+  contrasts: [
+    {
+      title: "«Где» и «куда»: -DA и -(y)A",
+      topics: [ref("locative-da")],
+      explained_in: [ref("locative-da")],
+    },
+  ],
+});
+
+/** Заглушка в середине маршрута: входит в обзор, а её различение разобрано в другой теме. */
 const pastDi = detail("past-di", {
   blocks: [],
   examples: [],
   prerequisites: [ref("vowel-harmony")],
-  related: [],
+  overviews: [ref("tense-overview")],
+  contrasts: [
+    {
+      title: "-DI и -mIş",
+      topics: [ref("past-mis")],
+      explained_in: [ref("tense-overview")],
+    },
+  ],
+  related: [ref("passive-il")],
+});
+
+/** Обзор-заглушка. */
+const tenseOverview = detail("tense-overview", {
+  blocks: [],
+  examples: [],
+  prerequisites: [ref("past-di"), ref("past-mis")],
+  members: [ref("past-di"), ref("past-mis")],
 });
 
 /** Последняя тема маршрута. */
 const ablativeDan = detail("ablative-dan", {
   blocks: [],
   examples: [],
-  prerequisites: [],
-  related: [],
 });
 
 export const topicDetails: Record<string, TopicDetail> = {
   [vowelHarmony.id]: vowelHarmony,
+  [casesOverview.id]: casesOverview,
+  [dativeA.id]: dativeA,
   [locativeDa.id]: locativeDa,
   [pastDi.id]: pastDi,
+  [tenseOverview.id]: tenseOverview,
   [ablativeDan.id]: ablativeDan,
 };
 

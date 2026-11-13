@@ -11,7 +11,7 @@ import {
 import { NOTATION_PATH, topicPath } from "../lib/site.ts";
 import { AffixText } from "./AffixText.tsx";
 import { QueryView } from "./QueryView.tsx";
-import { StubMark } from "./StubMark.tsx";
+import { OverviewMark, StubMark } from "./TopicMarks.tsx";
 
 type Grouping = "path" | "sections";
 
@@ -76,7 +76,12 @@ function TopicGroups({ groups }: { groups: TopicGroup[] }) {
               <span className={cx(topic.is_stub && "text-slate-500")}>
                 <AffixText>{topic.title}</AffixText>
               </span>
-              {topic.is_stub && <StubMark />}
+              {(topic.is_overview || topic.is_stub) && (
+                <span className="flex shrink-0 gap-1">
+                  {topic.is_overview && <OverviewMark />}
+                  {topic.is_stub && <StubMark />}
+                </span>
+              )}
             </NavLink>
           </li>
         ))}
