@@ -72,6 +72,23 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/search-index": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Поисковый индекс: все темы с текстом статей без разметки и примерами */
+        get: operations["get_search_index"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/notation": {
         parameters: {
             query?: never;
@@ -208,6 +225,52 @@ export interface components {
             intro_markdown: string;
             /** Abbreviations */
             abbreviations: components["schemas"]["Abbreviation"][];
+        };
+        /**
+         * SearchBlock
+         * @description Текст блока статьи без разметки Markdown, по строкам.
+         */
+        SearchBlock: {
+            kind: components["schemas"]["BlockKind"];
+            /** Lines */
+            lines: string[];
+        };
+        /**
+         * SearchExample
+         * @description Тексты примера без служебных звёздочек.
+         */
+        SearchExample: {
+            /** Tr */
+            tr: string;
+            /** Ru */
+            ru: string;
+            /** Note */
+            note: string | null;
+        };
+        /**
+         * SearchTopic
+         * @description Запись поискового индекса: всё, что о теме ищет и показывает окно поиска.
+         */
+        SearchTopic: {
+            /** Id */
+            id: string;
+            /** Title */
+            title: string;
+            level: components["schemas"]["Level"];
+            /** Section Id */
+            section_id: string;
+            /** Summary */
+            summary: string;
+            /** Is Stub */
+            is_stub: boolean;
+            /** Is Overview */
+            is_overview: boolean;
+            /** Section Title */
+            section_title: string;
+            /** Blocks */
+            blocks: components["schemas"]["SearchBlock"][];
+            /** Examples */
+            examples: components["schemas"]["SearchExample"][];
         };
         /** Section */
         Section: {
@@ -423,6 +486,26 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["TopicGraph"];
+                };
+            };
+        };
+    };
+    get_search_index: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SearchTopic"][];
                 };
             };
         };

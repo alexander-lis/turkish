@@ -1,7 +1,7 @@
-import { use, useId, type ReactNode } from "react";
-import { Link } from "react-router";
+import { use, useEffect, useId, type ReactNode } from "react";
+import { Link, useLocation } from "react-router";
 import type { TopicDetail, TopicRef } from "../api/types.ts";
-import { NOTATION_PATH } from "../lib/site.ts";
+import { blockAnchor, NOTATION_PATH } from "../lib/site.ts";
 import {
   TEMPLATE,
   TEMPLATE_ORDER,
@@ -11,6 +11,7 @@ import { AffixText } from "./AffixText.tsx";
 import { ArticleMarkdown } from "./ArticleMarkdown.tsx";
 import { ExampleCard } from "./ExampleCard.tsx";
 import { LevelBadge } from "./LevelBadge.tsx";
+import { scrollToBlock } from "./scrollToBlock.ts";
 import { TopicHrefContext } from "./topicHref.ts";
 import { StubMark } from "./TopicMarks.tsx";
 
@@ -171,10 +172,12 @@ function Blocks({ topic }: { topic: TopicDetail }) {
       return null;
     }
     return (
-      <section key={kind} aria-labelledby={`block-${kind}`} className="mt-8">
+      <section key={kind} aria-labelledby={blockAnchor(kind)} className="mt-8">
         <h2
-          id={`block-${kind}`}
-          className="mb-3 text-xl font-semibold tracking-tight"
+          id={blockAnchor(kind)}
+          // Отступ прокрутки: заголовок блока, к которому ведёт адрес, не уходит под шапку
+          // страницы. В окне темы шапки над областью чтения нет, и отступ там свой.
+          className="mb-3 scroll-mt-20 text-xl font-semibold tracking-tight"
         >
           {TEMPLATE[kind]}
         </h2>
@@ -237,7 +240,8 @@ interface TopicArticleProps {
 /**
  * Содержимое темы по шаблону — одно для страницы темы и окна темы на карте: название,
  * суть, место на карте, блоки статьи, переходы по учебному маршруту. У заглушки вместо
- * статьи — сообщение. Адреса ссылок на темы задаёт TopicHrefContext.
+ * статьи — сообщение. Адреса ссылок на темы задаёт TopicHrefContext. Адрес с якорем блока
+ * (#block-examples) открывает содержимое на этом блоке.
  */
 export function TopicArticle({
   topic,
@@ -245,6 +249,15 @@ export function TopicArticle({
   showLevelAndSection = true,
   requiredFor = [],
 }: TopicArticleProps) {
+  const { hash, key: navigation } = useLocation();
+
+  // Браузер сам к якорю не прокрутит: когда он обрабатывает адрес, тема ещё не загружена.
+  // Прокручивает каждый переход, а не только смена якоря: повторный выбор той же строки
+  // поиска снова открывает тему на блоке.
+  useEffect(() => {
+    scrollToBlock(hash);
+  }, [topic.id, hash, navigation]);
+
   const hasPlaceOnMap =
     topic.prerequisites.length > 0 ||
     requiredFor.length > 0 ||

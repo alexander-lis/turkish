@@ -187,7 +187,8 @@ describe("ссылка «Карта тем» в шапке", () => {
       await loaded();
 
       expect(header().getAllByRole("link")).toHaveLength(2);
-      expect(header().queryByRole("button")).not.toBeInTheDocument();
+      // Единственная кнопка шапки открывает поиск, а не список тем.
+      expect(header().getByRole("button")).toHaveAccessibleName("Поиск");
       expect(screen.queryByRole("complementary")).not.toBeInTheDocument();
       // Навигация остаётся только внутри страницы: переходы по учебному маршруту.
       for (const navigation of screen.queryAllByRole("navigation")) {

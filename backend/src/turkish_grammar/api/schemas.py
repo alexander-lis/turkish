@@ -117,6 +117,29 @@ class TopicGraph(_Schema):
     contrasts: list[GraphContrast]
 
 
+class SearchBlock(_Schema):
+    """Текст блока статьи без разметки Markdown, по строкам."""
+
+    kind: BlockKind
+    lines: list[str]
+
+
+class SearchExample(_Schema):
+    """Тексты примера без служебных звёздочек."""
+
+    tr: str
+    ru: str
+    note: str | None
+
+
+class SearchTopic(TopicSummary):
+    """Запись поискового индекса: всё, что о теме ищет и показывает окно поиска."""
+
+    section_title: str
+    blocks: list[SearchBlock]
+    examples: list[SearchExample]
+
+
 class Abbreviation(_Schema):
     code: str
     meaning: str

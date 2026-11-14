@@ -1,12 +1,33 @@
 import type { UseQueryResult } from "@tanstack/react-query";
 import type { ReactNode } from "react";
 
-/** Индикатор загрузки: его же показывает страница, пока грузится её код. */
+/**
+ * Индикатор загрузки: его же показывает страница, пока грузится её код. Стоит по центру
+ * места, которое ему досталось, и появляется с задержкой: быстрая загрузка обходится без
+ * мелькания на экране.
+ */
 export function Loading() {
   return (
-    <p role="status" className="py-8 text-sm text-slate-500">
-      Загрузка…
-    </p>
+    <div
+      role="status"
+      className="animate-appear flex h-full min-h-40 items-center justify-center"
+    >
+      <svg
+        aria-hidden="true"
+        viewBox="0 0 24 24"
+        className="size-8 animate-spin"
+        fill="none"
+        strokeWidth="2.5"
+      >
+        <circle cx="12" cy="12" r="9" className="stroke-slate-200" />
+        <path
+          d="M21 12a9 9 0 0 0-9-9"
+          className="stroke-red-600"
+          strokeLinecap="round"
+        />
+      </svg>
+      <span className="sr-only">Загрузка…</span>
+    </div>
   );
 }
 

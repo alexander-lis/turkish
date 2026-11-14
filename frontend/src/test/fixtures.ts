@@ -1,5 +1,6 @@
 import type {
   Notation,
+  SearchTopic,
   Section,
   TopicDetail,
   TopicGraph,
@@ -405,6 +406,86 @@ export const graph: TopicGraph = {
     },
   ],
 };
+
+/** Запись поискового индекса о теме из topics. Без текстов — запись заглушки. */
+function indexed(
+  id: string,
+  texts: Pick<SearchTopic, "blocks" | "examples"> = {
+    blocks: [],
+    examples: [],
+  },
+): SearchTopic {
+  const topic = topics.find((candidate) => candidate.id === id);
+  const section = sections.find(
+    (candidate) => candidate.id === topic?.section_id,
+  );
+  if (!topic || !section) {
+    throw new Error(`В тестовых данных нет темы ${id} или её раздела`);
+  }
+  return { ...topic, section_title: section.title, ...texts };
+}
+
+/**
+ * Поисковый индекс: те же темы в том же порядке, что в topics. Тексты написанных тем —
+ * те же, что в topicDetails, но без разметки и по строкам, как их отдаёт сервер.
+ */
+export const searchIndex: SearchTopic[] = [
+  indexed("vowel-harmony", {
+    blocks: [
+      { kind: "formula", lines: ["Смотрим на последнюю гласную слова."] },
+      {
+        kind: "pitfalls",
+        lines: ["Заимствованные слова бывают исключениями."],
+      },
+    ],
+    examples: [{ tr: "evler", ru: "дома", note: null }],
+  }),
+  indexed("plural-lar", {
+    blocks: [{ kind: "formula", lines: ["Основа + -lAr: kitaplar, evler."] }],
+    examples: [{ tr: "Kitaplar masada.", ru: "Книги на столе.", note: null }],
+  }),
+  indexed("cases-overview", {
+    blocks: [
+      {
+        kind: "formula",
+        lines: ["Падеж выбирают по вопросу, на который отвечает слово."],
+      },
+    ],
+    examples: [{ tr: "evde", ru: "дома", note: null }],
+  }),
+  indexed("dative-a"),
+  indexed("locative-da", {
+    blocks: [
+      {
+        kind: "formula",
+        lines: ["Основа + -DA. Гласную выбирает гармония гласных."],
+      },
+      {
+        kind: "forms",
+        lines: [
+          "После Аффикс Пример",
+          "a, ı, o, u -da okulda",
+          "e, i, ö, ü -de evde",
+        ],
+      },
+      { kind: "pitfalls", lines: ["Частица da пишется отдельно."] },
+      {
+        kind: "vs_russian",
+        lines: ["В русском место выражает предлог с падежом."],
+      },
+    ],
+    examples: [
+      { tr: "Evdeyim.", ru: "Я дома.", note: "Последняя гласная слова — e." },
+      { tr: "Evlerimde.", ru: "В моих домах.", note: null },
+      { tr: "Okuldayız.", ru: "Мы в школе.", note: null },
+    ],
+  }),
+  indexed("past-di"),
+  indexed("past-mis"),
+  indexed("tense-overview"),
+  indexed("passive-il"),
+  indexed("ablative-dan"),
+];
 
 export const notation: Notation = {
   intro_markdown: "Заглавная буква в формуле аффикса — **чередующийся звук**.",

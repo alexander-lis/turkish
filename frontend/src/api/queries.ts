@@ -2,6 +2,7 @@ import { QueryClient, queryOptions } from "@tanstack/react-query";
 import {
   fetchGraph,
   fetchNotation,
+  fetchSearchIndex,
   fetchSections,
   fetchTopic,
   isNotFound,
@@ -24,6 +25,15 @@ export function topicQuery(id: string) {
 export const graphQuery = queryOptions({
   queryKey: ["graph"],
   queryFn: fetchGraph,
+});
+
+/**
+ * Поисковый индекс: все темы с текстом статей и примерами. Окно поиска включает запрос,
+ * когда открыто; дальше индекс живёт в кеше до перезагрузки страницы.
+ */
+export const searchIndexQuery = queryOptions({
+  queryKey: ["search-index"],
+  queryFn: fetchSearchIndex,
 });
 
 export const notationQuery = queryOptions({

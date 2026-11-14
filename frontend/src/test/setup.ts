@@ -83,6 +83,16 @@ HTMLDialogElement.prototype.close = function (this: HTMLDialogElement) {
   this.dispatchEvent(new Event("close"));
 };
 
+/*
+ * Раскладки в jsdom нет, а с ней и прокрутки: у элемента нет scrollIntoView. Окно поиска
+ * зовёт его, чтобы показать выбранную строку, страница темы — чтобы открыться на блоке
+ * из адреса. Заглушка ничего не делает; тесты следят за её вызовами, а сама прокрутка
+ * проверяется в браузере.
+ */
+Element.prototype.scrollIntoView = function () {
+  // Прокручивать нечего: у элементов нет ни размеров, ни положения.
+};
+
 afterEach(() => {
   cleanup();
   server.resetHandlers();

@@ -10,6 +10,7 @@ from turkish_grammar.api.routes import router
 from turkish_grammar.content.errors import InvalidContentError
 from turkish_grammar.content.graph import build_graph
 from turkish_grammar.content.loader import load_catalog
+from turkish_grammar.content.search_index import build_search_index
 from turkish_grammar.settings import Settings
 
 logger = logging.getLogger(__name__)
@@ -33,6 +34,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
             raise
         app.state.catalog = catalog
         app.state.graph = build_graph(catalog)
+        app.state.search_index = build_search_index(catalog)
         yield
 
     app = FastAPI(

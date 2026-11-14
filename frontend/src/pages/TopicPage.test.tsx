@@ -1,14 +1,15 @@
 /**
  * Требования «Страница темы следует шаблону», «Пререквизиты на странице темы»,
  * «Обзоры и темы обзора на странице темы», «Блок «Не путать»», «Переходы по учебному маршруту»,
- * «Страница заглушки», «У каждой темы постоянный адрес» и переходы по ссылкам на темы.
+ * «Страница заглушки», «У каждой темы постоянный адрес», «Страница темы открывается на блоке
+ * из адреса» и переходы по ссылкам на темы.
  */
 import { screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { http, HttpResponse } from "msw";
-import { expect, test } from "vitest";
+import { afterEach, describe, expect, test, vi } from "vitest";
 import { locativeDa, ref } from "../test/fixtures.ts";
-import { renderApp, type Scope } from "../test/render.tsx";
+import { goTo, renderApp, type Scope } from "../test/render.tsx";
 import { server } from "../test/server.ts";
 
 async function topicPage(title: string) {
@@ -429,4 +430,80 @@ test("ссылки «Показать на карте» на странице т
   expect(
     main.queryByRole("link", { name: "Показать на карте" }),
   ).not.toBeInTheDocument();
+});
+
+describe("страница темы открывается на блоке из адреса", () => {
+  afterEach(() => {
+    vi.restoreAllMocks();
+  });
+
+  test("прямое открытие адреса с блоком прокручивает к заголовку блока", async () => {
+    const scrollIntoView = vi.spyOn(Element.prototype, "scrollIntoView");
+    renderApp("/topics/locative-da#block-pitfalls");
+    const main = await topicPage("Местный падеж -DA");
+
+    expect(scrollIntoView).toHaveBeenCalledTimes(1);
+    expect(scrollIntoView.mock.contexts[0]).toBe(
+      main.getByRole("heading", { level: 2, name: "Подводные камни" }),
+    );
+  });
+
+  test("переход к блоку открытой темы прокручивает к нему", async () => {
+    const scrollIntoView = vi.spyOn(Element.prototype, "scrollIntoView");
+    renderApp("/topics/locative-da");
+    const main = await topicPage("Местный падеж -DA");
+    expect(scrollIntoView).not.toHaveBeenCalled();
+
+    goTo("/topics/locative-da#block-examples");
+
+    expect(scrollIntoView).toHaveBeenCalledTimes(1);
+    expect(scrollIntoView.mock.contexts[0]).toBe(
+      main.getByRole("heading", { level: 2, name: "Примеры" }),
+    );
+  });
+
+  test("переход к блоку другой темы прокручивает, когда она загрузится", async () => {
+    const scrollIntoView = vi.spyOn(Element.prototype, "scrollIntoView");
+    renderApp("/topics/vowel-harmony");
+    await topicPage("Гармония гласных");
+
+    goTo("/topics/locative-da#block-pitfalls");
+    const main = await topicPage("Местный падеж -DA");
+
+    expect(scrollIntoView).toHaveBeenCalledTimes(1);
+    expect(scrollIntoView.mock.contexts[0]).toBe(
+      main.getByRole("heading", { level: 2, name: "Подводные камни" }),
+    );
+  });
+
+  test("повторный переход к тому же блоку прокручивает к нему снова", async () => {
+    const scrollIntoView = vi.spyOn(Element.prototype, "scrollIntoView");
+    renderApp("/topics/locative-da#block-examples");
+    const main = await topicPage("Местный падеж -DA");
+    expect(scrollIntoView).toHaveBeenCalledTimes(1);
+
+    goTo("/topics/locative-da#block-examples");
+
+    expect(scrollIntoView).toHaveBeenCalledTimes(2);
+    expect(scrollIntoView.mock.contexts[1]).toBe(
+      main.getByRole("heading", { level: 2, name: "Примеры" }),
+    );
+  });
+
+  test("если такого блока у темы нет, страница открывается с начала", async () => {
+    const scrollIntoView = vi.spyOn(Element.prototype, "scrollIntoView");
+    renderApp("/topics/dative-a#block-examples");
+    const main = await topicPage("Дательный падеж -(y)A");
+
+    expect(main.getByText("Статья ещё не написана.")).toBeInTheDocument();
+    expect(scrollIntoView).not.toHaveBeenCalled();
+  });
+
+  test("адрес без блока страницу не прокручивает", async () => {
+    const scrollIntoView = vi.spyOn(Element.prototype, "scrollIntoView");
+    renderApp("/topics/locative-da");
+    await topicPage("Местный падеж -DA");
+
+    expect(scrollIntoView).not.toHaveBeenCalled();
+  });
 });

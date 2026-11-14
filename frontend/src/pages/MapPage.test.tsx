@@ -11,7 +11,7 @@ import {
 } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { http, HttpResponse } from "msw";
-import { describe, expect, test } from "vitest";
+import { afterEach, describe, expect, test, vi } from "vitest";
 import { graph, topics } from "../test/fixtures.ts";
 import {
   loadViewport,
@@ -21,6 +21,7 @@ import {
 import {
   currentLocation,
   goBack,
+  goTo,
   renderApp,
   type Scope,
 } from "../test/render.tsx";
@@ -496,6 +497,98 @@ describe("закрытие окна темы", () => {
 
     expect(currentLocation()).toBe("/?topic=locative-da");
     expect(await loadedDialog("Местный падеж -DA")).toBeDefined();
+  });
+});
+
+describe("окно темы открывается на блоке из адреса", () => {
+  afterEach(() => {
+    vi.restoreAllMocks();
+  });
+
+  test("адрес с блоком: когда тема загрузилась, окно прокручено к заголовку блока", async () => {
+    const scrollIntoView = vi.spyOn(Element.prototype, "scrollIntoView");
+    await openMap("/?topic=locative-da#block-pitfalls");
+    const dialog = await loadedDialog("Местный падеж -DA");
+
+    expect(scrollIntoView).toHaveBeenCalledTimes(1);
+    expect(scrollIntoView.mock.contexts[0]).toBe(
+      dialog.getByRole("heading", { level: 2, name: "Подводные камни" }),
+    );
+  });
+
+  test("тема из кеша: к блоку окно прокручивается уже открытым", async () => {
+    await openMap("/?topic=locative-da");
+    await loadedDialog("Местный падеж -DA");
+    await userEvent.click(
+      topicDialog().getByRole("button", { name: "Закрыть" }),
+    );
+    expect(queryDialog()).not.toBeInTheDocument();
+    const showModal = vi.spyOn(HTMLDialogElement.prototype, "showModal");
+    const scrollIntoView = vi.spyOn(Element.prototype, "scrollIntoView");
+
+    goTo("/?topic=locative-da#block-examples");
+
+    // Статья отрисована раньше, чем окно открылось: в закрытом окне прокрутка ничего
+    // не даёт, поэтому последняя прокрутка обязана идти после открытия.
+    const dialog = await loadedDialog("Местный падеж -DA");
+    expect(scrollIntoView.mock.contexts.at(-1)).toBe(
+      dialog.getByRole("heading", { level: 2, name: "Примеры" }),
+    );
+    expect(showModal).toHaveBeenCalledTimes(1);
+    expect(scrollIntoView.mock.invocationCallOrder.at(-1)).toBeGreaterThan(
+      showModal.mock.invocationCallOrder.at(-1) ?? Infinity,
+    );
+  });
+
+  test("другая тема на блоке в уже открытом окне: прокрутка после её загрузки", async () => {
+    await openMap("/?topic=vowel-harmony");
+    await loadedDialog("Гармония гласных");
+    const scrollIntoView = vi.spyOn(Element.prototype, "scrollIntoView");
+
+    goTo("/?topic=locative-da#block-forms");
+    const dialog = await loadedDialog("Местный падеж -DA");
+
+    expect(scrollIntoView).toHaveBeenCalledTimes(1);
+    expect(scrollIntoView.mock.contexts[0]).toBe(
+      dialog.getByRole("heading", { level: 2, name: "Формы" }),
+    );
+  });
+
+  test("закрытие окна убирает блок из адреса", async () => {
+    await openMap("/?topic=locative-da#block-pitfalls");
+    await loadedDialog("Местный падеж -DA");
+
+    await userEvent.click(
+      topicDialog().getByRole("button", { name: "Закрыть" }),
+    );
+
+    expect(currentLocation()).toBe("/");
+  });
+
+  test("ссылка на тему внутри окна открывает её с начала", async () => {
+    await openMap("/?topic=locative-da#block-pitfalls");
+    const dialog = await loadedDialog("Местный падеж -DA");
+    const scrollIntoView = vi.spyOn(Element.prototype, "scrollIntoView");
+
+    await userEvent.click(
+      within(dialog.getByRole("list", { name: "Пререквизиты" })).getByRole(
+        "link",
+        { name: "Гармония гласных" },
+      ),
+    );
+    await loadedDialog("Гармония гласных");
+
+    expect(currentLocation()).toBe("/?topic=vowel-harmony");
+    expect(scrollIntoView).not.toHaveBeenCalled();
+  });
+
+  test("если такого блока у темы нет, окно открыто с начала", async () => {
+    const scrollIntoView = vi.spyOn(Element.prototype, "scrollIntoView");
+    await openMap("/?topic=dative-a#block-examples");
+    const dialog = await loadedDialog("Дательный падеж -(y)A");
+
+    expect(dialog.getByText("Статья ещё не написана.")).toBeInTheDocument();
+    expect(scrollIntoView).not.toHaveBeenCalled();
   });
 });
 

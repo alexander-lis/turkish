@@ -10,7 +10,9 @@ import type { ReactNode } from "react";
 import { MemoryRouter } from "react-router";
 import { AppRoutes } from "../AppRoutes.tsx";
 import {
+  ADDRESS_FIELD_ID,
   BACK_BUTTON_ID,
+  GO_BUTTON_ID,
   LOCATION_PROBE_ID,
   LocationProbe,
 } from "./LocationProbe.tsx";
@@ -50,6 +52,17 @@ export function currentLocation(): string {
 export function goBack(): void {
   const button = document.getElementById(BACK_BUTTON_ID);
   if (button === null) throw new Error("приложение не открыто через renderApp");
+  fireEvent.click(button);
+}
+
+/** Перейти по адресу в приложении, открытом renderApp, как по ссылке со стороны. */
+export function goTo(path: string): void {
+  const address = document.getElementById(ADDRESS_FIELD_ID);
+  const button = document.getElementById(GO_BUTTON_ID);
+  if (!(address instanceof HTMLInputElement) || button === null) {
+    throw new Error("приложение не открыто через renderApp");
+  }
+  address.value = path;
   fireEvent.click(button);
 }
 

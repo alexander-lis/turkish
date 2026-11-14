@@ -1,6 +1,7 @@
-"""Разбор файла статьи: метаданные, блоки по шаблону и ссылки на темы."""
+"""Разбор файла статьи: метаданные, блоки по шаблону, ссылки на темы и текст без разметки."""
 
-from collections.abc import Iterator, Sequence
+import unicodedata
+from collections.abc import Iterable, Iterator, Sequence
 from dataclasses import dataclass
 
 from markdown_it import MarkdownIt
@@ -125,6 +126,42 @@ def parse_article(body: str, *, first_line: int = 1) -> ParsedArticle:
         topic_links=tuple(links),
         problems=tuple(problems + link_problems),
     )
+
+
+def plain_lines(markdown: str) -> tuple[str, ...]:
+    """Текст без разметки Markdown, в NFC.
+
+    Абзац, пункт списка, подзаголовок и строка таблицы дают по строке; блок кода — по строке
+    на каждую свою. Знаков разметки и адресов ссылок в строках нет: это не текст узлов.
+    """
+    lines: list[str] = []
+    row: list[str] | None = None
+    for token in MARKDOWN.parse(markdown):
+        if token.type == "tr_open":
+            row = []
+        elif token.type == "tr_close":
+            lines.append(" ".join(cell for cell in row or () if cell))
+            row = None
+        elif token.type == "inline":
+            text = _plain_text(token.children or ())
+            if row is None:
+                lines.append(text)
+            else:
+                row.append(text)
+        elif token.type in ("fence", "code_block"):
+            lines.extend(line.strip() for line in token.content.splitlines())
+    return tuple(unicodedata.normalize("NFC", line) for line in lines if line)
+
+
+def _plain_text(children: Iterable[Token]) -> str:
+    """Текст узлов строки подряд: ``kitap**lar**`` — одно слово ``kitaplar``."""
+    parts: list[str] = []
+    for child in children:
+        if child.type in ("text", "code_inline"):
+            parts.append(child.content)
+        elif child.type in ("softbreak", "hardbreak"):
+            parts.append(" ")
+    return "".join(parts).strip()
 
 
 def _collect_links(tokens: Sequence[Token], first_line: int) -> tuple[list[TopicLink], list[str]]:

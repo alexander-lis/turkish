@@ -1,4 +1,6 @@
-"""Операции API. Все они только читают каталог и граф тем, построенные при старте."""
+"""Операции API. Все они только читают то, что построено при старте:
+каталог, граф тем и поисковый индекс.
+"""
 
 from collections.abc import Iterable
 from typing import Annotated
@@ -8,6 +10,7 @@ from fastapi import APIRouter, Depends, HTTPException, Path, Request, status
 from turkish_grammar.api import schemas
 from turkish_grammar.content.graph import TopicGraph
 from turkish_grammar.content.model import Catalog, Topic
+from turkish_grammar.content.search_index import SearchTopic
 
 router = APIRouter(prefix="/api")
 
@@ -22,8 +25,14 @@ def get_topic_graph(request: Request) -> TopicGraph:
     return graph
 
 
+def get_search_topics(request: Request) -> tuple[SearchTopic, ...]:
+    index: tuple[SearchTopic, ...] = request.app.state.search_index
+    return index
+
+
 CatalogDep = Annotated[Catalog, Depends(get_catalog)]
 GraphDep = Annotated[TopicGraph, Depends(get_topic_graph)]
+SearchIndexDep = Annotated[tuple[SearchTopic, ...], Depends(get_search_topics)]
 
 
 @router.get("/topics", summary="Все темы в порядке учебного маршрута")
@@ -83,6 +92,14 @@ def get_graph(catalog: CatalogDep, graph: GraphDep) -> schemas.TopicGraph:
             schemas.GraphContrast.model_validate(contrast) for contrast in catalog.contrasts
         ],
     )
+
+
+@router.get(
+    "/search-index",
+    summary="Поисковый индекс: все темы с текстом статей без разметки и примерами",
+)
+def get_search_index(index: SearchIndexDep) -> list[schemas.SearchTopic]:
+    return [schemas.SearchTopic.model_validate(topic) for topic in index]
 
 
 @router.get("/notation", summary="Вводный текст и список обозначений")

@@ -1,6 +1,6 @@
 /**
- * Заглушки окружения из setup.ts: без них в jsdom не рисуется холст карты тем
- * и не открывается окно темы.
+ * Заглушки окружения из setup.ts: без них в jsdom не рисуется холст карты тем,
+ * не открывается окно темы и нет прокрутки к элементу.
  */
 import { render, screen } from "@testing-library/react";
 import { ReactFlow, ReactFlowProvider } from "@xyflow/react";
@@ -61,4 +61,14 @@ test("<dialog> открывается и закрывается: атрибут 
 
   dialog.close();
   expect(onClose).toHaveBeenCalledTimes(1);
+});
+
+test("scrollIntoView у элемента вызывается без ошибки", () => {
+  render(<p>Строка</p>);
+  const element = screen.getByText("Строка");
+
+  expect(() => {
+    element.scrollIntoView();
+    element.scrollIntoView({ block: "nearest" });
+  }).not.toThrow();
 });

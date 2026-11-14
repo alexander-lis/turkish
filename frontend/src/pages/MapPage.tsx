@@ -352,7 +352,7 @@ export function MapPage() {
   const graph = useQuery(graphQuery);
   const sections = useQuery(sectionsQuery);
   return (
-    <div className="size-full [&>[role=alert]]:m-4 [&>[role=status]]:px-4">
+    <div className="size-full [&>[role=alert]]:m-4">
       <PageTitle>Карта тем</PageTitle>
       <QueryView query={graph}>
         {(loadedGraph) => (

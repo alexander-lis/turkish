@@ -6,6 +6,18 @@
   /* cv05 — строчная l с хвостиком, cv08 — заглавная I с засечками: в записи аффиксов
      вроде -lAr и -Il эти буквы иначе неотличимы друг от друга. */
   --default-font-feature-settings: "cv05", "cv08";
+
+  /* Появление с задержкой: то, что живёт на экране меньше пятой доли секунды, не мелькает. */
+  --animate-appear: appear 0.2s ease-out 0.2s both;
+
+  @keyframes appear {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
 }
 
 @layer base {

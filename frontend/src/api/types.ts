@@ -14,3 +14,5 @@ export type GlossedWord = Schemas["GlossedWord"];
 export type Notation = Schemas["Notation"];
 export type EdgeKind = Schemas["EdgeKind"];
 export type TopicGraph = Schemas["TopicGraph"];
+/** Запись поискового индекса о теме. */
+export type SearchTopic = Schemas["SearchTopic"];

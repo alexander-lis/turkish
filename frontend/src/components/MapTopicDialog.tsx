@@ -5,9 +5,11 @@ import { topicQuery } from "../api/queries.ts";
 import type { TopicRef, TopicSummary } from "../api/types.ts";
 import { mapTopicPath, topicPath } from "../lib/site.ts";
 import { LevelBadge } from "./LevelBadge.tsx";
+import { scrollToBlock } from "./scrollToBlock.ts";
 import { QueryView } from "./QueryView.tsx";
 import { TopicArticle } from "./TopicArticle.tsx";
 import { TopicHrefContext } from "./topicHref.ts";
+import { useBackdropPress } from "./useBackdropPress.ts";
 
 interface DialogProps {
   /** Выбранная тема; null — окно закрыто. */
@@ -57,10 +59,10 @@ export function MapTopicDialog({
 }: DialogProps) {
   const dialog = useRef<HTMLDialogElement>(null);
   const content = useRef<HTMLDivElement>(null);
-  const pressedBackdrop = useRef(false);
+  const backdrop = useBackdropPress(onClose);
   const titleId = useId();
   const topicId = topic?.id ?? null;
-  const navigation = useLocation().key;
+  const { key: navigation, hash } = useLocation();
 
   // Окно сверяется с темой после каждого перехода по адресу, а не только при смене темы.
   // По Escape окно закрывает сам браузер; если ту же тему тут же выбрали снова, страница
@@ -76,13 +78,19 @@ export function MapTopicDialog({
       }
       return;
     }
-    if (!element.open) {
+    const opening = !element.open;
+    if (opening) {
       element.showModal();
     }
     // Фокус — на область чтения, а не на первую кнопку: так статья сразу прокручивается
     // с клавиатуры, а после перехода к другой теме фокус не теряется вместе со ссылкой.
     content.current?.focus();
-  }, [topicId, navigation]);
+    // К блоку из адреса содержимое прокручивает себя само, но в закрытом окне прокрутить
+    // нечего: статью из кеша оно отрисовало раньше, чем окно открылось.
+    if (opening) {
+      scrollToBlock(hash);
+    }
+  }, [topicId, navigation, hash]);
 
   return (
     <dialog
@@ -96,19 +104,11 @@ export function MapTopicDialog({
           onClose();
         }
       }}
-      // Содержимое занимает всю площадь окна, поэтому нажатие на сам <dialog> — нажатие
-      // на затемнение вокруг него. Не считаются выделение текста, отпущенное за краем окна,
-      // и второе нажатие двойного щелчка по узлу, которым окно только что открыли.
-      onMouseDown={(event) => {
-        pressedBackdrop.current =
-          event.target === event.currentTarget && event.detail <= 1;
-      }}
-      onClick={(event) => {
-        if (pressedBackdrop.current && event.target === event.currentTarget) {
-          onClose();
-        }
-        pressedBackdrop.current = false;
-      }}
+      // Содержимое занимает всю площадь окна: нажатие на сам <dialog> — нажатие
+      // на затемнение вокруг него. Второе нажатие двойного щелчка по узлу, которым окно
+      // только что открыли, его не закрывает.
+      onMouseDown={backdrop.onMouseDown}
+      onClick={backdrop.onClick}
       className="m-0 h-dvh max-h-none w-full max-w-none overflow-hidden bg-white text-slate-900 backdrop:bg-slate-900/40 backdrop:backdrop-blur-[2px] sm:m-auto sm:h-[calc(100dvh-3rem)] sm:w-[calc(100vw-3rem)] sm:max-w-4xl sm:rounded-2xl sm:shadow-2xl"
     >
       {topic && (
@@ -160,7 +160,7 @@ export function MapTopicDialog({
             key={topic.id}
             ref={content}
             tabIndex={-1}
-            className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-4 py-6 outline-none sm:px-8 sm:py-8"
+            className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-4 py-6 outline-none sm:px-8 sm:py-8 [&_h2]:scroll-mt-4"
           >
             <div className="mx-auto max-w-3xl">
               <TopicHrefContext value={mapTopicPath}>
